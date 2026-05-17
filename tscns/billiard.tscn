@@ -1,78 +1,14 @@
 [gd_scene format=3 uid="uid://h8e2iwv75pt5"]
 
-[ext_resource type="Script" uid="uid://hqekhlc87xdl" path="res://tscns/temp_ball.gd" id="1_7xep1"]
+[ext_resource type="Script" uid="uid://3cg84y1kax6i" path="res://system/billiard.gd" id="1_6i1t8"]
+[ext_resource type="PackedScene" uid="uid://ln1xljjr4q71" path="res://tscns/table.tscn" id="2_8mu2o"]
+[ext_resource type="PackedScene" uid="uid://cr3qdq5a7cofl" path="res://system/mother_ball.tscn" id="2_rt33j"]
+[ext_resource type="PackedScene" uid="uid://bcrb077hxxlsl" path="res://system/ball.tscn" id="3_8mu2o"]
 
 [sub_resource type="Environment" id="Environment_gkpsl"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gkpsl"]
-resource_name = "table"
-bounce = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkpsl"]
-albedo_color = Color(0.16404997, 0.51, 0.1326, 1)
-roughness = 0.7
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_7xep1"]
-material = SubResource("StandardMaterial3D_gkpsl")
-size = Vector2(2.54, 1.27)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4sfkj"]
-size = Vector3(2.54, 0.5, 1.27)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gkpsl"]
-size = Vector3(2.54, 0.18, 0.06)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7xep1"]
-size = Vector3(2.54, 0.18, 0.06)
-
-[sub_resource type="BoxMesh" id="BoxMesh_7xep1"]
-size = Vector3(0.06, 0.18, 1.27)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_gkpsl"]
-size = Vector3(0.06, 0.18, 1.27)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7xep1"]
-resource_name = "ball"
-friction = 0.4
-bounce = 1.0
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_7xep1"]
-frequency = 0.0053
-domain_warp_type = 2
-domain_warp_amplitude = 40.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4sfkj"]
-noise = SubResource("FastNoiseLite_7xep1")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xep1"]
-albedo_texture = SubResource("NoiseTexture2D_4sfkj")
-roughness = 0.15
-
-[sub_resource type="SphereMesh" id="SphereMesh_gkpsl"]
-material = SubResource("StandardMaterial3D_7xep1")
-radius = 0.028
-height = 0.056
-radial_segments = 32
-rings = 16
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_gkpsl"]
-radius = 0.028
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7xep1"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rt33j"]
-albedo_color = Color(0.83, 0.18260002, 0.18260002, 1)
-albedo_texture = SubResource("NoiseTexture2D_7xep1")
-roughness = 0.15
-
-[sub_resource type="SphereMesh" id="SphereMesh_8mu2o"]
-material = SubResource("StandardMaterial3D_rt33j")
-radius = 0.028
-height = 0.056
-radial_segments = 32
-rings = 16
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sfkj"]
+no_depth_test = true
 albedo_color = Color(0.93, 0.87358, 0.6696, 1)
 roughness = 0.88
 
@@ -97,179 +33,57 @@ rings = 8
 
 [node name="Node3D" type="WorldEnvironment" unique_id=924874934]
 environment = SubResource("Environment_gkpsl")
+script = ExtResource("1_6i1t8")
 
-[node name="table" type="Node3D" parent="." unique_id=411065190]
+[node name="table" parent="." unique_id=2029609717 instance=ExtResource("2_8mu2o")]
 
-[node name="floor" type="StaticBody3D" parent="table" unique_id=2010178295]
-physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+[node name="mother_ball" parent="." unique_id=349014454 instance=ExtResource("2_rt33j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6318037, 0.03039287, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="table/floor" unique_id=320816998]
-mesh = SubResource("PlaneMesh_7xep1")
+[node name="ball" parent="." unique_id=929979572 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26189992, 0.03039287, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="table/floor" unique_id=288073976]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24731445, 0)
-shape = SubResource("BoxShape3D_4sfkj")
+[node name="ball2" parent="." unique_id=310974180 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41724673, 0.03039287, 0.027920634)
 
-[node name="edge_up" type="StaticBody3D" parent="table" unique_id=111079034]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.665)
-physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+[node name="ball3" parent="." unique_id=1113196203 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="table/edge_up" unique_id=1908678374]
-mesh = SubResource("BoxMesh_gkpsl")
+[node name="ball4" parent="." unique_id=1875646250 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, -0.059210822)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="table/edge_up" unique_id=1416917540]
-shape = SubResource("BoxShape3D_7xep1")
+[node name="ball5" parent="." unique_id=533274188 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0.0570703)
 
-[node name="edge_down" type="StaticBody3D" parent="table" unique_id=791513225]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.665)
-physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+[node name="ball6" parent="." unique_id=14085127 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0.11577615)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="table/edge_down" unique_id=1142642562]
-mesh = SubResource("BoxMesh_gkpsl")
+[node name="ball7" parent="." unique_id=1181584203 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, -0.11883752)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="table/edge_down" unique_id=1270077326]
-shape = SubResource("BoxShape3D_7xep1")
+[node name="ball8" parent="." unique_id=108606690 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41632146, 0.03039287, -0.03145982)
 
-[node name="edge_left" type="StaticBody3D" parent="table" unique_id=217919572]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, 0)
-physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+[node name="ball10" parent="." unique_id=807458163 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41632146, 0.03039287, -0.08939513)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="table/edge_left" unique_id=1043425837]
-mesh = SubResource("BoxMesh_7xep1")
+[node name="ball11" parent="." unique_id=1530112240 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36838564, 0.03039287, 0.05863332)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="table/edge_left" unique_id=1374266388]
-shape = SubResource("BoxShape3D_gkpsl")
+[node name="ball12" parent="." unique_id=469074828 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36746037, 0.03039287, -0.00074713305)
 
-[node name="edge_right" type="StaticBody3D" parent="table" unique_id=1052465365]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0)
-physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+[node name="ball13" parent="." unique_id=889303000 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36746037, 0.03039287, -0.05868244)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="table/edge_right" unique_id=2045519242]
-mesh = SubResource("BoxMesh_7xep1")
+[node name="ball14" parent="." unique_id=298576327 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31441113, 0.03039287, 0.026475478)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="table/edge_right" unique_id=1228766161]
-shape = SubResource("BoxShape3D_gkpsl")
+[node name="ball15" parent="." unique_id=1934980614 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31441113, 0.03039287, -0.03145983)
 
-[node name="ball" type="RigidBody3D" parent="." unique_id=2127721911]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03039287, 0)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-script = ExtResource("1_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball" unique_id=435784016]
-mesh = SubResource("SphereMesh_gkpsl")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball" unique_id=507237558]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red" type="RigidBody3D" parent="." unique_id=685026585]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3470578, 0.03039287, 0)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red" unique_id=88523336]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red" unique_id=434490831]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red4" type="RigidBody3D" parent="." unique_id=307037251]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3470578, 0.03039287, 0.061362773)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red4" unique_id=300981894]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red4" unique_id=2079264680]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red5" type="RigidBody3D" parent="." unique_id=345764156]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3470578, 0.03039287, -0.06289512)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red5" unique_id=1012309804]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red5" unique_id=1768124379]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red6" type="RigidBody3D" parent="." unique_id=2002043936]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3470578, 0.03039287, -0.12801236)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red6" unique_id=1171219793]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red6" unique_id=56394465]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red7" type="RigidBody3D" parent="." unique_id=690605766]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3470578, 0.03039287, 0.12376195)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red7" unique_id=240793358]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red7" unique_id=286689480]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red8" type="RigidBody3D" parent="." unique_id=1631901253]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28776667, 0.03039287, 0.059246786)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red8" unique_id=1518473139]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red8" unique_id=1975915594]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red9" type="RigidBody3D" parent="." unique_id=1022689358]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28776667, 0.03039287, -0.064272545)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red9" unique_id=1575760299]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red9" unique_id=1954503569]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red2" type="RigidBody3D" parent="." unique_id=1586501036]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28721946, 0.03039287, 0)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red2" unique_id=2142571935]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red2" unique_id=2108046185]
-shape = SubResource("SphereShape3D_gkpsl")
-
-[node name="ball_red3" type="RigidBody3D" parent="." unique_id=1283436047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22826737, 0.03039287, 0)
-axis_lock_linear_y = true
-mass = 0.16
-physics_material_override = SubResource("PhysicsMaterial_7xep1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red3" unique_id=2052291211]
-mesh = SubResource("SphereMesh_8mu2o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red3" unique_id=209746676]
-shape = SubResource("SphereShape3D_gkpsl")
+[node name="ball9" parent="." unique_id=281272290 instance=ExtResource("3_8mu2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4174682, 0.03039287, 0.085991)
 
 [node name="stick" type="Node3D" parent="." unique_id=1257784266]
 

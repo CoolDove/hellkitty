@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://ln1xljjr4q71"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gkpsl"]
+resource_name = "table"
+bounce = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkpsl"]
+albedo_color = Color(0.16404997, 0.51, 0.1326, 1)
+roughness = 0.7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7xep1"]
+material = SubResource("StandardMaterial3D_gkpsl")
+size = Vector2(2.54, 1.27)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4sfkj"]
+size = Vector3(2.54, 0.5, 1.27)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gkpsl"]
+size = Vector3(2.54, 0.18, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7xep1"]
+size = Vector3(2.54, 0.18, 0.06)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7xep1"]
+size = Vector3(0.06, 0.18, 1.27)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gkpsl"]
+size = Vector3(0.06, 0.18, 1.27)
+
+[node name="table" type="Node3D" unique_id=2029609717]
+
+[node name="floor" type="StaticBody3D" parent="." unique_id=363183808]
+physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor" unique_id=1440491385]
+mesh = SubResource("PlaneMesh_7xep1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor" unique_id=1090637324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24731445, 0)
+shape = SubResource("BoxShape3D_4sfkj")
+
+[node name="edge_up" type="StaticBody3D" parent="." unique_id=1462854795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.665)
+physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="edge_up" unique_id=1712219652]
+mesh = SubResource("BoxMesh_gkpsl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edge_up" unique_id=887061114]
+shape = SubResource("BoxShape3D_7xep1")
+
+[node name="edge_down" type="StaticBody3D" parent="." unique_id=753179184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.665)
+physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="edge_down" unique_id=1292074950]
+mesh = SubResource("BoxMesh_gkpsl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edge_down" unique_id=29369828]
+shape = SubResource("BoxShape3D_7xep1")
+
+[node name="edge_left" type="StaticBody3D" parent="." unique_id=1089512743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="edge_left" unique_id=1903251867]
+mesh = SubResource("BoxMesh_7xep1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edge_left" unique_id=1490193234]
+shape = SubResource("BoxShape3D_gkpsl")
+
+[node name="edge_right" type="StaticBody3D" parent="." unique_id=232114937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_gkpsl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="edge_right" unique_id=2110021229]
+mesh = SubResource("BoxMesh_7xep1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edge_right" unique_id=1838367401]
+shape = SubResource("BoxShape3D_gkpsl")

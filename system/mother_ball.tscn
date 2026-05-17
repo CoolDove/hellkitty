@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cr3qdq5a7cofl"]
+
+[ext_resource type="Script" uid="uid://1spwin7iny3v" path="res://system/ball.gd" id="1_2y00m"]
+[ext_resource type="Script" uid="uid://wq3ct3ai3c7a" path="res://system/ball_controller.gd" id="2_m2s3m"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7xep1"]
+resource_name = "ball"
+friction = 0.4
+bounce = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7xep1"]
+frequency = 0.0053
+domain_warp_type = 2
+domain_warp_amplitude = 40.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4sfkj"]
+noise = SubResource("FastNoiseLite_7xep1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xep1"]
+albedo_texture = SubResource("NoiseTexture2D_4sfkj")
+roughness = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_gkpsl"]
+material = SubResource("StandardMaterial3D_7xep1")
+radius = 0.028
+height = 0.056
+radial_segments = 32
+rings = 16
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gkpsl"]
+radius = 0.028
+
+[node name="mother_ball" type="RigidBody3D" unique_id=349014454 groups=["ball"]]
+axis_lock_linear_y = true
+mass = 0.16
+physics_material_override = SubResource("PhysicsMaterial_7xep1")
+script = ExtResource("1_2y00m")
+metadata/_custom_type_script = "uid://1spwin7iny3v"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=145320646]
+mesh = SubResource("SphereMesh_gkpsl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=624132806]
+shape = SubResource("SphereShape3D_gkpsl")
+
+[node name="BallController" type="Node" parent="." unique_id=1222449930]
+script = ExtResource("2_m2s3m")
