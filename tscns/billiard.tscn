@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://h8e2iwv75pt5"]
 
+[ext_resource type="Script" uid="uid://hqekhlc87xdl" path="res://tscns/temp_ball.gd" id="1_7xep1"]
+
 [sub_resource type="Environment" id="Environment_gkpsl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gkpsl"]
 resource_name = "table"
-bounce = 0.9
+friction = 0.3
+rough = true
+bounce = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkpsl"]
 albedo_color = Color(0.16404997, 0.51, 0.1326, 1)
@@ -32,8 +36,18 @@ size = Vector3(0.06, 0.18, 1.27)
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7xep1"]
 resource_name = "ball"
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7xep1"]
+noise_type = 4
+seed = 3
+frequency = 0.0468
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4sfkj"]
+noise = SubResource("FastNoiseLite_7xep1")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xep1"]
 albedo_color = Color(0.92, 0.86112, 0.8096, 1)
+albedo_texture = SubResource("NoiseTexture2D_4sfkj")
 roughness = 0.15
 
 [sub_resource type="SphereMesh" id="SphereMesh_gkpsl"]
@@ -45,6 +59,40 @@ rings = 16
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gkpsl"]
 radius = 0.028
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rt33j"]
+albedo_color = Color(0.83, 0.18260002, 0.18260002, 1)
+roughness = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_8mu2o"]
+material = SubResource("StandardMaterial3D_rt33j")
+radius = 0.028
+height = 0.056
+radial_segments = 32
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sfkj"]
+albedo_color = Color(0.93, 0.87358, 0.6696, 1)
+roughness = 0.88
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7xep1"]
+material = SubResource("StandardMaterial3D_4sfkj")
+top_radius = 0.01
+bottom_radius = 0.015
+height = 1.5
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i1t8"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7xep1"]
+material = SubResource("StandardMaterial3D_6i1t8")
+radius = 0.01
+height = 0.02
+radial_segments = 8
+rings = 8
 
 [node name="Node3D" type="WorldEnvironment" unique_id=924874934]
 environment = SubResource("Environment_gkpsl")
@@ -105,6 +153,7 @@ shape = SubResource("BoxShape3D_gkpsl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3348347, 0)
 mass = 0.16
 physics_material_override = SubResource("PhysicsMaterial_7xep1")
+script = ExtResource("1_7xep1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ball" unique_id=435784016]
 mesh = SubResource("SphereMesh_gkpsl")
@@ -112,16 +161,35 @@ mesh = SubResource("SphereMesh_gkpsl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ball" unique_id=507237558]
 shape = SubResource("SphereShape3D_gkpsl")
 
+[node name="ball_red" type="RigidBody3D" parent="." unique_id=685026585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3470578, 0.3348347, 0)
+mass = 0.16
+physics_material_override = SubResource("PhysicsMaterial_7xep1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ball_red" unique_id=88523336]
+mesh = SubResource("SphereMesh_8mu2o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ball_red" unique_id=434490831]
+shape = SubResource("SphereShape3D_gkpsl")
+
+[node name="stick" type="Node3D" parent="." unique_id=1257784266]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="stick" unique_id=1455456447]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.75)
+mesh = SubResource("CylinderMesh_7xep1")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=25340423]
-transform = Transform3D(1, 0, 0, 0, 0.46510574, 0.88525516, 0, -0.88525516, 0.46510574, 0, 1.236055, 0.6154505)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.236, 0)
 
 [node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=767671758]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.1104981, 0)
-light_energy = 0.6
+light_energy = 1.6
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=728944496]
 transform = Transform3D(1, 0, 0, 0, 0.58793414, 0.8089088, 0, -0.8089088, 0.58793414, 0, 1.4505852, 0)
-shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_fade_start = 0.1
 directional_shadow_max_distance = 20.0
+
+[node name="debug_ball" type="MeshInstance3D" parent="." unique_id=1558629631]
+mesh = SubResource("SphereMesh_7xep1")
