@@ -6,7 +6,12 @@
 resource_name = "table"
 bounce = 0.9
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkpsl"]
+albedo_color = Color(0.16404997, 0.51, 0.1326, 1)
+roughness = 0.7
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_7xep1"]
+material = SubResource("StandardMaterial3D_gkpsl")
 size = Vector2(2.54, 1.27)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4sfkj"]
@@ -27,7 +32,12 @@ size = Vector3(0.06, 0.18, 1.27)
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7xep1"]
 resource_name = "ball"
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xep1"]
+albedo_color = Color(0.92, 0.86112, 0.8096, 1)
+roughness = 0.15
+
 [sub_resource type="SphereMesh" id="SphereMesh_gkpsl"]
+material = SubResource("StandardMaterial3D_7xep1")
 radius = 0.028
 height = 0.056
 radial_segments = 32
@@ -92,7 +102,7 @@ mesh = SubResource("BoxMesh_7xep1")
 shape = SubResource("BoxShape3D_gkpsl")
 
 [node name="ball" type="RigidBody3D" parent="." unique_id=2127721911]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5983181, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3348347, 0)
 mass = 0.16
 physics_material_override = SubResource("PhysicsMaterial_7xep1")
 
@@ -108,3 +118,10 @@ transform = Transform3D(1, 0, 0, 0, 0.46510574, 0.88525516, 0, -0.88525516, 0.46
 [node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=767671758]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.1104981, 0)
 light_energy = 0.6
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=728944496]
+transform = Transform3D(1, 0, 0, 0, 0.58793414, 0.8089088, 0, -0.8089088, 0.58793414, 0, 1.4505852, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 20.0
