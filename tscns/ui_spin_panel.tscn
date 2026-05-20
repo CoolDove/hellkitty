@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b7xxtw8ujrhfh"]
+
+[ext_resource type="Texture2D" uid="uid://cvks5nu8ugo6y" path="res://resources/textures/circle_64x64.png" id="1_21n0g"]
+
+[sub_resource type="GDScript" id="GDScript_8mu2o"]
+resource_name = "SpinPanel"
+script/source = "extends Panel
+
+@onready var cursor :Node2D= %Cursor
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		if event.button_mask & MOUSE_BUTTON_MASK_LEFT != 0:
+			var lmpos = get_local_mouse_position()
+			cursor.position = lmpos
+"
+
+[node name="SpinPanel" type="Panel" unique_id=444384403]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -132.0
+offset_top = -132.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+script = SubResource("GDScript_8mu2o")
+
+[node name="Ball" type="TextureRect" parent="." unique_id=216934431]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_21n0g")
+expand_mode = 1
+
+[node name="Cursor" type="Node2D" parent="." unique_id=1459322808]
+unique_name_in_owner = true
+
+[node name="Cursor" type="Sprite2D" parent="Cursor" unique_id=1979572679]
+self_modulate = Color(1, 0.35499996, 0.100000024, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_21n0g")

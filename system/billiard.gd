@@ -8,5 +8,5 @@ var stick :Node3D
 
 func _ready():
 	instance = self
-	camera = get_node("Camera3D")
-	stick = get_node("stick")
+	camera = %Camera3D
+	stick = %stick

@@ -26,7 +26,7 @@ radius = 0.028
 
 [node name="ball" type="RigidBody3D" unique_id=929979572 groups=["ball"]]
 axis_lock_linear_y = true
-mass = 0.16
+mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_7xep1")
 script = ExtResource("1_6xt8b")
 metadata/_custom_type_script = "uid://1spwin7iny3v"

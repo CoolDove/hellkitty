@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://3cg84y1kax6i" path="res://system/billiard.gd" id="1_6i1t8"]
 [ext_resource type="PackedScene" uid="uid://ln1xljjr4q71" path="res://tscns/table.tscn" id="2_8mu2o"]
-[ext_resource type="PackedScene" uid="uid://cr3qdq5a7cofl" path="res://system/mother_ball.tscn" id="2_rt33j"]
+[ext_resource type="PackedScene" uid="uid://cr3qdq5a7cofl" path="res://system/cue_ball.tscn" id="2_rt33j"]
 [ext_resource type="PackedScene" uid="uid://bcrb077hxxlsl" path="res://system/ball.tscn" id="3_8mu2o"]
-
-[sub_resource type="Environment" id="Environment_gkpsl"]
+[ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sfkj"]
 no_depth_test = true
@@ -31,78 +30,99 @@ height = 0.02
 radial_segments = 8
 rings = 8
 
-[node name="Node3D" type="WorldEnvironment" unique_id=924874934]
-environment = SubResource("Environment_gkpsl")
+[node name="Node" type="Node" unique_id=1366884758]
 script = ExtResource("1_6i1t8")
 
-[node name="table" parent="." unique_id=2029609717 instance=ExtResource("2_8mu2o")]
+[node name="3DWorld" type="Node3D" parent="." unique_id=1203317998]
 
-[node name="mother_ball" parent="." unique_id=349014454 instance=ExtResource("2_rt33j")]
+[node name="table" parent="3DWorld" unique_id=2029609717 instance=ExtResource("2_8mu2o")]
+
+[node name="mother_ball" parent="3DWorld" unique_id=349014454 instance=ExtResource("2_rt33j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6318037, 0.03039287, 0)
 
-[node name="ball" parent="." unique_id=929979572 instance=ExtResource("3_8mu2o")]
+[node name="ball" parent="3DWorld" unique_id=929979572 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26189992, 0.03039287, 0)
 
-[node name="ball2" parent="." unique_id=310974180 instance=ExtResource("3_8mu2o")]
+[node name="ball2" parent="3DWorld" unique_id=310974180 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41724673, 0.03039287, 0.027920634)
 
-[node name="ball3" parent="." unique_id=1113196203 instance=ExtResource("3_8mu2o")]
+[node name="ball3" parent="3DWorld" unique_id=1113196203 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0)
 
-[node name="ball4" parent="." unique_id=1875646250 instance=ExtResource("3_8mu2o")]
+[node name="ball4" parent="3DWorld" unique_id=1875646250 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, -0.059210822)
 
-[node name="ball5" parent="." unique_id=533274188 instance=ExtResource("3_8mu2o")]
+[node name="ball5" parent="3DWorld" unique_id=533274188 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0.0570703)
 
-[node name="ball6" parent="." unique_id=14085127 instance=ExtResource("3_8mu2o")]
+[node name="ball6" parent="3DWorld" unique_id=14085127 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0.11577615)
 
-[node name="ball7" parent="." unique_id=1181584203 instance=ExtResource("3_8mu2o")]
+[node name="ball7" parent="3DWorld" unique_id=1181584203 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, -0.11883752)
 
-[node name="ball8" parent="." unique_id=108606690 instance=ExtResource("3_8mu2o")]
+[node name="ball8" parent="3DWorld" unique_id=108606690 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41632146, 0.03039287, -0.03145982)
 
-[node name="ball10" parent="." unique_id=807458163 instance=ExtResource("3_8mu2o")]
+[node name="ball10" parent="3DWorld" unique_id=807458163 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41632146, 0.03039287, -0.08939513)
 
-[node name="ball11" parent="." unique_id=1530112240 instance=ExtResource("3_8mu2o")]
+[node name="ball11" parent="3DWorld" unique_id=1530112240 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36838564, 0.03039287, 0.05863332)
 
-[node name="ball12" parent="." unique_id=469074828 instance=ExtResource("3_8mu2o")]
+[node name="ball12" parent="3DWorld" unique_id=469074828 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36746037, 0.03039287, -0.00074713305)
 
-[node name="ball13" parent="." unique_id=889303000 instance=ExtResource("3_8mu2o")]
+[node name="ball13" parent="3DWorld" unique_id=889303000 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36746037, 0.03039287, -0.05868244)
 
-[node name="ball14" parent="." unique_id=298576327 instance=ExtResource("3_8mu2o")]
+[node name="ball14" parent="3DWorld" unique_id=298576327 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31441113, 0.03039287, 0.026475478)
 
-[node name="ball15" parent="." unique_id=1934980614 instance=ExtResource("3_8mu2o")]
+[node name="ball15" parent="3DWorld" unique_id=1934980614 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31441113, 0.03039287, -0.03145983)
 
-[node name="ball9" parent="." unique_id=281272290 instance=ExtResource("3_8mu2o")]
+[node name="ball9" parent="3DWorld" unique_id=281272290 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4174682, 0.03039287, 0.085991)
 
-[node name="stick" type="Node3D" parent="." unique_id=1257784266]
+[node name="stick" type="Node3D" parent="3DWorld" unique_id=1257784266]
+unique_name_in_owner = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="stick" unique_id=1455456447]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3DWorld/stick" unique_id=1455456447]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.75)
 mesh = SubResource("CylinderMesh_7xep1")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=25340423]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.236, 0)
+[node name="Camera3D" type="Camera3D" parent="3DWorld" unique_id=25340423]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.8067422, 0.13988233)
+current = true
+fov = 36.0
 
-[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=767671758]
+[node name="AreaLight3D" type="AreaLight3D" parent="3DWorld" unique_id=767671758]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.1104981, 0)
 light_energy = 1.6
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=728944496]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="3DWorld" unique_id=728944496]
 transform = Transform3D(1, 0, 0, 0, 0.58793414, 0.8089088, 0, -0.8089088, 0.58793414, 0, 1.4505852, 0)
 directional_shadow_mode = 0
 directional_shadow_fade_start = 0.1
 directional_shadow_max_distance = 20.0
 
-[node name="debug_ball" type="MeshInstance3D" parent="." unique_id=1558629631]
+[node name="debug_ball" type="MeshInstance3D" parent="3DWorld" unique_id=1558629631]
 mesh = SubResource("SphereMesh_7xep1")
+
+[node name="UI" type="Control" parent="." unique_id=1978049325]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="SpinPanel" parent="UI" unique_id=444384403 instance=ExtResource("5_8mu2o")]
+layout_mode = 1
+offset_left = -139.0
+offset_top = -138.0
+offset_right = -19.0
+offset_bottom = -18.0

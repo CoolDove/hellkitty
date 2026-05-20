@@ -49,8 +49,6 @@ func _process(delta):
 func _physics_process(delta):
 	if _hit_queued:
 		ball.apply_impulse(_hit_direction * _hit_force)
-		#ball.apply_torque(Vector3.UP.rotated(Vector3.LEFT, 1.5) * 5000)
-		#print("new hit")
 		_hit_queued = false
 		return
 	if is_instance_valid(ray) && ray.is_inside_tree() && ball.sleeping:
@@ -66,3 +64,9 @@ func _physics_process(delta):
 			_aim_to_point.y = ball.global_position.y
 		else:
 			_aiming = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	print("get unhandled input")
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			print("get input")

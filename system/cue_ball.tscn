@@ -30,9 +30,9 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape3D_gkpsl"]
 radius = 0.028
 
-[node name="mother_ball" type="RigidBody3D" unique_id=349014454 groups=["ball"]]
+[node name="cue_ball" type="RigidBody3D" unique_id=349014454 groups=["ball"]]
 axis_lock_linear_y = true
-mass = 0.16
+mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_7xep1")
 script = ExtResource("1_2y00m")
 metadata/_custom_type_script = "uid://1spwin7iny3v"
