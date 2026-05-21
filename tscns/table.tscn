@@ -2,6 +2,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gkpsl"]
 resource_name = "table"
+rough = true
 bounce = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkpsl"]

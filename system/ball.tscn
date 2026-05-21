@@ -4,7 +4,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7xep1"]
 resource_name = "ball"
-friction = 0.4
+friction = 0.05
 bounce = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7xep1"]

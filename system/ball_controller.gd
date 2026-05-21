@@ -5,6 +5,7 @@ var ball : HBall
 
 var _camera :Camera3D
 var _stick :Node3D
+var _spin_panel
 
 var ray : RayCast3D
 
@@ -22,6 +23,7 @@ func _ready():
 	ball = get_parent() as HBall
 	_camera = Billiards.instance.camera
 	_stick = Billiards.instance.stick
+	_spin_panel = Billiards.instance.spin_panel
 
 func _notification(what):
 	if what == NOTIFICATION_PARENTED:
@@ -32,7 +34,7 @@ func _process(delta):
 	if _aiming:
 		_stick.global_position = ball.global_position - (_aim_to_point - ball.global_position).normalized() * 0.2
 		_stick.look_at(ball.global_position)
-	if Input.is_action_just_pressed("click") && !_hit_queued && _stick.visible:
+	if _input_shoot && !_hit_queued && _stick.visible:
 		_hit_queued = true
 		_hit_direction = _aim_to_point - ball.global_position
 		_hit_force = _hit_direction.length()
@@ -45,11 +47,15 @@ func _process(delta):
 				var target = ray.get_collider() as Node
 				if target.is_in_group("ball"):
 					reparent(target)
+	_input_shoot = false
 
 func _physics_process(delta):
 	if _hit_queued:
-		ball.apply_impulse(_hit_direction * _hit_force)
+		var spin :Vector2= _spin_panel.get_hit_offset()
+		print("spin: ", spin)
+		ball.apply_impulse(_hit_direction * _hit_force, Vector3(spin.x * 0.028, spin.y * 0.028, 0))
 		_hit_queued = false
+		_spin_panel.reset_offset()
 		return
 	if is_instance_valid(ray) && ray.is_inside_tree() && ball.sleeping:
 		if !_stick.visible: _stick.show()
@@ -65,8 +71,8 @@ func _physics_process(delta):
 		else:
 			_aiming = false
 
+var _input_shoot : bool
 func _unhandled_input(event: InputEvent) -> void:
-	print("get unhandled input")
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			print("get input")
+		if event.button_index == MOUSE_BUTTON_LEFT && !event.pressed:
+			_input_shoot = true

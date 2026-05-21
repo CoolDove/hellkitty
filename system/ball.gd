@@ -4,6 +4,8 @@ class_name HBall
 var _camera :Camera3D
 var trail :Line2D
 
+var radius :float= 0.
+
 func _ready():
 	trail = Line2D.new()
 	trail.width = 2
@@ -38,11 +40,11 @@ func _process(delta):
 		trail.remove_point(0)
 
 func _physics_process(delta):
-	if angular_velocity.length() > 0.1:
+	if angular_velocity.length() > 0.01:
 		var normal = Vector3.UP
-		var radius = 0.014
+		var radius = 0.028
 		var v_contact = linear_velocity - angular_velocity.cross(normal) * radius
 		v_contact = v_contact.slide(normal)
-		var k = 0.05
+		var k = 0.15
 		var force = -v_contact * k
 		apply_central_force(force)

@@ -8,11 +8,23 @@ script/source = "extends Panel
 
 @onready var cursor :Node2D= %Cursor
 
+func get_hit_offset() -> Vector2:
+	var center = size * 0.5
+	return (cursor.position - center)/ center * Vector2(1,-1)
+
+func reset_offset():
+	cursor.position = size * 0.5
+
+func _ready() -> void:
+	cursor.position = size * 0.5
+
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouse:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT != 0:
 			var lmpos = get_local_mouse_position()
-			cursor.position = lmpos
+			var center = size * 0.5
+			var direction = (lmpos - center).limit_length(min(size.x, size.y) * 0.5)
+			cursor.position = center + direction
 "
 
 [node name="SpinPanel" type="Panel" unique_id=444384403]
