@@ -45,6 +45,6 @@ func _physics_process(delta):
 		var radius = 0.028
 		var v_contact = linear_velocity - angular_velocity.cross(normal) * radius
 		v_contact = v_contact.slide(normal)
-		var k = 0.15
+		var k = 0.1
 		var force = -v_contact * k
 		apply_central_force(force)

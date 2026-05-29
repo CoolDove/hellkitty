@@ -128,3 +128,17 @@ offset_left = -139.0
 offset_top = -138.0
 offset_right = -19.0
 offset_bottom = -18.0
+
+[node name="ForceBar" type="ProgressBar" parent="UI" unique_id=1524448828]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 337.0
+offset_top = -72.0
+offset_right = -337.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
