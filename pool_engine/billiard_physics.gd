@@ -95,7 +95,10 @@ func _proceed_dt_euler(dt: float) -> void:
 				continue
 			
 			var coll := _calc_ball_collision_time(balls[i], balls[j])
-			if coll.time < earliest_time and _balls_approaching(balls[i], balls[j]):
+			# coll.time should be negative (collision happened in the past during this timestep)
+			# Check balls were approaching at start of timestep (position at -dt)
+			# This avoids missing collisions when balls have already passed through each other
+			if coll.time < earliest_time and _balls_approaching_at(balls[i], balls[j], -dt):
 				earliest_time = coll.time
 				collision_type = 1
 				collision_ball1 = balls[i]
@@ -108,15 +111,29 @@ func _proceed_dt_euler(dt: float) -> void:
 		
 		var wall_coll := table.check_wall_collision(ball)
 		if wall_coll.collided:
-			# Estimate collision time from penetration
+			# Ball has penetrated wall - collision happened in the past
+			# The normal points INTO the table (away from wall)
+			# vel_normal > 0 means ball is moving away from wall
+			# vel_normal < 0 means ball is still moving into wall
 			var vel_normal := ball.velocity.dot(wall_coll.normal)
-			if vel_normal < 0:  # Moving into wall
-				var t = -wall_coll.penetration / vel_normal if vel_normal != 0 else 0.0
-				if t < earliest_time:
-					earliest_time = t
-					collision_type = 2
-					collision_ball1 = ball
-					collision_normal = wall_coll.normal
+			
+			# Only process if ball is moving into wall (not already bouncing back)
+			if vel_normal >= 0:
+				continue
+			
+			# Calculate how long ago the collision happened
+			# penetration = |vel_normal| * time_since_collision
+			var t :float= wall_coll.penetration / absf(vel_normal)
+			
+			# t is positive here, representing time since collision
+			# Convert to negative (past time) for comparison
+			var collision_time := -t
+			# Check within valid range: collision_time > -dt (happened during this timestep)
+			if collision_time <= earliest_time and collision_time > -dt:
+				earliest_time = collision_time
+				collision_type = 2
+				collision_ball1 = ball
+				collision_normal = wall_coll.normal
 	
 	# Handle collision if found
 	if collision_type == 1:
@@ -182,9 +199,14 @@ func _calc_ball_collision_time(b1: Ball, b2: Ball) -> Dictionary:
 	return result
 
 
-## Check if two balls are approaching each other
-func _balls_approaching(b1: Ball, b2: Ball) -> bool:
-	var dr := b1.position - b2.position
+## Check if two balls were approaching at a given time offset from current position
+## time_offset is typically negative to check past state (e.g., start of timestep)
+## Returns true if balls were moving toward each other at that time
+func _balls_approaching_at(b1: Ball, b2: Ball, time_offset: float) -> bool:
+	# Calculate positions at the given time offset
+	var b1_pos := b1.position + b1.velocity * time_offset
+	var b2_pos := b2.position + b2.velocity * time_offset
+	var dr := b1_pos - b2_pos
 	var dv := b1.velocity - b2.velocity
 	return dr.dot(dv) < 0
 
@@ -307,39 +329,35 @@ func _apply_table_friction(ball: Ball, dt: float) -> void:
 
 
 ## Apply sliding friction (ball surface moving relative to table)
+## Based on foobillardplus proceed_dt sliding friction logic
 func _apply_sliding_friction(ball: Ball, perimeter_speed: Vector3, dt: float) -> void:
 	var mu := PhysicsConstants.MU_SLIDE
 	var g := PhysicsConstants.GRAVITY
 	
-	# Friction direction opposes perimeter velocity
+	# perimeter_speed is the effective perimeter speed (v + w x r)
 	var perimeter_2d := Vector2(perimeter_speed.x, perimeter_speed.y)
 	if perimeter_2d.length_squared() < 1e-10:
 		return
 	
-	var friction_dir := -perimeter_2d.normalized()
+	# Friction acceleration opposes perimeter velocity (from reference: fricaccel = -unit(uspeed_eff) * mu * g)
+	var fricaccel := Vector3(-perimeter_2d.normalized().x, -perimeter_2d.normalized().y, 0) * mu * g
 	
-	# Friction acceleration: a = mu * g
-	var friction_accel := mu * g
-	var dv := friction_dir * friction_accel * dt
+	# Angular acceleration from friction (from reference)
+	# fricmom = cross(fricaccel, (0, 0, -r)) * m
+	# waccel = -fricmom / I
+	var contact_r := Vector3(0, 0, -ball.radius)
+	var fricmom := fricaccel.cross(contact_r) * ball.mass
+	var waccel := -fricmom / ball.inertia
 	
-	# Apply to linear velocity
-	ball.velocity.x += dv.x
-	ball.velocity.y += dv.y
-	
-	# Apply torque to angular velocity
-	# Torque = r x F, where r points down to contact, F is friction
-	var torque := Vector3(
-		-friction_dir.y * friction_accel * ball.mass * ball.radius,
-		friction_dir.x * friction_accel * ball.mass * ball.radius,
-		0
-	)
-	ball.angular_velocity += torque / ball.inertia * dt
+	# Apply accelerations
+	ball.angular_velocity += waccel * dt
+	ball.velocity += fricaccel * dt
 	
 	# Check if we should transition to rolling
 	var new_perimeter := ball.get_perimeter_speed()
 	var new_perimeter_2d := Vector2(new_perimeter.x, new_perimeter.y)
 	
-	# If perimeter velocity reversed direction, snap to rolling
+	# If perimeter velocity reversed direction or crossed zero, snap to rolling
 	if perimeter_2d.dot(new_perimeter_2d) < 0:
 		_snap_to_rolling(ball)
 
