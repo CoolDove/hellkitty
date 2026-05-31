@@ -44,7 +44,6 @@ func _process(delta):
 		_force_bar.min_value = 0.01
 		_force_bar.max_value = 1.5
 		_force_bar.value = _hit_force
-		print("force bar: ", _hit_force)
 	if _input_shoot && !_hit_queued && _stick.visible:
 		_hit_queued = true
 		_hit_direction = _hit_direction.normalized()

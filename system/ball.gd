@@ -1,6 +1,8 @@
 extends RigidBody3D
 class_name HBall
 
+@export var color : Color
+
 var _camera :Camera3D
 var trail :Line2D
 
@@ -48,3 +50,8 @@ func _physics_process(delta):
 		var k = 0.1
 		var force = -v_contact * k
 		apply_central_force(force)
+
+
+func _on_body_entered(body):
+	if body is HBall:
+		print("ball hit: ", body.name)
