@@ -93,13 +93,15 @@ func _proceed_dt_euler(dt: float) -> void:
 		for j in range(i + 1, balls.size()):
 			if not balls[j].in_game:
 				continue
-			
-			var coll := _calc_ball_collision_time(balls[i], balls[j])
-			# coll.time should be negative (collision happened in the past during this timestep)
+			var coll_time := _calc_ball_collision_time(balls[i], balls[j])
+			# if balls[i].ball_number == 0 && balls[j].ball_number == 7:
+			# 	print("ball collision time with %s: %s" % [j, coll_time])
+
+			# coll_time should be negative (collision happened in the past during this timestep)
 			# Check balls were approaching at start of timestep (position at -dt)
 			# This avoids missing collisions when balls have already passed through each other
-			if coll.time < earliest_time and _balls_approaching_at(balls[i], balls[j], -dt):
-				earliest_time = coll.time
+			if coll_time < earliest_time and _balls_approaching_at(balls[i], balls[j], -dt):
+				earliest_time = coll_time
 				collision_type = 1
 				collision_ball1 = balls[i]
 				collision_ball2 = balls[j]
@@ -166,37 +168,41 @@ func _proceed_dt_euler(dt: float) -> void:
 
 
 ## Calculate time until two balls collide (quadratic equation)
-## Returns negative if collision already happened (interpenetration)
-func _calc_ball_collision_time(b1: Ball, b2: Ball) -> Dictionary:
-	var dr := b1.position - b2.position
-	var dv := b1.velocity - b2.velocity
-	var min_dist := b1.radius + b2.radius
+## Returns INF if no collision, negative if collision already happened (interpenetration)
+## 
+## Math: At time t, distance² = |pos_diff + vel_diff*t|² = collision_dist²
+## Expanding: (vel_diff·vel_diff)*t² + 2*(pos_diff·vel_diff)*t + (pos_diff·pos_diff - collision_dist²) = 0
+func _calc_ball_collision_time(ball1: Ball, ball2: Ball) -> float:
+	var p := ball1.position - ball2.position      # Position difference vector
+	var v := ball1.velocity - ball2.velocity      # Velocity difference vector
+	var r := ball1.radius + ball2.radius          # Distance when balls touch
 	
-	# Quadratic: |dr + dv*t|^2 = min_dist^2
-	# a*t^2 + b*t + c = 0
-	var a := dv.dot(dv)
-	var b := 2.0 * dr.dot(dv)
-	var c := dr.dot(dr) - min_dist * min_dist
-	
-	var result := {"time": INF}
-	
-	if absf(a) < 1e-10:
-		# No relative motion
+	# Quadratic equation coefficients: a*t² + b*t + c = 0
+	var a := v.dot(v)                           # Relative speed squared
+	var b := 2.0 * p.dot(v)                     # Position-velocity correlation
+	var c := p.dot(p) - r * r  # Current distance² - collision distance²
+
+	if is_zero_approx(v.length_squared()):
+		# No relative motion between balls
 		if c < 0:
-			result.time = 0.0  # Already overlapping
-		return result
-	
+			return 0.0  # Already overlapping
+		return INF      # Parallel motion, never collide
+
 	var discriminant := b * b - 4.0 * a * c
+
 	if discriminant < 0:
-		return result  # No collision
+		return INF  # No real solution, balls never reach collision distance
+
+	var sqrt_discriminant := sqrt(discriminant)
+	var t_entry := (-b - sqrt_discriminant) / (2.0 * a)  # Time when balls start touching
+	var t_exit := (-b + sqrt_discriminant) / (2.0 * a)   # Time when balls stop touching
 	
-	var sqrt_disc := sqrt(discriminant)
-	var t1 := (-b - sqrt_disc) / (2.0 * a)
-	var t2 := (-b + sqrt_disc) / (2.0 * a)
-	
-	# t1 is entry time, t2 is exit time
-	result.time = t1
-	return result
+	# If t_exit < 0, collision is entirely in the past (balls already separated)
+	if t_exit < 0:
+		return INF
+
+	# Return entry time (may be negative if balls are currently overlapping)
+	return t_entry
 
 
 ## Check if two balls were approaching at a given time offset from current position
@@ -212,12 +218,15 @@ func _balls_approaching_at(b1: Ball, b2: Ball, time_offset: float) -> bool:
 
 
 ## Ball-ball collision response (based on ball_ball_interaction in billmove.c)
+## Collision is calculated in 2D (xy plane) to prevent z-axis velocity changes
 func _ball_ball_interaction(b1: Ball, b2: Ball) -> void:
 	var dr := b1.position - b2.position
+	dr.z = 0.0  # Ignore z-axis for collision normal calculation
 	var collision_normal := dr.normalized()
 	
-	# Relative velocity
+	# Relative velocity (only xy components for collision calculation)
 	var dv := b2.velocity - b1.velocity
+	dv.z = 0.0  # Ignore z-axis velocity
 	
 	# Decompose into normal and tangent components
 	var dvn := collision_normal * dv.dot(collision_normal)  # Normal component
@@ -246,6 +255,7 @@ func _ball_ball_interaction(b1: Ball, b2: Ball) -> void:
 
 
 ## Apply friction between two colliding balls
+## Friction is calculated in 2D (xy plane) to prevent z-axis velocity changes
 func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magnitude: float) -> void:
 	var mu := PhysicsConstants.MU_BALL
 	
@@ -256,6 +266,7 @@ func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magn
 	var surface_v1 := b1.velocity + b1.angular_velocity.cross(contact_r1)
 	var surface_v2 := b2.velocity + b2.angular_velocity.cross(contact_r2)
 	var relative_surface := surface_v1 - surface_v2
+	relative_surface.z = 0.0  # Ignore z-axis for friction calculation
 	
 	# Remove normal component (only tangential friction)
 	var tangent_vel := relative_surface - normal * relative_surface.dot(normal)
@@ -265,6 +276,7 @@ func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magn
 	
 	var friction_dir := -tangent_vel.normalized()
 	var friction_impulse := friction_dir * mu * impulse_magnitude * b1.mass
+	friction_impulse.z = 0.0  # Ensure no z-axis impulse
 	
 	# Apply to linear velocities
 	b1.velocity += friction_impulse / b1.mass * 0.5
