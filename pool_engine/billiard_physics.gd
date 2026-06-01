@@ -218,15 +218,15 @@ func _balls_approaching_at(b1: Ball, b2: Ball, time_offset: float) -> bool:
 
 
 ## Ball-ball collision response (based on ball_ball_interaction in billmove.c)
-## Collision is calculated in 2D (xy plane) to prevent z-axis velocity changes
+## Collision is calculated in 2D (xz plane) to prevent y-axis (height) velocity changes
 func _ball_ball_interaction(b1: Ball, b2: Ball) -> void:
 	var dr := b1.position - b2.position
-	dr.z = 0.0  # Ignore z-axis for collision normal calculation
+	dr.y = 0.0  # Ignore y-axis (height) for collision normal calculation
 	var collision_normal := dr.normalized()
 	
-	# Relative velocity (only xy components for collision calculation)
+	# Relative velocity (only xz components for collision calculation)
 	var dv := b2.velocity - b1.velocity
-	dv.z = 0.0  # Ignore z-axis velocity
+	dv.y = 0.0  # Ignore y-axis (height) velocity
 	
 	# Decompose into normal and tangent components
 	var dvn := collision_normal * dv.dot(collision_normal)  # Normal component
@@ -255,7 +255,7 @@ func _ball_ball_interaction(b1: Ball, b2: Ball) -> void:
 
 
 ## Apply friction between two colliding balls
-## Friction is calculated in 2D (xy plane) to prevent z-axis velocity changes
+## Friction is calculated in 2D (xz plane) to prevent y-axis (height) velocity changes
 func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magnitude: float) -> void:
 	var mu := PhysicsConstants.MU_BALL
 	
@@ -266,7 +266,7 @@ func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magn
 	var surface_v1 := b1.velocity + b1.angular_velocity.cross(contact_r1)
 	var surface_v2 := b2.velocity + b2.angular_velocity.cross(contact_r2)
 	var relative_surface := surface_v1 - surface_v2
-	relative_surface.z = 0.0  # Ignore z-axis for friction calculation
+	relative_surface.y = 0.0  # Ignore y-axis (height) for friction calculation
 	
 	# Remove normal component (only tangential friction)
 	var tangent_vel := relative_surface - normal * relative_surface.dot(normal)
@@ -276,7 +276,7 @@ func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magn
 	
 	var friction_dir := -tangent_vel.normalized()
 	var friction_impulse := friction_dir * mu * impulse_magnitude * b1.mass
-	friction_impulse.z = 0.0  # Ensure no z-axis impulse
+	friction_impulse.y = 0.0  # Ensure no y-axis (height) impulse
 	
 	# Apply to linear velocities
 	b1.velocity += friction_impulse / b1.mass * 0.5
@@ -330,7 +330,7 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 ## Apply table friction to a ball (rolling/sliding)
 func _apply_table_friction(ball: Ball, dt: float) -> void:
 	var perimeter_speed := ball.get_perimeter_speed()
-	var perimeter_mag := Vector2(perimeter_speed.x, perimeter_speed.y).length()
+	var perimeter_mag := Vector2(perimeter_speed.x, perimeter_speed.z).length()
 	
 	if perimeter_mag > PhysicsConstants.SLIDE_THRESH_SPEED:
 		# Sliding friction
@@ -347,17 +347,19 @@ func _apply_sliding_friction(ball: Ball, perimeter_speed: Vector3, dt: float) ->
 	var g := PhysicsConstants.GRAVITY
 	
 	# perimeter_speed is the effective perimeter speed (v + w x r)
-	var perimeter_2d := Vector2(perimeter_speed.x, perimeter_speed.y)
+	# Table plane is xz, so we use x and z components
+	var perimeter_2d := Vector2(perimeter_speed.x, perimeter_speed.z)
 	if perimeter_2d.length_squared() < 1e-10:
 		return
 	
 	# Friction acceleration opposes perimeter velocity (from reference: fricaccel = -unit(uspeed_eff) * mu * g)
-	var fricaccel := Vector3(-perimeter_2d.normalized().x, -perimeter_2d.normalized().y, 0) * mu * g
+	var perimeter_dir := perimeter_2d.normalized()
+	var fricaccel := Vector3(-perimeter_dir.x, 0, -perimeter_dir.y) * mu * g
 	
 	# Angular acceleration from friction (from reference)
-	# fricmom = cross(fricaccel, (0, 0, -r)) * m
+	# fricmom = cross(fricaccel, (0, -r, 0)) * m  (contact point is at -y direction)
 	# waccel = -fricmom / I
-	var contact_r := Vector3(0, 0, -ball.radius)
+	var contact_r := Vector3(0, -ball.radius, 0)
 	var fricmom := fricaccel.cross(contact_r) * ball.mass
 	var waccel := -fricmom / ball.inertia
 	
@@ -367,7 +369,7 @@ func _apply_sliding_friction(ball: Ball, perimeter_speed: Vector3, dt: float) ->
 	
 	# Check if we should transition to rolling
 	var new_perimeter := ball.get_perimeter_speed()
-	var new_perimeter_2d := Vector2(new_perimeter.x, new_perimeter.y)
+	var new_perimeter_2d := Vector2(new_perimeter.x, new_perimeter.z)
 	
 	# If perimeter velocity reversed direction or crossed zero, snap to rolling
 	if perimeter_2d.dot(new_perimeter_2d) < 0:
@@ -383,7 +385,8 @@ func _apply_rolling_friction(ball: Ball, dt: float) -> void:
 	# Ensure ball is in pure rolling state
 	_snap_to_rolling(ball)
 	
-	var vel_2d := Vector2(ball.velocity.x, ball.velocity.y)
+	# Table plane is xz
+	var vel_2d := Vector2(ball.velocity.x, ball.velocity.z)
 	var speed := vel_2d.length()
 	
 	if speed < PhysicsConstants.VELOCITY_STOP_THRESHOLD:
@@ -399,24 +402,25 @@ func _apply_rolling_friction(ball: Ball, dt: float) -> void:
 	else:
 		var ratio := new_speed / speed
 		ball.velocity.x *= ratio
-		ball.velocity.y *= ratio
+		ball.velocity.z *= ratio
 		
 		# Maintain rolling constraint: w = v / r (perpendicular axis)
 		_snap_to_rolling(ball)
 	
 	# Apply spot friction (slows down spin around vertical axis)
-	var w_z := ball.angular_velocity.z
-	if absf(w_z) > 0.01:
+	# Vertical axis is now y
+	var w_y := ball.angular_velocity.y
+	if absf(w_y) > 0.01:
 		var spin_friction := mu * g / spot_r * dt
-		if absf(w_z) < spin_friction:
-			ball.angular_velocity.z = 0.0
+		if absf(w_y) < spin_friction:
+			ball.angular_velocity.y = 0.0
 		else:
-			ball.angular_velocity.z -= signf(w_z) * spin_friction
+			ball.angular_velocity.y -= signf(w_y) * spin_friction
 
 
 ## Snap ball to pure rolling state (v = w x r at contact)
 func _snap_to_rolling(ball: Ball) -> void:
 	var r := ball.radius
-	# For pure rolling on a flat table: w.x = -v.y/r, w.y = v.x/r
-	ball.angular_velocity.x = -ball.velocity.y / r
-	ball.angular_velocity.y = ball.velocity.x / r
+	# For pure rolling on xz plane (y = height): w.x = v.z/r, w.z = -v.x/r
+	ball.angular_velocity.x = ball.velocity.z / r
+	ball.angular_velocity.z = -ball.velocity.x / r

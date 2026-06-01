@@ -9,8 +9,8 @@ var radius: float = PhysicsConstants.BALL_RADIUS
 var inertia: float = PhysicsConstants.BALL_INERTIA
 
 # State
-var position: Vector3 = Vector3.ZERO      # Center position (x, y on table, z for height)
-var velocity: Vector3 = Vector3.ZERO      # Linear velocity
+var position: Vector3 = Vector3.ZERO      # Center position (x, z on table plane, y for height)
+var velocity: Vector3 = Vector3.ZERO      # Linear velocity (x, z on table plane, y for height)
 var angular_velocity: Vector3 = Vector3.ZERO  # Angular velocity (rotation axis * speed)
 
 # Ball identity
@@ -23,17 +23,17 @@ var on_table: bool = true  # False when ball is airborne
 
 func _init(number: int = 0, pos: Vector2 = Vector2.ZERO) -> void:
 	ball_number = number
-	position = Vector3(pos.x, pos.y, 0.0)
+	position = Vector3(pos.x, 0.0, pos.y)  # x,z = table plane, y = height
 
 
-## Get 2D position (x, y on table)
+## Get 2D position (x, z on table plane)
 func get_position_2d() -> Vector2:
-	return Vector2(position.x, position.y)
+	return Vector2(position.x, position.z)
 
 
-## Get 2D velocity (x, y on table)
+## Get 2D velocity (x, z on table plane)
 func get_velocity_2d() -> Vector2:
-	return Vector2(velocity.x, velocity.y)
+	return Vector2(velocity.x, velocity.z)
 
 
 ## Check if ball is moving (above threshold)
@@ -45,8 +45,8 @@ func is_moving() -> bool:
 ## Get perimeter speed at contact point (for rolling/sliding detection)
 ## This is the surface velocity relative to ground: v + w x r
 func get_perimeter_speed() -> Vector3:
-	# Contact point is at -z direction (ball sits on table)
-	var contact_r := Vector3(0, 0, -radius)
+	# Contact point is at -y direction (ball sits on table, y = height)
+	var contact_r := Vector3(0, -radius, 0)
 	var surface_velocity := angular_velocity.cross(contact_r)
 	return velocity + surface_velocity
 

@@ -79,17 +79,17 @@ func _draw() -> void:
 	# Draw table
 	var table_rect := Rect2(
 		center.x - physics.table.width / 2 * scale_factor - 20,
-		center.y - physics.table.height / 2 * scale_factor - 20,
+		center.y - physics.table.depth / 2 * scale_factor - 20,
 		physics.table.width * scale_factor + 40,
-		physics.table.height * scale_factor + 40
+		physics.table.depth * scale_factor + 40
 	)
 	draw_rect(table_rect, cushion_color)
 	
 	var felt_rect := Rect2(
 		center.x - physics.table.width / 2 * scale_factor,
-		center.y - physics.table.height / 2 * scale_factor,
+		center.y - physics.table.depth / 2 * scale_factor,
 		physics.table.width * scale_factor,
-		physics.table.height * scale_factor
+		physics.table.depth * scale_factor
 	)
 	draw_rect(felt_rect, table_color)
 	
@@ -98,7 +98,8 @@ func _draw() -> void:
 		if not ball.in_game:
 			continue
 		
-		var screen_pos := center + Vector2(ball.position.x, -ball.position.y) * scale_factor
+		# x,z = table plane in physics, map to screen x,y (flip z for screen y)
+		var screen_pos := center + Vector2(ball.position.x, -ball.position.z) * scale_factor
 		var screen_radius := ball.radius * scale_factor
 		var color := ball_colors[ball.ball_number % ball_colors.size()]
 		
@@ -128,11 +129,11 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 	var center := get_viewport_rect().size / 2
 	var cue_ball := physics.balls[0]
 	
-	var cue_screen := center + Vector2(cue_ball.position.x, -cue_ball.position.y) * scale_factor
+	var cue_screen := center + Vector2(cue_ball.position.x, -cue_ball.position.z) * scale_factor
 	var direction := (mouse_pos - cue_screen).normalized()
 	
-	# Convert to physics direction (flip Y)
-	var physics_dir := Vector3(direction.x, -direction.y, 0)
+	# Convert to physics direction (screen y maps to -z in physics)
+	var physics_dir := Vector3(direction.x, 0, -direction.y)
 	
 	# Set velocity based on distance from cue ball
 	var power := clampf((mouse_pos - cue_screen).length() / 200.0, 0.5, 5.0)

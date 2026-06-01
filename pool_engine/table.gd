@@ -3,16 +3,17 @@ extends RefCounted
 
 ## Simple rectangular table definition
 ## Walls are defined as axis-aligned boundaries
+## Coordinate system: x, z = table plane, y = height (Godot convention)
 
 # Table dimensions (standard pool table approximately)
 var width: float = 2.54   # meters (length along X axis)
-var height: float = 1.27  # meters (length along Y axis)
+var depth: float = 1.27   # meters (length along Z axis)
 
 # Boundaries (min/max positions for ball center, accounting for ball radius)
 var min_x: float
 var max_x: float
-var min_y: float
-var max_y: float
+var min_z: float
+var max_z: float
 
 # Wall properties
 var wall_mu: float = PhysicsConstants.CUSHION_MU
@@ -21,9 +22,9 @@ var wall_loss_max: float = PhysicsConstants.CUSHION_LOSS_MAX
 var wall_loss_wspeed: float = PhysicsConstants.CUSHION_LOSS_WSPEED
 
 
-func _init(w: float = 2.54, h: float = 1.27) -> void:
+func _init(w: float = 2.54, d: float = 1.27) -> void:
 	width = w
-	height = h
+	depth = d
 	_update_boundaries()
 
 
@@ -31,13 +32,13 @@ func _update_boundaries() -> void:
 	var r := PhysicsConstants.BALL_RADIUS
 	min_x = -width / 2.0 + r
 	max_x = width / 2.0 - r
-	min_y = -height / 2.0 + r
-	max_y = height / 2.0 - r
+	min_z = -depth / 2.0 + r
+	max_z = depth / 2.0 - r
 
 
-## Check if position is within table bounds
+## Check if position is within table bounds (2D: x, z)
 func is_inside(pos: Vector2) -> bool:
-	return pos.x >= min_x and pos.x <= max_x and pos.y >= min_y and pos.y <= max_y
+	return pos.x >= min_x and pos.x <= max_x and pos.y >= min_z and pos.y <= max_z
 
 
 ## Get wall collision info for a ball
@@ -51,24 +52,25 @@ func check_wall_collision(ball: Ball) -> Dictionary:
 	
 	var pos := ball.position
 	
-	# Check each wall
+	# Check X walls
 	if pos.x < min_x:
 		result.collided = true
-		result.normal = Vector3(1, 0, 0)  # Push right
+		result.normal = Vector3(1, 0, 0)  # Push +X
 		result.penetration = min_x - pos.x
 	elif pos.x > max_x:
 		result.collided = true
-		result.normal = Vector3(-1, 0, 0)  # Push left
+		result.normal = Vector3(-1, 0, 0)  # Push -X
 		result.penetration = pos.x - max_x
 	
-	if pos.y < min_y:
+	# Check Z walls
+	if pos.z < min_z:
 		result.collided = true
-		result.normal = Vector3(0, 1, 0)  # Push up
-		result.penetration = min_y - pos.y
-	elif pos.y > max_y:
+		result.normal = Vector3(0, 0, 1)  # Push +Z
+		result.penetration = min_z - pos.z
+	elif pos.z > max_z:
 		result.collided = true
-		result.normal = Vector3(0, -1, 0)  # Push down
-		result.penetration = pos.y - max_y
+		result.normal = Vector3(0, 0, -1)  # Push -Z
+		result.penetration = pos.z - max_z
 	
 	return result
 
@@ -96,16 +98,16 @@ func calc_wall_collision_time(ball: Ball) -> Dictionary:
 			result.time = t
 			result.normal = Vector3(-1, 0, 0)
 	
-	# Check Y walls
-	if vel.y < 0 and pos.y > min_y:
-		var t := (min_y - pos.y) / vel.y
+	# Check Z walls
+	if vel.z < 0 and pos.z > min_z:
+		var t := (min_z - pos.z) / vel.z
 		if t < result.time:
 			result.time = t
-			result.normal = Vector3(0, 1, 0)
-	elif vel.y > 0 and pos.y < max_y:
-		var t := (max_y - pos.y) / vel.y
+			result.normal = Vector3(0, 0, 1)
+	elif vel.z > 0 and pos.z < max_z:
+		var t := (max_z - pos.z) / vel.z
 		if t < result.time:
 			result.time = t
-			result.normal = Vector3(0, -1, 0)
+			result.normal = Vector3(0, 0, -1)
 	
 	return result

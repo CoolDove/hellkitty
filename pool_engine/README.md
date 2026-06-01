@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 
 ```gdscript
 # 直接设置母球速度
-cue_ball.velocity = Vector3(3.0, 0.5, 0)  # 向右前方击球
+cue_ball.velocity = Vector3(3.0, 0, 0.5)  # 向右前方击球 (x,z=桌面, y=高度)
 
 # 或使用冲量
 cue_ball.apply_impulse(Vector3(0.5, 0, 0))
@@ -111,11 +111,11 @@ func _on_wall_collision(ball: Ball, strength: float):
 if ball.on_table:
     _apply_table_friction(ball, dt)
 else:
-    # 空中物理
-    ball.velocity.z -= PhysicsConstants.GRAVITY * dt
+    # 空中物理 (y = height in Godot convention)
+    ball.velocity.y -= PhysicsConstants.GRAVITY * dt
     # 检测落地
-    if ball.position.z <= 0:
-        ball.position.z = 0
+    if ball.position.y <= 0:
+        ball.position.y = 0
         ball.on_table = true
         # 处理落地碰撞...
 ```
