@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://yxgq3ebu7spi"]
+
+[ext_resource type="Script" uid="uid://cywpt05m4xjff" path="res://pool_engine/ball_node.gd" id="1_pjvy7"]
+[ext_resource type="PackedScene" uid="uid://ckebqshsgqqxi" path="res://resources/placeholders/ball_placeholder/ball_placeholder.blend" id="2_lknf7"]
+
+[node name="Ball" type="Node3D" unique_id=411027831 groups=["balls"]]
+script = ExtResource("1_pjvy7")
+
+[node name="ball_placeholder" parent="." unique_id=283706983 instance=ExtResource("2_lknf7")]
+transform = Transform3D(0.058, 0, 0, 0, 0.058, 0, 0, 0, 0.058, 0, 0, 0)

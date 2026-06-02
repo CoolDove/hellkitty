@@ -1,6 +1,35 @@
 [gd_scene format=3 uid="uid://c7urstslodoco"]
 
 [ext_resource type="Script" uid="uid://djt0ufsww15gx" path="res://pool_engine/demo.gd" id="1_vu33v"]
+[ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
 
-[node name="Node2D" type="Node2D" unique_id=1857097395]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mn2k0"]
+albedo_color = Color(0.39437842, 0.55682707, 0.17867139, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_mn2k0"]
+material = SubResource("StandardMaterial3D_mn2k0")
+size = Vector2(2.54, 1.27)
+orientation = 1
+
+[node name="BilliardGame" type="Node3D" unique_id=863628649]
 script = ExtResource("1_vu33v")
+
+[node name="Ball" parent="." unique_id=411027831 instance=ExtResource("2_mn2k0")]
+
+[node name="Ball2" parent="." unique_id=1104346530 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
+
+[node name="Ball3" parent="." unique_id=459797993 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11660441, 0, 0)
+
+[node name="Ball4" parent="." unique_id=1557882811 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08428935, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1044170992]
+transform = Transform3D(1, 0, 0, 0, 0.40012568, 0.9164603, 0, -0.9164603, 0.40012568, 0, 1.6888452, 0.5389935)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1568880390]
+transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 0, 0)
+
+[node name="TempTableMesh" type="MeshInstance3D" parent="." unique_id=1104554825]
+mesh = SubResource("QuadMesh_mn2k0")
