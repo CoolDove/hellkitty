@@ -322,6 +322,8 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	var friction_impulse := (vp - new_vp) * ball.mass
 	var torque := contact_r.cross(friction_impulse)
 	ball.angular_velocity += torque / ball.inertia
+	# temporary fix
+	ball.angular_velocity *= 0.2
 	
 	# Emit collision signal
 	ball_wall_collision.emit(ball, old_vel_mag)
