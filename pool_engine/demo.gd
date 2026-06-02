@@ -66,51 +66,7 @@ func _setup_balls() -> void:
 
 
 func _process(delta: float) -> void:
-	# Update physics
 	physics.step(delta)
-	#
-	## Redraw
-	#queue_redraw()
-
-
-#func _draw() -> void:
-	#var center := get_viewport_rect().size / 2
-	#
-	## Draw table
-	#var table_rect := Rect2(
-		#center.x - physics.table.width / 2 * scale_factor - 20,
-		#center.y - physics.table.depth / 2 * scale_factor - 20,
-		#physics.table.width * scale_factor + 40,
-		#physics.table.depth * scale_factor + 40
-	#)
-	#draw_rect(table_rect, cushion_color)
-	#
-	#var felt_rect := Rect2(
-		#center.x - physics.table.width / 2 * scale_factor,
-		#center.y - physics.table.depth / 2 * scale_factor,
-		#physics.table.width * scale_factor,
-		#physics.table.depth * scale_factor
-	#)
-	#draw_rect(felt_rect, table_color)
-	#
-	## Draw balls
-	#for ball in physics.balls:
-		#if not ball.in_game:
-			#continue
-		#
-		## x,z = table plane in physics, map to screen x,y (flip z for screen y)
-		#var screen_pos := center + Vector2(ball.position.x, -ball.position.z) * scale_factor
-		#var screen_radius := ball.radius * scale_factor
-		#var color := ball_colors[ball.ball_number % ball_colors.size()]
-		#
-		#draw_circle(screen_pos, screen_radius, color)
-		#draw_arc(screen_pos, screen_radius, 0, TAU, 32, Color.BLACK, 2.0)
-		#
-		## Draw ball number
-		#if ball.ball_number > 0:
-			## Simple number indicator
-			#draw_circle(screen_pos, screen_radius * 0.4, Color.WHITE)
-
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -134,16 +90,8 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 		return  # Don't shoot while balls are moving
 
 	var cue_ball := physics.balls[0]
-	#
-	#var cue_screen := center + Vector2(cue_ball.position.x, -cue_ball.position.z) * scale_factor
 	var direction := wpos - cue_ball.position
-	#
-	## Convert to physics direction (screen y maps to -z in physics)
-	#var physics_dir := Vector3(direction.x, 0, -direction.y)
-	#
-	## Set velocity based on distance from cue ball
-	#var power := clampf(direction.length() / 200.0, 0.5, 5.0)
-	cue_ball.velocity = direction
+	cue_ball.velocity = direction * 4
 	print("velocity: ", direction)
 
 func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:

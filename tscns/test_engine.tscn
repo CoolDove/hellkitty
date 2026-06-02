@@ -34,7 +34,6 @@ fov = 25.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1568880390]
 transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 1.0177457, 0.9114965)
-shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 20.0
