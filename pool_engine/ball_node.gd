@@ -17,6 +17,16 @@ func _ready() -> void:
 	trail = Line2D.new()
 	trail.width = 2
 	trail.default_color = Color.INDIAN_RED
+
+	ball.ball_collision.connect(func(another: Ball, strength: float):
+		trail_record_interval = 0
+		print("manual record point")
+	)
+	ball.wall_collision.connect(func(strength: float):
+		trail_record_interval = 0
+		print("manual record point")
+	)
+
 	await get_tree().process_frame
 	get_tree().root.add_child(trail)
 

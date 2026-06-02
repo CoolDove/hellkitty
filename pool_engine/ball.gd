@@ -21,6 +21,9 @@ var in_game: bool = true
 # For future jump shot support
 var on_table: bool = true  # False when ball is airborne
 
+signal ball_collision(another: Ball, strength: float)
+signal wall_collision(strength: float)
+
 
 func _init(number: int = 0, pos: Vector2 = Vector2.ZERO) -> void:
 	ball_number = number

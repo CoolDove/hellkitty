@@ -252,6 +252,8 @@ func _ball_ball_interaction(b1: Ball, b2: Ball) -> void:
 	
 	# Emit collision signal
 	ball_ball_collision.emit(b1, b2, strength)
+	b1.ball_collision.emit(b2, strength)
+	b2.ball_collision.emit(b1, strength)
 
 
 ## Apply friction between two colliding balls
@@ -327,6 +329,7 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	
 	# Emit collision signal
 	ball_wall_collision.emit(ball, old_vel_mag)
+	ball.wall_collision.emit(old_vel_mag)
 
 
 ## Apply table friction to a ball (rolling/sliding)
