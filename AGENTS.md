@@ -37,3 +37,35 @@ When implementing physics features, consult `.references/foobillardplus/src/bill
 - `ball_ball_interaction` - Ball collision response
 - `proceed_dt` - Time step integration
 - Friction models (slide/roll transitions)
+
+## Godot 4.7 知识点
+
+### 旋转和三维变换
+
+**轴角旋转（Axis-Angle Rotation）**：
+- ❌ `Basis.from_axis_angle()` 在Godot 4.7中不存在
+- ✅ 使用 `Quaternion(axis, angle)` 创建轴角四元数，然后转换为Basis：
+  ```gdscript
+  var axis = Vector3(0, 1, 0)  # 旋转轴
+  var angle = PI / 4           # 弧度
+  var quaternion = Quaternion(axis, angle)
+  var basis = Basis(quaternion)
+  ```
+
+**增量旋转应用**：
+- 要应用增量旋转到现有的Basis，需要相乘：
+  ```gdscript
+  rotation = delta_rotation * rotation  # 先应用增量，再乘以现有旋转
+  ```
+
+**位置与旋转同步**：
+- `global_position` - 全局位置
+- `global_transform.basis` - 全局旋转矩阵
+- `global_transform` - 完整的位置+旋转+缩放
+
+### 坐标系约定
+
+在ball.gd中：
+- X, Z轴 = 台面平面
+- Y轴 = 高度（向上）
+- 这遵循Godot 3D的右手坐标系

@@ -23,13 +23,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11660441, 0, 0)
 
 [node name="Ball4" parent="." unique_id=1557882811 instance=ExtResource("2_mn2k0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08428935, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, 0)
+
+[node name="Ball5" parent="." unique_id=2067050957 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, -0.23600823)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1044170992]
-transform = Transform3D(1, 0, 0, 0, 0.40012568, 0.9164603, 0, -0.9164603, 0.40012568, 0, 1.6888452, 0.5389935)
+transform = Transform3D(1, 0, 0, 0, 0.062290616, 0.9980581, 0, -0.9980581, 0.062290616, 0, 3.308718, 0.21071851)
+fov = 25.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1568880390]
-transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 1.0177457, 0.9114965)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 20.0
+directional_shadow_pancake_size = 512.0
 
 [node name="TempTableMesh" type="MeshInstance3D" parent="." unique_id=1104554825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02872613, 0)
 mesh = SubResource("QuadMesh_mn2k0")
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1239603145]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.7083558, 0)
+area_range = 1.226
+area_size = Vector2(1, 0.29580504)

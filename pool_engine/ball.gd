@@ -12,6 +12,7 @@ var inertia: float = PhysicsConstants.BALL_INERTIA
 var position: Vector3 = Vector3.ZERO      # Center position (x, z on table plane, y for height)
 var velocity: Vector3 = Vector3.ZERO      # Linear velocity (x, z on table plane, y for height)
 var angular_velocity: Vector3 = Vector3.ZERO  # Angular velocity (rotation axis * speed)
+var rotation: Basis = Basis.IDENTITY      # Rotation matrix for ball orientation
 
 # Ball identity
 var ball_number: int = 0
@@ -70,4 +71,12 @@ func apply_angular_impulse(angular_impulse: Vector3) -> void:
 ## Move ball by delta time (simple integration)
 func integrate(dt: float) -> void:
 	position += velocity * dt
-	# Angular velocity integration (simplified, no orientation tracking for now)
+	
+	# Integrate angular velocity into rotation
+	var angular_speed := angular_velocity.length()
+	if angular_speed > 0.001:
+		var rotation_axis := angular_velocity.normalized()
+		var rotation_angle := angular_speed * dt
+		# Create incremental rotation using quaternion
+		var quaternion := Quaternion(rotation_axis, rotation_angle)
+		rotation = Basis(quaternion) * rotation

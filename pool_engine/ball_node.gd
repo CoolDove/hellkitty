@@ -16,3 +16,4 @@ func _process(delta: float) -> void:
 	if ball == null:
 		return
 	global_position = ball.position
+	global_transform.basis = ball.rotation
