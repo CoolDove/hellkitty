@@ -1,4 +1,6 @@
-extends Node3D
+extends Node
+
+@onready var spin_panel := %SpinPanel
 
 ## Demo scene for billiard physics
 ## This demonstrates how to use the physics engine in Godot
@@ -39,36 +41,10 @@ func _setup_balls() -> void:
 	for ball in balls:
 		physics.add_ball(ball.ball)
 
-	# Cue ball
-	#var cue := Ball.new(0, Vector2(-0.6, 0.0))
-	#physics.add_ball(cue)
-	#
-	## Rack balls in triangle formation
-	#var start_x := 0.5
-	#var start_y := 0.0
-	#var d := PhysicsConstants.BALL_DIAMETER * 1.02  # Slight gap
-	#
-	#var rack_positions: Array[Vector2] = [
-		#Vector2(start_x, start_y),  # 1
-		#Vector2(start_x + d * 0.866, start_y - d * 0.5),  # 2
-		#Vector2(start_x + d * 0.866, start_y + d * 0.5),  # 3
-		#Vector2(start_x + d * 1.732, start_y - d),  # 4
-		#Vector2(start_x + d * 1.732, start_y),  # 5 (8-ball position)
-		#Vector2(start_x + d * 1.732, start_y + d),  # 6
-		#Vector2(start_x + d * 2.598, start_y - d * 1.5),  # 7
-		#Vector2(start_x + d * 2.598, start_y - d * 0.5),  # 8
-		#Vector2(start_x + d * 2.598, start_y + d * 0.5),  # 9
-	#]
-	
-	#for i in range(rack_positions.size()):
-		#var ball := Ball.new(i + 1, rack_positions[i])
-		#physics.add_ball(ball)
-
-
 func _process(delta: float) -> void:
 	physics.step(delta)
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			_shoot_cue_ball(event.position)
@@ -89,10 +65,53 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 	if physics.is_simulation_active():
 		return  # Don't shoot while balls are moving
 
+	var hit_offset: Vector2 = spin_panel.get_hit_offset()
 	var cue_ball := physics.balls[0]
 	var direction := wpos - cue_ball.position
-	cue_ball.velocity = direction * 4
-	print("velocity: ", direction)
+	direction.y = 0.0
+	var shot_dir := direction.normalized()
+	var shot_speed := direction.length() * 4
+	
+	# Apply cue ball velocity
+	cue_ball.velocity = shot_dir * shot_speed
+	
+	# Apply spin based on hit offset
+	# hit_offset.x: left/right (-1 to 1) -> side spin (english)
+	# hit_offset.y: up/down (-1 to 1) -> top/back spin
+	# 
+	# When cue strikes off-center, it creates angular velocity:
+	# - Side hit (x offset): creates spin around Y axis (vertical)
+	# - Vertical hit (y offset): creates spin around horizontal axis perpendicular to shot
+	#
+	# The torque from cue impact: τ = r × F
+	# Where r is the offset from center, F is the cue force along shot direction
+	# Angular impulse: Δω = τ * Δt / I ≈ (r × F) / I
+	
+	var r := cue_ball.radius
+	var max_offset := r * 0.7  # Can't hit too close to edge (miscue)
+	
+	# Hit point offset in ball's local space
+	# x offset -> perpendicular to shot direction (right is positive)
+	# y offset -> vertical (up is positive)
+	var right_dir := Vector3(shot_dir.z, 0, -shot_dir.x)  # Perpendicular to shot in XZ plane
+	var up_dir := Vector3.UP
+	
+	# Contact point relative to ball center
+	var contact_offset := right_dir * (hit_offset.x * max_offset) + up_dir * (hit_offset.y * max_offset)
+	
+	# Cue force direction (along shot direction)
+	# The impulse magnitude is proportional to shot speed
+	var impulse_magnitude := shot_speed * cue_ball.mass
+	var cue_force := shot_dir * impulse_magnitude
+	
+	# Torque = r × F, angular impulse = torque (instantaneous)
+	var angular_impulse := contact_offset.cross(cue_force)
+	
+	# Apply angular velocity change: Δω = angular_impulse / I
+	cue_ball.angular_velocity += angular_impulse / cue_ball.inertia
+	
+	print("Shot: dir=%s, speed=%.2f, offset=%s, spin=%s" % [shot_dir, shot_speed, hit_offset, cue_ball.angular_velocity])
+	spin_panel.reset_hit_offset()
 
 func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:
 	# Play collision sound here

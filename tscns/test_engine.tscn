@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djt0ufsww15gx" path="res://pool_engine/demo.gd" id="1_vu33v"]
 [ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
+[ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="3_vj6e7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mn2k0"]
 albedo_color = Color(0.39437842, 0.55682707, 0.17867139, 1)
@@ -11,39 +12,73 @@ material = SubResource("StandardMaterial3D_mn2k0")
 size = Vector2(2.54, 1.27)
 orientation = 1
 
-[node name="BilliardGame" type="Node3D" unique_id=863628649]
+[node name="Node" type="Node" unique_id=321827794]
 script = ExtResource("1_vu33v")
 
-[node name="Ball" parent="." unique_id=411027831 instance=ExtResource("2_mn2k0")]
+[node name="World3D" type="Node3D" parent="." unique_id=863628649]
 
-[node name="Ball2" parent="." unique_id=1104346530 instance=ExtResource("2_mn2k0")]
+[node name="Ball" parent="World3D" unique_id=411027831 instance=ExtResource("2_mn2k0")]
+
+[node name="Ball2" parent="World3D" unique_id=1104346530 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
 
-[node name="Ball3" parent="." unique_id=459797993 instance=ExtResource("2_mn2k0")]
+[node name="Ball3" parent="World3D" unique_id=459797993 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11660441, 0, 0)
 
-[node name="Ball4" parent="." unique_id=1557882811 instance=ExtResource("2_mn2k0")]
+[node name="Ball4" parent="World3D" unique_id=1557882811 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, 0)
 
-[node name="Ball5" parent="." unique_id=2067050957 instance=ExtResource("2_mn2k0")]
+[node name="Ball5" parent="World3D" unique_id=2067050957 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, -0.23600823)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1044170992]
+[node name="Camera3D" type="Camera3D" parent="World3D" unique_id=1044170992]
 transform = Transform3D(1, 0, 0, 0, 0.062290616, 0.9980581, 0, -0.9980581, 0.062290616, 0, 3.308718, 0.21071851)
 fov = 25.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1568880390]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D" unique_id=1568880390]
 transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 1.0177457, 0.9114965)
 directional_shadow_mode = 0
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 20.0
 directional_shadow_pancake_size = 512.0
 
-[node name="TempTableMesh" type="MeshInstance3D" parent="." unique_id=1104554825]
+[node name="TempTableMesh" type="MeshInstance3D" parent="World3D" unique_id=1104554825]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02872613, 0)
 mesh = SubResource("QuadMesh_mn2k0")
 
-[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1239603145]
+[node name="AreaLight3D" type="AreaLight3D" parent="World3D" unique_id=1239603145]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.7083558, 0)
 area_range = 1.226
 area_size = Vector2(1, 0.29580504)
+
+[node name="UI" type="Control" parent="." unique_id=1423064348]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+
+[node name="SpinPanel" parent="UI" unique_id=444384403 instance=ExtResource("3_vj6e7")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = -139.0
+offset_top = -138.0
+offset_right = -19.0
+offset_bottom = -18.0
+
+[node name="ForceBar" type="ProgressBar" parent="UI" unique_id=1335495594]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 337.0
+offset_top = -72.0
+offset_right = -337.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0

@@ -65,7 +65,7 @@ func _physics_process(delta):
 		print("spin: ", spin)
 		ball.apply_impulse(_hit_direction * _hit_force, Vector3(spin.x * 0.028, spin.y * 0.028, 0))
 		_hit_queued = false
-		_spin_panel.reset_offset()
+		_spin_panel.reset_hit_offset()
 		return
 	if is_instance_valid(ray) && ray.is_inside_tree() && ball.sleeping:
 		if !_stick.visible:

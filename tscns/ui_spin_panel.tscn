@@ -12,7 +12,7 @@ func get_hit_offset() -> Vector2:
 	var center = size * 0.5
 	return (cursor.position - center)/ center * Vector2(1,-1)
 
-func reset_offset():
+func reset_hit_offset():
 	cursor.position = size * 0.5
 
 func _ready() -> void:
