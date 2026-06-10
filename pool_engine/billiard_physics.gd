@@ -13,6 +13,10 @@ extends RefCounted
 var balls: Array[Ball] = []
 var table: Table
 
+# Collision nodes system
+var collision_nodes: Array[BilliardCollision2D] = []
+var use_collision_nodes: bool = false  # Enable/disable collision node system
+
 # Collision event callbacks (for sound effects, etc.)
 signal ball_ball_collision(ball1: Ball, ball2: Ball, strength: float)
 signal ball_wall_collision(ball: Ball, strength: float)
@@ -30,6 +34,25 @@ func add_ball(ball: Ball) -> void:
 ## Clear all balls
 func clear_balls() -> void:
 	balls.clear()
+
+
+## Add a collision node to the simulation
+func add_collision_node(node: BilliardCollision2D) -> void:
+	collision_nodes.append(node)
+	use_collision_nodes = true
+
+
+## Remove a collision node from the simulation
+func remove_collision_node(node: BilliardCollision2D) -> void:
+	collision_nodes.erase(node)
+	if collision_nodes.is_empty():
+		use_collision_nodes = false
+
+
+## Clear all collision nodes
+func clear_collision_nodes() -> void:
+	collision_nodes.clear()
+	use_collision_nodes = false
 
 
 ## Check if any ball is still moving
@@ -106,36 +129,70 @@ func _proceed_dt_euler(dt: float) -> void:
 				collision_ball1 = balls[i]
 				collision_ball2 = balls[j]
 	
-	# Check ball-wall collisions
-	for ball in balls:
-		if not ball.in_game:
-			continue
-		
-		var wall_coll := table.check_wall_collision(ball)
-		if wall_coll.collided:
-			# Ball has penetrated wall - collision happened in the past
-			# The normal points INTO the table (away from wall)
-			# vel_normal > 0 means ball is moving away from wall
-			# vel_normal < 0 means ball is still moving into wall
-			var vel_normal := ball.velocity.dot(wall_coll.normal)
-			
-			# Only process if ball is moving into wall (not already bouncing back)
-			if vel_normal >= 0:
+	# Check ball-wall collisions (using collision nodes or legacy table)
+	if use_collision_nodes:
+		# Use new collision node system
+		for collision_node in collision_nodes:
+			for ball in balls:
+				if not ball.in_game:
+					continue
+				
+				var wall_coll := collision_node.check_ball_collision(ball)
+				if wall_coll.collided:
+					# Ball has penetrated wall - collision happened in the past
+					# The normal points INTO the table (away from wall)
+					# vel_normal > 0 means ball is moving away from wall
+					# vel_normal < 0 means ball is still moving into wall
+					var vel_normal := ball.velocity.dot(wall_coll.normal)
+					
+					# Only process if ball is moving into wall (not already bouncing back)
+					if vel_normal >= 0:
+						continue
+					
+					# Calculate how long ago the collision happened
+					# penetration = |vel_normal| * time_since_collision
+					var t :float= wall_coll.penetration / absf(vel_normal)
+					
+					# t is positive here, representing time since collision
+					# Convert to negative (past time) for comparison
+					var collision_time := -t
+					# Check within valid range: collision_time > -dt (happened during this timestep)
+					if collision_time <= earliest_time and collision_time > -dt:
+						earliest_time = collision_time
+						collision_type = 2
+						collision_ball1 = ball
+						collision_normal = wall_coll.normal
+	else:
+		# Legacy: Use table boundaries
+		for ball in balls:
+			if not ball.in_game:
 				continue
 			
-			# Calculate how long ago the collision happened
-			# penetration = |vel_normal| * time_since_collision
-			var t :float= wall_coll.penetration / absf(vel_normal)
-			
-			# t is positive here, representing time since collision
-			# Convert to negative (past time) for comparison
-			var collision_time := -t
-			# Check within valid range: collision_time > -dt (happened during this timestep)
-			if collision_time <= earliest_time and collision_time > -dt:
-				earliest_time = collision_time
-				collision_type = 2
-				collision_ball1 = ball
-				collision_normal = wall_coll.normal
+			var wall_coll := table.check_wall_collision(ball)
+			if wall_coll.collided:
+				# Ball has penetrated wall - collision happened in the past
+				# The normal points INTO the table (away from wall)
+				# vel_normal > 0 means ball is moving away from wall
+				# vel_normal < 0 means ball is still moving into wall
+				var vel_normal := ball.velocity.dot(wall_coll.normal)
+				
+				# Only process if ball is moving into wall (not already bouncing back)
+				if vel_normal >= 0:
+					continue
+				
+				# Calculate how long ago the collision happened
+				# penetration = |vel_normal| * time_since_collision
+				var t :float= wall_coll.penetration / absf(vel_normal)
+				
+				# t is positive here, representing time since collision
+				# Convert to negative (past time) for comparison
+				var collision_time := -t
+				# Check within valid range: collision_time > -dt (happened during this timestep)
+				if collision_time <= earliest_time and collision_time > -dt:
+					earliest_time = collision_time
+					collision_type = 2
+					collision_ball1 = ball
+					collision_normal = wall_coll.normal
 	
 	# Handle collision if found
 	if collision_type == 1:

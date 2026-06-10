@@ -1,120 +1,90 @@
-[gd_scene format=3 uid="uid://h8e2iwv75pt5"]
+[gd_scene format=3 uid="uid://c7urstslodoco"]
 
-[ext_resource type="Script" uid="uid://3cg84y1kax6i" path="res://system/billiard.gd" id="1_6i1t8"]
-[ext_resource type="PackedScene" uid="uid://ln1xljjr4q71" path="res://tscns/table.tscn" id="2_8mu2o"]
-[ext_resource type="PackedScene" uid="uid://cr3qdq5a7cofl" path="res://system/cue_ball.tscn" id="2_rt33j"]
-[ext_resource type="PackedScene" uid="uid://bcrb077hxxlsl" path="res://system/ball.tscn" id="3_8mu2o"]
-[ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
+[ext_resource type="Script" uid="uid://djt0ufsww15gx" path="res://pool_engine/demo.gd" id="1_vu33v"]
+[ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
+[ext_resource type="Script" uid="uid://blaijume06iif" path="res://pool_engine/billiard_scene_manager.gd" id="2_rt33j"]
+[ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="3_vj6e7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sfkj"]
-no_depth_test = true
-albedo_color = Color(0.93, 0.87358, 0.6696, 1)
-roughness = 0.88
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vj6e7"]
+shading_mode = 2
+albedo_color = Color(0.92611027, 0.9346598, 0.9044392, 1)
+roughness = 0.52
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_7xep1"]
-material = SubResource("StandardMaterial3D_4sfkj")
-top_radius = 0.01
-bottom_radius = 0.015
-height = 1.5
-radial_segments = 8
+[sub_resource type="SphereMesh" id="SphereMesh_vj6e7"]
+material = SubResource("StandardMaterial3D_vj6e7")
+radius = 0.03
+height = 0.06
+radial_segments = 32
+rings = 16
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i1t8"]
-no_depth_test = true
-shading_mode = 0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdrgv"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_7xep1"]
-material = SubResource("StandardMaterial3D_6i1t8")
-radius = 0.01
-height = 0.02
-radial_segments = 8
-rings = 8
+[sub_resource type="SphereMesh" id="SphereMesh_fdrgv"]
+material = SubResource("StandardMaterial3D_fdrgv")
+radius = 0.032
+height = 0.06
+radial_segments = 4
+rings = 2
 
-[node name="Node" type="Node" unique_id=1366884758]
-script = ExtResource("1_6i1t8")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mn2k0"]
+albedo_color = Color(0.39437842, 0.55682707, 0.17867139, 1)
 
-[node name="3DWorld" type="Node3D" parent="." unique_id=1203317998]
+[sub_resource type="QuadMesh" id="QuadMesh_mn2k0"]
+material = SubResource("StandardMaterial3D_mn2k0")
+size = Vector2(2.54, 1.27)
+orientation = 1
 
-[node name="table" parent="3DWorld" unique_id=2029609717 instance=ExtResource("2_8mu2o")]
+[node name="Node" type="Node" unique_id=321827794]
+script = ExtResource("1_vu33v")
 
-[node name="mother_ball" parent="3DWorld" unique_id=349014454 instance=ExtResource("2_rt33j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6318037, 0.03039287, 0)
+[node name="BilliardSceneManager" type="Node3D" parent="." unique_id=999999999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16345596)
+script = ExtResource("2_rt33j")
 
-[node name="ball" parent="3DWorld" unique_id=929979572 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26189992, 0.03039287, 0)
+[node name="World3D" type="Node3D" parent="." unique_id=863628649]
 
-[node name="ball6" parent="3DWorld" unique_id=954233585 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5658705, 0.03039287, 0)
+[node name="Ball" parent="World3D" unique_id=411027831 instance=ExtResource("2_mn2k0")]
 
-[node name="ball2" parent="3DWorld" unique_id=310974180 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41724673, 0.03039287, 0.027920634)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World3D/Ball" unique_id=1098746228]
+mesh = SubResource("SphereMesh_vj6e7")
 
-[node name="ball3" parent="3DWorld" unique_id=1113196203 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World3D/Ball" unique_id=2006461539]
+mesh = SubResource("SphereMesh_fdrgv")
 
-[node name="ball4" parent="3DWorld" unique_id=1875646250 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, -0.059210822)
+[node name="Ball2" parent="World3D" unique_id=1104346530 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
 
-[node name="ball5" parent="3DWorld" unique_id=533274188 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4668758, 0.03039287, 0.0570703)
+[node name="Ball3" parent="World3D" unique_id=459797993 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11660441, 0, 0)
 
-[node name="ball8" parent="3DWorld" unique_id=108606690 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41632146, 0.03039287, -0.03145982)
+[node name="Ball4" parent="World3D" unique_id=1557882811 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, 0)
 
-[node name="ball10" parent="3DWorld" unique_id=807458163 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41632146, 0.03039287, -0.08939513)
+[node name="Ball5" parent="World3D" unique_id=2067050957 instance=ExtResource("2_mn2k0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, -0.23600823)
 
-[node name="ball11" parent="3DWorld" unique_id=1530112240 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36838564, 0.03039287, 0.05863332)
+[node name="Camera3D" type="Camera3D" parent="World3D" unique_id=1044170992]
+transform = Transform3D(1, 0, 0, 0, 0.062290616, 0.9980581, 0, -0.9980581, 0.062290616, 0, 3.8937066, 0.401312)
+fov = 25.0
 
-[node name="ball12" parent="3DWorld" unique_id=469074828 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36746037, 0.03039287, -0.00074713305)
-
-[node name="ball13" parent="3DWorld" unique_id=889303000 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36746037, 0.03039287, -0.05868244)
-
-[node name="ball14" parent="3DWorld" unique_id=298576327 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31441113, 0.03039287, 0.026475478)
-
-[node name="ball15" parent="3DWorld" unique_id=1934980614 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31441113, 0.03039287, -0.03145983)
-
-[node name="ball16" parent="3DWorld" unique_id=2061488787 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51624763, 0.03039287, 0.026475478)
-
-[node name="ball17" parent="3DWorld" unique_id=1495635668 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51624763, 0.03039287, -0.03145983)
-
-[node name="ball9" parent="3DWorld" unique_id=281272290 instance=ExtResource("3_8mu2o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4174682, 0.03039287, 0.085991)
-
-[node name="stick" type="Node3D" parent="3DWorld" unique_id=1257784266]
-unique_name_in_owner = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="3DWorld/stick" unique_id=1455456447]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.75)
-mesh = SubResource("CylinderMesh_7xep1")
-
-[node name="Camera3D" type="Camera3D" parent="3DWorld" unique_id=25340423]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.8067422, 0.13988233)
-current = true
-fov = 36.0
-
-[node name="AreaLight3D" type="AreaLight3D" parent="3DWorld" unique_id=767671758]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.1104981, 0)
-light_energy = 1.6
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="3DWorld" unique_id=728944496]
-transform = Transform3D(1, 0, 0, 0, 0.58793414, 0.8089088, 0, -0.8089088, 0.58793414, 0, 1.4505852, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D" unique_id=1568880390]
+transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 1.0177457, 0.9114965)
 directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
+directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 20.0
+directional_shadow_pancake_size = 512.0
 
-[node name="debug_ball" type="MeshInstance3D" parent="3DWorld" unique_id=1558629631]
-mesh = SubResource("SphereMesh_7xep1")
+[node name="TempTableMesh" type="MeshInstance3D" parent="World3D" unique_id=1104554825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02872613, 0)
+mesh = SubResource("QuadMesh_mn2k0")
 
-[node name="UI" type="Control" parent="." unique_id=1978049325]
+[node name="AreaLight3D" type="AreaLight3D" parent="World3D" unique_id=1239603145]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.7083558, 0)
+area_range = 1.226
+area_size = Vector2(1, 0.29580504)
+
+[node name="UI" type="Control" parent="." unique_id=1423064348]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,7 +94,7 @@ grow_vertical = 2
 offset_transform_enabled = true
 mouse_filter = 1
 
-[node name="SpinPanel" parent="UI" unique_id=444384403 instance=ExtResource("5_8mu2o")]
+[node name="SpinPanel" parent="UI" unique_id=444384403 instance=ExtResource("3_vj6e7")]
 unique_name_in_owner = true
 layout_mode = 1
 offset_left = -139.0
@@ -132,7 +102,7 @@ offset_top = -138.0
 offset_right = -19.0
 offset_bottom = -18.0
 
-[node name="ForceBar" type="ProgressBar" parent="UI" unique_id=1524448828]
+[node name="ForceBar" type="ProgressBar" parent="UI" unique_id=1335495594]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
@@ -145,3 +115,12 @@ offset_right = -337.0
 offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="DebugInfo" type="Label" parent="UI" unique_id=1999999998]
+layout_mode = 1
+offset_right = 400.0
+offset_bottom = 100.0
+text = "Debug Info
+Press D: Toggle visualization
+Press R: Reset scene
+Press C: Show collision info"

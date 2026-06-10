@@ -1,48 +1,25 @@
+## Demo scene for billiard physics with collision testing
+## Uses BilliardSceneManager for collision node management and visualization
+
 extends Node
 
 @onready var spin_panel := %SpinPanel
+@onready var scene_manager: BilliardSceneManager = $BilliardSceneManager
 
-## Demo scene for billiard physics
-## This demonstrates how to use the physics engine in Godot
-
-var physics: BilliardPhysics
-var scale_factor: float = 400.0  # Pixels per meter
-
-# Visual settings
-var ball_colors: Array[Color] = [
-	Color.WHITE,      # 0: Cue ball
-	Color.YELLOW,     # 1
-	Color.BLUE,       # 2
-	Color.RED,        # 3
-	Color.PURPLE,     # 4
-	Color.ORANGE,     # 5
-	Color.GREEN,      # 6
-	Color.MAROON,     # 7
-	Color.BLACK,      # 8
-]
-
-var table_color := Color(0.0, 0.4, 0.0)  # Green felt
-var cushion_color := Color(0.4, 0.2, 0.1)  # Brown wood
 
 func _ready() -> void:
-	# Create physics engine with table
-	var table := Table.new(2.54, 1.27)  # Standard pool table size
-	physics = BilliardPhysics.new(table)
-	# Connect signals
-	physics.ball_ball_collision.connect(_on_ball_ball_collision)
-	physics.ball_wall_collision.connect(_on_ball_wall_collision)
-	# Setup initial ball positions
-	_setup_balls()
+	print("🎮 Billiard Demo Scene Ready")
+	print("  Controls:")
+	print("    🖱️  Left Click: Shoot cue ball")
+	print("    🔄 R: Reset scene")
+	print("    🎨 D: Toggle debug visualization")
+	print("    📊 C: Print collision info")
 
-func _setup_balls() -> void:
-	physics.clear_balls()
-
-	var balls := get_tree().get_nodes_in_group("balls")
-	for ball in balls:
-		physics.add_ball(ball.ball)
 
 func _process(delta: float) -> void:
-	physics.step(delta)
+	# Physics stepping is handled by BilliardSceneManager
+	pass
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -50,8 +27,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			_shoot_cue_ball(event.position)
 	
 	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_R:
-			_setup_balls()  # Reset
+		match event.keycode:
+			KEY_R:
+				scene_manager.reset_scene()
+				get_tree().set_input_as_handled()
+			
+			KEY_D:
+				scene_manager.toggle_debug_visualization()
+				get_tree().set_input_as_handled()
+			
+			KEY_C:
+				_print_collision_info()
+				get_tree().set_input_as_handled()
+
 
 func screen_pos_to_world_z0(position: Vector2, camera: Camera3D) -> Vector3:
 	var origin = camera.project_ray_origin(position)
@@ -59,14 +47,17 @@ func screen_pos_to_world_z0(position: Vector2, camera: Camera3D) -> Vector3:
 	var plane = Plane(Vector3.UP, 0.0)
 	return plane.intersects_ray(origin, dir)
 
+
 func _shoot_cue_ball(mouse_pos: Vector2) -> void:
-	var wpos := screen_pos_to_world_z0(mouse_pos, get_viewport().get_camera_3d())
-	print("wpos: ", wpos)
-	if physics.is_simulation_active():
-		return  # Don't shoot while balls are moving
+	var camera = get_viewport().get_camera_3d()
+	var wpos := screen_pos_to_world_z0(mouse_pos, camera)
+	
+	if scene_manager.physics.is_simulation_active():
+		print("⏳ Balls still moving, wait...")
+		return
 
 	var hit_offset: Vector2 = spin_panel.get_hit_offset()
-	var cue_ball := physics.balls[0]
+	var cue_ball := scene_manager.physics.balls[0]
 	var direction := wpos - cue_ball.position
 	direction.y = 0.0
 	var shot_dir := direction.normalized()
@@ -76,17 +67,6 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 	cue_ball.velocity = shot_dir * shot_speed
 	
 	# Apply spin based on hit offset
-	# hit_offset.x: left/right (-1 to 1) -> side spin (english)
-	# hit_offset.y: up/down (-1 to 1) -> top/back spin
-	# 
-	# When cue strikes off-center, it creates angular velocity:
-	# - Side hit (x offset): creates spin around Y axis (vertical)
-	# - Vertical hit (y offset): creates spin around horizontal axis perpendicular to shot
-	#
-	# The torque from cue impact: τ = r × F
-	# Where r is the offset from center, F is the cue force along shot direction
-	# Angular impulse: Δω = τ * Δt / I ≈ (r × F) / I
-	
 	var r := cue_ball.radius
 	var max_offset := r * 0.7  # Can't hit too close to edge (miscue)
 	
@@ -110,14 +90,29 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 	# Apply angular velocity change: Δω = angular_impulse / I
 	cue_ball.angular_velocity += angular_impulse / cue_ball.inertia
 	
-	print("Shot: dir=%s, speed=%.2f, offset=%s, spin=%s" % [shot_dir, shot_speed, hit_offset, cue_ball.angular_velocity])
+	print("🎯 Shot: dir=%s, speed=%.2f, offset=%s" % [shot_dir, shot_speed, hit_offset])
 	spin_panel.reset_hit_offset()
 
-func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:
-	# Play collision sound here
-	print("Ball %d hit Ball %d (strength: %.2f)" % [ball1.ball_number, ball2.ball_number, strength])
 
-
-func _on_ball_wall_collision(ball: Ball, strength: float) -> void:
-	# Play cushion sound here
-	print("Ball %d hit cushion (strength: %.2f)" % [ball.ball_number, strength])
+func _print_collision_info() -> void:
+	print("\n📊 Collision Information:")
+	print("  Active collision nodes: %d" % scene_manager.collision_nodes.size())
+	for collision_node in scene_manager.collision_nodes:
+		match collision_node.shape_type:
+			BilliardCollision2D.ShapeType.RECT:
+				print("  • %s (RECT): pos=%.2f,%.2f normal=%s" % [
+					collision_node.name,
+					collision_node.position_2d.x,
+					collision_node.position_2d.y,
+					collision_node.rect_normal
+				])
+			BilliardCollision2D.ShapeType.CIRCLE:
+				print("  • %s (CIRCLE): pos=%.2f,%.2f radius=%.3f mode=%s" % [
+					collision_node.name,
+					collision_node.position_2d.x,
+					collision_node.position_2d.y,
+					collision_node.circle_radius
+				])
+	
+	print("  Ball nodes: %d" % scene_manager.ball_nodes.size())
+	print()
