@@ -1,12 +1,23 @@
 @tool
 extends Node3D
-class_name BilliardCollision
+class_name CollisionNode
+
+var collision : Collision
 
 @export var size := Vector2(1, 1)
 
 var table : BTable
 
+func _ready():
+	if Engine.is_editor_hint():
+		return
+	collision = Collision.new(get_instance_id(), Vector2(global_position.x, global_position.z), size)
+
 func _process(delta: float) -> void:
+	var euler = transform.basis.get_euler(EULER_ORDER_XYZ)
+	if euler.x != 0 || euler.z != 0:
+		transform.basis = Basis.from_euler(Vector3(0,euler.y,0), EULER_ORDER_XYZ)
+
 	var dd3d_config := DebugDraw3D.new_scoped_config()
 	var thickness :float= 0.005
 	dd3d_config.set_thickness(thickness)
@@ -14,7 +25,14 @@ func _process(delta: float) -> void:
 	var size3d := Vector3(size.x, thickness, size.y)
 	DebugDraw3D.draw_box(Vector3.ZERO - size3d*0.5, Quaternion.IDENTITY, size3d, Color.REBECCA_PURPLE)
 
+	if !Engine.is_editor_hint():
+		collision.position = Vector2(global_position.x, global_position.z)
+		collision.size = size
+		collision.angle = transform.basis.get_euler(EULER_ORDER_XYZ).y
+
 func _notification(what: int) -> void:
+	if Engine.is_editor_hint():
+		return
 	if what == NOTIFICATION_ENTER_WORLD || what == NOTIFICATION_PARENTED:
 		var look4table = self
 		while true:
@@ -27,11 +45,9 @@ func _notification(what: int) -> void:
 		if look4table != null && table != look4table:
 			table = look4table
 			table.collisions.append(self)
-			#print("collision added by %s, from: %s" % [what, table.name])
 	elif what == NOTIFICATION_EXIT_WORLD || what == NOTIFICATION_UNPARENTED:
 		if table != null:
 			var pos = table.collisions.find(self)
 			if pos >= 0:
 				table.collisions.remove_at(pos)
-				#print("collision removed by %s, from: %s" % [what, table.name])
 				table = null

@@ -5,7 +5,12 @@ extends Node
 ## Demo scene for billiard physics
 ## This demonstrates how to use the physics engine in Godot
 
-var physics: BilliardPhysics
+
+@onready var btable : BTable = %BTable
+
+var physics: BilliardPhysics:
+	get:
+		return btable.physics
 var scale_factor: float = 400.0  # Pixels per meter
 
 # Visual settings
@@ -26,34 +31,25 @@ var cushion_color := Color(0.4, 0.2, 0.1)  # Brown wood
 
 func _ready() -> void:
 	# Create physics engine with table
-	var table := Table.new(2.54, 1.27)  # Standard pool table size
-	physics = BilliardPhysics.new(table)
+	#var table := Table.new(2.54, 1.27)  # Standard pool table size
+	#physics = BilliardPhysics.new(table)
 	# Connect signals
 	physics.ball_ball_collision.connect(_on_ball_ball_collision)
 	physics.ball_wall_collision.connect(_on_ball_wall_collision)
 	# Setup initial ball positions
-	_setup_balls()
-	for collision in get_node("World3D").collisions:
-		print("collected collision: ", collision.name)
+	#_setup_balls()
 
-func _setup_balls() -> void:
-	physics.clear_balls()
+# func _setup_balls() -> void:
+# 	physics.clear_balls()
+# 	var balls := get_tree().get_nodes_in_group("balls")
+# 	for ball in balls:
+# 		physics.add_ball(ball.ball)
 
-	var balls := get_tree().get_nodes_in_group("balls")
-	for ball in balls:
-		physics.add_ball(ball.ball)
-
-func _process(delta: float) -> void:
-	physics.step(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			_shoot_cue_ball(event.position)
-	
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_R:
-			_setup_balls()  # Reset
 
 func screen_pos_to_world_z0(position: Vector2, camera: Camera3D) -> Vector3:
 	var origin = camera.project_ray_origin(position)

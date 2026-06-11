@@ -7,54 +7,42 @@ var ball : Ball
 @export var mass: float = PhysicsConstants.BALL_MASS
 @export var radius: float = PhysicsConstants.BALL_RADIUS
 
-var trail :Line2D
+var table : BTable
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	ball = Ball.new(get_instance_id(), Vector2(global_position.x, global_position.z))
 	ball.radius = radius
 	ball.mass = mass
-	
-	trail = Line2D.new()
-	trail.width = 2
-	trail.default_color = Color.INDIAN_RED
 
-	ball.ball_collision.connect(func(another: Ball, strength: float):
-		trail_record_interval = 0
-		print("manual record point")
-	)
-	ball.wall_collision.connect(func(strength: float):
-		trail_record_interval = 0
-		print("manual record point")
-	)
-
-	await get_tree().process_frame
-	get_tree().root.add_child(trail)
-
-var trail_record_interval : float
-var trail_remove_interval : float
 func _process(delta: float) -> void:
-	trail_record_interval -= delta
-	if trail_record_interval <= 0:
-		trail_record_interval = 0.02
-		var record :bool= false
-		var point_count :int= trail.get_point_count()
-		var new_point := get_viewport().get_camera_3d().unproject_position(global_position)
-		if point_count == 0:
-			record = true
-		else:
-			record = new_point.distance_squared_to(
-				trail.get_point_position(point_count-1)
-			) > 0.02
-		if record:
-			trail.add_point(new_point)
-
-	if ball.velocity.length_squared() < 0.04:
-		trail_remove_interval -= delta
-	if trail_remove_interval <= 0:
-		trail_remove_interval = 0.2
-		trail.remove_point(0)
-
+	var _s = DebugDraw3D.new_scoped_config()
+	_s.set_thickness(0.002)
+	DebugDraw3D.draw_sphere(global_position, 0.002, Color.DARK_RED, 0.5)
 	if ball == null:
 		return
 	global_position = ball.position
 	global_transform.basis = ball.rotation
+
+func _notification(what):
+	if Engine.is_editor_hint():
+		return
+	if what == NOTIFICATION_ENTER_WORLD || what == NOTIFICATION_PARENTED:
+		var look4table = self
+		while true:
+			look4table = look4table.get_parent()
+			if look4table != null && look4table is BTable:
+				break
+			else:
+				look4table = null
+				break
+		if look4table != null && table != look4table:
+			table = look4table
+			table.balls.append(self)
+	elif what == NOTIFICATION_EXIT_WORLD || what == NOTIFICATION_UNPARENTED:
+		if table != null:
+			var pos = table.balls.find(self)
+			if pos >= 0:
+				table.balls.remove_at(pos)
+				table = null

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djt0ufsww15gx" path="res://pool_engine/demo.gd" id="1_vu33v"]
 [ext_resource type="Script" uid="uid://bg517w0fli3bd" path="res://pool_engine/btable.gd" id="2_8mu2o"]
 [ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
-[ext_resource type="Script" uid="uid://y8p4cwk0nssu" path="res://pool_engine/billiard_collision.gd" id="3_rt33j"]
+[ext_resource type="Script" uid="uid://y8p4cwk0nssu" path="res://pool_engine/collision_node.gd" id="3_rt33j"]
 [ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mn2k0"]
@@ -17,46 +17,47 @@ orientation = 1
 [node name="Node" type="Node" unique_id=321827794]
 script = ExtResource("1_vu33v")
 
-[node name="World3D" type="Node3D" parent="." unique_id=863628649]
+[node name="BTable" type="Node3D" parent="." unique_id=863628649]
+unique_name_in_owner = true
 script = ExtResource("2_8mu2o")
 
-[node name="Ball" parent="World3D" unique_id=411027831 instance=ExtResource("2_mn2k0")]
+[node name="Ball" parent="BTable" unique_id=411027831 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014841169, 0, 0.25436962)
 
-[node name="Ball2" parent="World3D" unique_id=1104346530 instance=ExtResource("2_mn2k0")]
+[node name="Ball2" parent="BTable" unique_id=1104346530 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
 
-[node name="Ball3" parent="World3D" unique_id=459797993 instance=ExtResource("2_mn2k0")]
+[node name="Ball3" parent="BTable" unique_id=459797993 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11660441, 0, 0)
 
-[node name="Ball4" parent="World3D" unique_id=1557882811 instance=ExtResource("2_mn2k0")]
+[node name="Ball4" parent="BTable" unique_id=1557882811 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, 0)
 
-[node name="Ball5" parent="World3D" unique_id=2067050957 instance=ExtResource("2_mn2k0")]
+[node name="Ball5" parent="BTable" unique_id=2067050957 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, -0.23600823)
 
-[node name="Camera3D" type="Camera3D" parent="World3D" unique_id=1044170992]
+[node name="Camera3D" type="Camera3D" parent="BTable" unique_id=1044170992]
 transform = Transform3D(1, 0, 0, 0, 0.062290616, 0.9980581, 0, -0.9980581, 0.062290616, 0, 3.308718, 0.21071851)
 fov = 25.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D" unique_id=1568880390]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="BTable" unique_id=1568880390]
 transform = Transform3D(1, 0, 0, 0, 0.47261354, 0.8812698, 0, -0.8812698, 0.47261354, 0, 1.0177457, 0.9114965)
 directional_shadow_mode = 0
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 20.0
 directional_shadow_pancake_size = 512.0
 
-[node name="TempTableMesh" type="MeshInstance3D" parent="World3D" unique_id=1104554825]
+[node name="TempTableMesh" type="MeshInstance3D" parent="BTable" unique_id=1104554825]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02872613, 0)
 mesh = SubResource("QuadMesh_mn2k0")
 
-[node name="AreaLight3D" type="AreaLight3D" parent="World3D" unique_id=1239603145]
+[node name="AreaLight3D" type="AreaLight3D" parent="BTable" unique_id=1239603145]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.7083558, 0)
 area_range = 1.226
 area_size = Vector2(1, 0.29580504)
 
-[node name="BilliardCollision" type="Node3D" parent="World3D" unique_id=1750757908]
-transform = Transform3D(-0.28370956, 0, -0.9589103, 0, 1, 0, 0.9589103, 0, -0.28370956, 0.47953594, 0, 0)
+[node name="BilliardCollision" type="Node3D" parent="BTable" unique_id=1750757908]
+transform = Transform3D(0.62648284, 0, 0.7794352, 0, 1, 0, -0.7794352, 0, 0.62648284, 0.47953594, 0, 0)
 script = ExtResource("3_rt33j")
 size = Vector2(1, 0.215)
 metadata/_custom_type_script = "uid://y8p4cwk0nssu"
