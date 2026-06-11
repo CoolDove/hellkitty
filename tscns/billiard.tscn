@@ -6,6 +6,11 @@
 [ext_resource type="Script" uid="uid://y8p4cwk0nssu" path="res://pool_engine/collision_node.gd" id="3_rt33j"]
 [ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
 
+[sub_resource type="TorusMesh" id="TorusMesh_8mu2o"]
+inner_radius = 0.004
+outer_radius = 0.03
+rings = 32
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mn2k0"]
 albedo_color = Color(0.39437842, 0.55682707, 0.17867139, 1)
 
@@ -23,6 +28,9 @@ script = ExtResource("2_8mu2o")
 
 [node name="Ball" parent="BTable" unique_id=411027831 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014841169, 0, 0.25436962)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BTable/Ball" unique_id=919731131]
+mesh = SubResource("TorusMesh_8mu2o")
 
 [node name="Ball2" parent="BTable" unique_id=1104346530 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
@@ -59,7 +67,13 @@ area_size = Vector2(1, 0.29580504)
 [node name="BilliardCollision" type="Node3D" parent="BTable" unique_id=1750757908]
 transform = Transform3D(0.62648284, 0, 0.7794352, 0, 1, 0, -0.7794352, 0, 0.62648284, 0.47953594, 0, 0)
 script = ExtResource("3_rt33j")
-size = Vector2(1, 0.215)
+size = Vector2(1, 0.075)
+metadata/_custom_type_script = "uid://y8p4cwk0nssu"
+
+[node name="BilliardCollision2" type="Node3D" parent="BTable" unique_id=662451965]
+transform = Transform3D(-0.5458144, 0, 0.8379061, 0, 1, 0, -0.8379061, 0, -0.5458144, -0.6139829, 0, 0)
+script = ExtResource("3_rt33j")
+size = Vector2(0.39, 0.075)
 metadata/_custom_type_script = "uid://y8p4cwk0nssu"
 
 [node name="UI" type="Control" parent="." unique_id=1423064348]

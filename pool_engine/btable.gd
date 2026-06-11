@@ -23,7 +23,7 @@ func _ready() -> void:
 		physics.add_ball(ball.ball)
 
 	for collision in collisions:
-		physics.add_collision(collision)
+		physics.add_collision(collision.collision)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
