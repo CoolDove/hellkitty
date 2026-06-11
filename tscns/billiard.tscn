@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djt0ufsww15gx" path="res://pool_engine/demo.gd" id="1_vu33v"]
 [ext_resource type="Script" uid="uid://bg517w0fli3bd" path="res://pool_engine/btable.gd" id="2_8mu2o"]
 [ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
-[ext_resource type="Script" uid="uid://y8p4cwk0nssu" path="res://pool_engine/collision_node.gd" id="3_rt33j"]
+[ext_resource type="Script" uid="uid://bbt5clqwr6wev" path="res://pool_engine/collider_node.gd" id="3_rt33j"]
 [ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_8mu2o"]

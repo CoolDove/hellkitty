@@ -11,14 +11,14 @@ extends RefCounted
 ## - Angular momentum transfer
 
 var balls: Array[Ball] = []
-var collisions: Array[Collision] = []
+var colliders: Array[Collider] = []
 
 var table: Table
 
 # Collision event callbacks (for sound effects, etc.)
 signal ball_ball_collision(ball1: Ball, ball2: Ball, strength: float)
 signal ball_wall_collision(ball: Ball, strength: float)
-signal ball_collision_collision(ball: Ball, collision: Collision, strength: float)
+signal ball_collider_collision(ball: Ball, collider: Collider, strength: float)
 
 
 func _init(t: Table = null) -> void:
@@ -29,8 +29,8 @@ func _init(t: Table = null) -> void:
 func add_ball(ball: Ball) -> void:
 	balls.append(ball)
 
-func add_collision(collision: Collision) -> void:
-	collisions.append(collision)
+func add_collider(collider: Collider) -> void:
+	colliders.append(collider)
 
 ## Clear all balls
 func clear_balls() -> void:
@@ -142,18 +142,18 @@ func _proceed_dt_euler(dt: float) -> void:
 				collision_ball1 = ball
 				collision_normal = wall_coll.normal
 	
-	# Check ball-collision collisions (custom collision bodies)
-	var collision_obj: Collision = null
+	# Check ball-collider collisions (custom collider bodies)
+	var collider_obj: Collider = null
 	for ball in balls:
 		if not ball.in_game:
 			continue
 		
-		for coll in collisions:
-			var coll_result := _check_collision_collision(ball, coll)
+		for coll in colliders:
+			var coll_result := _check_collider_collision(ball, coll)
 			if coll_result.collided:
 				var vel_normal := ball.velocity.dot(coll_result.normal)
 				
-				# Only process if ball is moving into collision (not already bouncing back)
+				# Only process if ball is moving into collider (not already bouncing back)
 				if vel_normal >= 0:
 					continue
 				
@@ -164,10 +164,10 @@ func _proceed_dt_euler(dt: float) -> void:
 				# Check within valid range
 				if collision_time <= earliest_time and collision_time > -dt:
 					earliest_time = collision_time
-					collision_type = 3  # ball-collision type
+					collision_type = 3  # ball-collider type
 					collision_ball1 = ball
 					collision_normal = coll_result.normal
-					collision_obj = coll
+					collider_obj = coll
 	
 	# Handle collision if found
 	if collision_type == 1:
@@ -204,12 +204,12 @@ func _proceed_dt_euler(dt: float) -> void:
 			if ball.in_game:
 				ball.position += ball.velocity * earliest_time
 		
-		# Apply ball-collision collision response (same as wall)
+		# Apply ball-collider collision response (same as wall)
 		var old_vel_mag := collision_ball1.velocity.length()
 		_ball_wall_interaction(collision_ball1, collision_normal)
 		
 		# Emit collision signal
-		ball_collision_collision.emit(collision_ball1, collision_obj, old_vel_mag)
+		ball_collider_collision.emit(collision_ball1, collider_obj, old_vel_mag)
 		
 		# Continue with remaining time
 		var remaining := -earliest_time
@@ -481,20 +481,20 @@ func _snap_to_rolling(ball: Ball) -> void:
 	ball.angular_velocity.z = -ball.velocity.x / r
 
 
-## Check collision between ball and a Collision object (rotated rectangle)
+## Check collision between ball and a Collider object (rotated rectangle)
 ## Returns: Dictionary with "collided", "normal", "penetration"
-func _check_collision_collision(ball: Ball, coll: Collision) -> Dictionary:
+func _check_collider_collision(ball: Ball, coll: Collider) -> Dictionary:
 	var result := {
 		"collided": false,
 		"normal": Vector3.ZERO,
 		"penetration": 0.0
 	}
 	
-	# Ball position in 2D (xz plane maps to Collision's xy coordinate system)
-	# Note: Collision uses Vector2(x, y) where x=3D_x, y=3D_z
+	# Ball position in 2D (xz plane maps to Collider's xy coordinate system)
+	# Note: Collider uses Vector2(x, y) where x=3D_x, y=3D_z
 	var ball_pos_2d := Vector2(ball.position.x, ball.position.z)
 	
-	# Transform ball position to collision's local space
+	# Transform ball position to collider's local space
 	# Godot's Y-axis rotation is counter-clockwise when viewed from above (positive Y)
 	# To transform world->local, we rotate by +angle (not -angle)
 	var local_pos := _rotate_point(ball_pos_2d - coll.position, coll.angle)
@@ -524,8 +524,8 @@ func _check_collision_collision(ball: Ball, coll: Collision) -> Dictionary:
 			local_normal = diff.normalized()
 		else:
 			# Ball center is inside rectangle, find closest edge
-			var dx := half_size.x - absf(local_pos.x)
-			var dy := half_size.y - absf(local_pos.y)
+			var dx :float= half_size.x - absf(local_pos.x)
+			var dy :float= half_size.y - absf(local_pos.y)
 			if dx < dy:
 				local_normal = Vector2(signf(local_pos.x), 0)
 				result.penetration = dx + ball.radius

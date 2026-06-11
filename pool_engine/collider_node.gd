@@ -1,8 +1,8 @@
 @tool
 extends Node3D
-class_name CollisionNode
+class_name ColliderNode
 
-var collision : Collision
+var collider : Collider
 
 @export var size := Vector2(1, 1)
 
@@ -11,7 +11,7 @@ var table : BTable
 func _ready():
 	if Engine.is_editor_hint():
 		return
-	collision = Collision.new(get_instance_id(), Vector2(global_position.x, global_position.z), size)
+	collider = Collider.new(get_instance_id(), Vector2(global_position.x, global_position.z), size)
 
 func _process(delta: float) -> void:
 	var euler = transform.basis.get_euler(EULER_ORDER_XYZ)
@@ -26,9 +26,9 @@ func _process(delta: float) -> void:
 	DebugDraw3D.draw_box(Vector3.ZERO - size3d*0.5, Quaternion.IDENTITY, size3d, Color.REBECCA_PURPLE)
 
 	if !Engine.is_editor_hint():
-		collision.position = Vector2(global_position.x, global_position.z)
-		collision.size = size
-		collision.angle = transform.basis.get_euler(EULER_ORDER_XYZ).y
+		collider.position = Vector2(global_position.x, global_position.z)
+		collider.size = size
+		collider.angle = transform.basis.get_euler(EULER_ORDER_XYZ).y
 
 func _notification(what: int) -> void:
 	if Engine.is_editor_hint():
@@ -44,10 +44,10 @@ func _notification(what: int) -> void:
 				break
 		if look4table != null && table != look4table:
 			table = look4table
-			table.collisions.append(self)
+			table.colliders.append(self)
 	elif what == NOTIFICATION_EXIT_WORLD || what == NOTIFICATION_UNPARENTED:
 		if table != null:
-			var pos = table.collisions.find(self)
+			var pos = table.colliders.find(self)
 			if pos >= 0:
-				table.collisions.remove_at(pos)
+				table.colliders.remove_at(pos)
 				table = null
