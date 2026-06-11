@@ -52,21 +52,6 @@ cue_ball.velocity = Vector3(3.0, 0, 0.5)  # 向右前方击球 (x,z=桌面, y=�
 cue_ball.apply_impulse(Vector3(0.5, 0, 0))
 ```
 
-### 4. 碰撞事件
-
-```gdscript
-physics.ball_ball_collision.connect(_on_ball_collision)
-physics.ball_wall_collision.connect(_on_wall_collision)
-
-func _on_ball_collision(ball1: Ball, ball2: Ball, strength: float):
-    # 播放碰撞音效
-    pass
-
-func _on_wall_collision(ball: Ball, strength: float):
-    # 播放边框碰撞音效
-    pass
-```
-
 ## 物理特性
 
 ### 已实现

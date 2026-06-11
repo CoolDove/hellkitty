@@ -68,13 +68,11 @@ area_size = Vector2(1, 0.29580504)
 transform = Transform3D(0.62648284, 0, 0.7794352, 0, 1, 0, -0.7794352, 0, 0.62648284, 0.47953594, 0, 0)
 script = ExtResource("3_rt33j")
 size = Vector2(1, 0.075)
-metadata/_custom_type_script = "uid://y8p4cwk0nssu"
 
 [node name="BilliardCollision2" type="Node3D" parent="BTable" unique_id=662451965]
 transform = Transform3D(-0.5458144, 0, 0.8379061, 0, 1, 0, -0.8379061, 0, -0.5458144, -0.6139829, 0, 0)
 script = ExtResource("3_rt33j")
 size = Vector2(0.39, 0.075)
-metadata/_custom_type_script = "uid://y8p4cwk0nssu"
 
 [node name="UI" type="Control" parent="." unique_id=1423064348]
 layout_mode = 3

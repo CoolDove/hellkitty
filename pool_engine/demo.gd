@@ -116,6 +116,6 @@ func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:
 	print("Ball %d hit Ball %d (strength: %.2f)" % [ball1.ball_number, ball2.ball_number, strength])
 
 
-func _on_ball_wall_collision(ball: Ball, strength: float) -> void:
+func _on_ball_wall_collision(ball: Ball, strength: float, _normal: Vector3) -> void:
 	# Play cushion sound here
 	print("Ball %d hit cushion (strength: %.2f)" % [ball.ball_number, strength])

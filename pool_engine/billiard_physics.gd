@@ -17,8 +17,8 @@ var table: Table
 
 # Collision event callbacks (for sound effects, etc.)
 signal ball_ball_collision(ball1: Ball, ball2: Ball, strength: float)
-signal ball_wall_collision(ball: Ball, strength: float)
-signal ball_collider_collision(ball: Ball, collider: Collider, strength: float)
+signal ball_wall_collision(ball: Ball, strength: float, normal: Vector3)
+signal ball_collider_collision(ball: Ball, collider: Collider, strength: float, normal: Vector3)
 
 
 func _init(t: Table = null) -> void:
@@ -209,7 +209,7 @@ func _proceed_dt_euler(dt: float) -> void:
 		_ball_wall_interaction(collision_ball1, collision_normal)
 		
 		# Emit collision signal
-		ball_collider_collision.emit(collision_ball1, collider_obj, old_vel_mag)
+		ball_collider_collision.emit(collision_ball1, collider_obj, old_vel_mag, collision_normal)
 		
 		# Continue with remaining time
 		var remaining := -earliest_time
@@ -378,7 +378,7 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	ball.angular_velocity *= 0.2
 	
 	# Emit collision signal
-	ball_wall_collision.emit(ball, old_vel_mag)
+	ball_wall_collision.emit(ball, old_vel_mag, wall_normal)
 	ball.wall_collision.emit(old_vel_mag)
 
 
