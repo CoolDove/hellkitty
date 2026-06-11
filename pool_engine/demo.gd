@@ -33,6 +33,8 @@ func _ready() -> void:
 	physics.ball_wall_collision.connect(_on_ball_wall_collision)
 	# Setup initial ball positions
 	_setup_balls()
+	for collision in get_node("World3D").collisions:
+		print("collected collision: ", collision.name)
 
 func _setup_balls() -> void:
 	physics.clear_balls()

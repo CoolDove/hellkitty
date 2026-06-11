@@ -10,7 +10,16 @@ extends RefCounted
 ## - Ball-wall collision detection and response
 ## - Angular momentum transfer
 
+
+class CollisionData:
+	var rect : Rect2
+	var position : Vector2
+	var angle : float
+
 var balls: Array[Ball] = []
+
+var collisions: Array[CollisionData] = []
+
 var table: Table
 
 # Collision event callbacks (for sound effects, etc.)
