@@ -21,9 +21,8 @@ signal ball_wall_collision(ball: Ball, strength: float, normal: Vector3)
 signal ball_collider_collision(ball: Ball, collider: Collider, strength: float, normal: Vector3)
 
 
-func _init(t: Table = null) -> void:
-	table = t if t else Table.new()
-
+func _init() -> void:
+	table = Table.new(2.54, 1.27)
 
 ## Add a ball to the simulation
 func add_ball(ball: Ball) -> void:
@@ -374,8 +373,8 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	var friction_impulse := (vp - new_vp) * ball.mass
 	var torque := contact_r.cross(friction_impulse)
 	ball.angular_velocity += torque / ball.inertia
-	# temporary fix
-	ball.angular_velocity *= 0.2
+	# @Temporary: fix strange angular velocity after hit wall
+	ball.angular_velocity *= 0.8
 	
 	# Emit collision signal
 	ball_wall_collision.emit(ball, old_vel_mag, wall_normal)

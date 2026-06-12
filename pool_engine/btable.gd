@@ -14,8 +14,7 @@ func _ready() -> void:
 	print("\tcolliders count: %s" % colliders.size())
 	print("\tballs count: %s" % balls.size())
 
-	var table := Table.new(2.54, 1.27)  # Standard pool table size
-	physics = BilliardPhysics.new(table)
+	physics = BilliardPhysics.new()
 
 	physics.clear_balls()
 
