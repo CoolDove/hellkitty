@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rtm5rqbckenr"]
 
-[ext_resource type="Script" uid="uid://djt0ufsww15gx" path="res://pool_engine/demo.gd" id="1_vu33v"]
+[ext_resource type="Script" uid="uid://w5aud40riccd" path="res://game.gd" id="1_6afie"]
 [ext_resource type="Script" uid="uid://bg517w0fli3bd" path="res://pool_engine/btable.gd" id="2_8mu2o"]
 [ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
 [ext_resource type="Script" uid="uid://bbt5clqwr6wev" path="res://pool_engine/collider_node.gd" id="3_rt33j"]
@@ -20,7 +20,7 @@ size = Vector2(2.54, 1.27)
 orientation = 1
 
 [node name="Node" type="Node" unique_id=321827794]
-script = ExtResource("1_vu33v")
+script = ExtResource("1_6afie")
 
 [node name="BTable" type="Node3D" parent="." unique_id=863628649]
 unique_name_in_owner = true
@@ -37,12 +37,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
 
 [node name="Ball3" parent="BTable" unique_id=459797993 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11660441, 0, 0)
+team = 1
 
 [node name="Ball4" parent="BTable" unique_id=1557882811 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, 0)
 
 [node name="Ball5" parent="BTable" unique_id=2067050957 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17251468, 0, -0.23600823)
+team = 1
 
 [node name="Camera3D" type="Camera3D" parent="BTable" unique_id=1044170992]
 transform = Transform3D(1, 0, 0, 0, 0.062290616, 0.9980581, 0, -0.9980581, 0.062290616, 0, 3.308718, 0.21071851)

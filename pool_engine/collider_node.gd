@@ -13,7 +13,7 @@ func _ready():
 		return
 	collider = Collider.new(get_instance_id(), Vector2(global_position.x, global_position.z), size)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var euler = transform.basis.get_euler(EULER_ORDER_XYZ)
 	if euler.x != 0 || euler.z != 0:
 		transform.basis = Basis.from_euler(Vector3(0,euler.y,0), EULER_ORDER_XYZ)

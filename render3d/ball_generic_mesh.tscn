@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://d2tl2qjfhnc04"]
+
+[ext_resource type="PackedScene" uid="uid://ckebqshsgqqxi" path="res://resources/placeholders/ball_placeholder/ball_placeholder.blend" id="1_yew3g"]
+[ext_resource type="Material" uid="uid://t7iw6rugu3fk" path="res://render3d/ball_generic_material.tres" id="2_wvnwd"]
+
+[sub_resource type="GDScript" id="GDScript_wvnwd"]
+script/source = "extends Node3D
+
+@onready var mesh = %Sphere
+"
+
+[node name="ball_placeholder" unique_id=1344338857 instance=ExtResource("1_yew3g")]
+script = SubResource("GDScript_wvnwd")
+
+[node name="Sphere" parent="." index="0" unique_id=892790494]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("2_wvnwd")

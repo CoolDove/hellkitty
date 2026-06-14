@@ -1,37 +1,19 @@
 extends Node
+class_name Game
 
 @onready var spin_panel := %SpinPanel
-
-## Demo scene for billiard physics
-## This demonstrates how to use the physics engine in Godot
-
-
 @onready var btable : BTable = %BTable
 
 var physics: BilliardPhysics:
 	get:
 		return btable.physics
 
-# Visual settings
-var ball_colors: Array[Color] = [
-	Color.WHITE,      # 0: Cue ball
-	Color.YELLOW,     # 1
-	Color.BLUE,       # 2
-	Color.RED,        # 3
-	Color.PURPLE,     # 4
-	Color.ORANGE,     # 5
-	Color.GREEN,      # 6
-	Color.MAROON,     # 7
-	Color.BLACK,      # 8
-]
+enum TeamFlag {
+	Blue,
+	Yellow,
+}
 
-var table_color := Color(0.0, 0.4, 0.0)  # Green felt
-var cushion_color := Color(0.4, 0.2, 0.1)  # Brown wood
-
-func _ready() -> void:
-	# physics.ball_ball_collision.connect(_on_ball_ball_collision)
-	# physics.ball_wall_collision.connect(_on_ball_wall_collision)
-	pass
+var current_turn : TeamFlag
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -97,12 +79,3 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 	
 	print("Shot: dir=%s, speed=%.2f, offset=%s, spin=%s" % [shot_dir, shot_speed, hit_offset, cue_ball.angular_velocity])
 	spin_panel.reset_hit_offset()
-
-# func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:
-# 	# Play collision sound here
-# 	print("Ball %d hit Ball %d (strength: %.2f)" % [ball1.ball_number, ball2.ball_number, strength])
-
-
-# func _on_ball_wall_collision(ball: Ball, strength: float, _normal: Vector3) -> void:
-# 	# Play cushion sound here
-# 	print("Ball %d hit cushion (strength: %.2f)" % [ball.ball_number, strength])
