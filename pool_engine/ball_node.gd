@@ -16,7 +16,7 @@ func _ready() -> void:
 	ball.radius = radius
 	ball.mass = mass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var _s = DebugDraw3D.new_scoped_config()
 	_s.set_thickness(0.002)
 	DebugDraw3D.draw_sphere(global_position, 0.002, Color.DARK_RED, 0.5)

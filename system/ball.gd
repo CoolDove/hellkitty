@@ -19,28 +19,8 @@ func _ready():
 	get_tree().root.add_child(trail)
 	_camera = Billiards.instance.camera
 
-#var trail_record_interval : float
-#var trail_remove_interval : float
 func _process(delta):
 	DebugDraw3D.draw_sphere(global_position, 0.01, Color.DARK_RED)
-	#trail_record_interval -= delta
-	#if trail_record_interval <= 0:
-		#trail_record_interval = 0.02
-		#var record :bool= false
-		#var point_count :int= trail.get_point_count()
-		#var new_point := _camera.unproject_position(global_position)
-		#if point_count == 0:
-			#record = true
-		#else:
-			#record = new_point.distance_squared_to(
-				#trail.get_point_position(point_count-1)
-			#) > 0.02
-		#if record: trail.add_point(new_point)
-	#if linear_velocity.length_squared() < 0.04:
-		#trail_remove_interval -= delta
-	#if trail_remove_interval <= 0:
-		#trail_remove_interval = 0.2
-		#trail.remove_point(0)
 
 func _physics_process(delta):
 	if angular_velocity.length() > 0.01:

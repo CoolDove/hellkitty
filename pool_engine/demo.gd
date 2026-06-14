@@ -30,21 +30,9 @@ var table_color := Color(0.0, 0.4, 0.0)  # Green felt
 var cushion_color := Color(0.4, 0.2, 0.1)  # Brown wood
 
 func _ready() -> void:
-	# Create physics engine with table
-	#var table := Table.new(2.54, 1.27)  # Standard pool table size
-	#physics = BilliardPhysics.new(table)
-	# Connect signals
-	physics.ball_ball_collision.connect(_on_ball_ball_collision)
-	physics.ball_wall_collision.connect(_on_ball_wall_collision)
-	# Setup initial ball positions
-	#_setup_balls()
-
-# func _setup_balls() -> void:
-# 	physics.clear_balls()
-# 	var balls := get_tree().get_nodes_in_group("balls")
-# 	for ball in balls:
-# 		physics.add_ball(ball.ball)
-
+	# physics.ball_ball_collision.connect(_on_ball_ball_collision)
+	# physics.ball_wall_collision.connect(_on_ball_wall_collision)
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -111,11 +99,11 @@ func _shoot_cue_ball(mouse_pos: Vector2) -> void:
 	print("Shot: dir=%s, speed=%.2f, offset=%s, spin=%s" % [shot_dir, shot_speed, hit_offset, cue_ball.angular_velocity])
 	spin_panel.reset_hit_offset()
 
-func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:
-	# Play collision sound here
-	print("Ball %d hit Ball %d (strength: %.2f)" % [ball1.ball_number, ball2.ball_number, strength])
+# func _on_ball_ball_collision(ball1: Ball, ball2: Ball, strength: float) -> void:
+# 	# Play collision sound here
+# 	print("Ball %d hit Ball %d (strength: %.2f)" % [ball1.ball_number, ball2.ball_number, strength])
 
 
-func _on_ball_wall_collision(ball: Ball, strength: float, _normal: Vector3) -> void:
-	# Play cushion sound here
-	print("Ball %d hit cushion (strength: %.2f)" % [ball.ball_number, strength])
+# func _on_ball_wall_collision(ball: Ball, strength: float, _normal: Vector3) -> void:
+# 	# Play cushion sound here
+# 	print("Ball %d hit cushion (strength: %.2f)" % [ball.ball_number, strength])
