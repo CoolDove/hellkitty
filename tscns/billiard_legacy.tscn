@@ -5,18 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cr3qdq5a7cofl" path="res://system/cue_ball.tscn" id="2_rt33j"]
 [ext_resource type="PackedScene" uid="uid://bcrb077hxxlsl" path="res://system/ball.tscn" id="3_8mu2o"]
 [ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sfkj"]
-no_depth_test = true
-albedo_color = Color(0.93, 0.87358, 0.6696, 1)
-roughness = 0.88
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_7xep1"]
-material = SubResource("StandardMaterial3D_4sfkj")
-top_radius = 0.01
-bottom_radius = 0.015
-height = 1.5
-radial_segments = 8
+[ext_resource type="PackedScene" uid="uid://brgklh2bvckfn" path="res://tscns/stick.tscn" id="5_171cg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i1t8"]
 no_depth_test = true
@@ -88,12 +77,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51624763, 0.03039287, -0.0
 [node name="ball9" parent="3DWorld" unique_id=281272290 instance=ExtResource("3_8mu2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4174682, 0.03039287, 0.085991)
 
-[node name="stick" type="Node3D" parent="3DWorld" unique_id=1257784266]
+[node name="stick" parent="3DWorld" unique_id=43769791 instance=ExtResource("5_171cg")]
 unique_name_in_owner = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="3DWorld/stick" unique_id=1455456447]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.75)
-mesh = SubResource("CylinderMesh_7xep1")
 
 [node name="Camera3D" type="Camera3D" parent="3DWorld" unique_id=25340423]
 unique_name_in_owner = true

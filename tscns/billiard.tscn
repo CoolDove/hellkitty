@@ -1,15 +1,12 @@
 [gd_scene format=3 uid="uid://rtm5rqbckenr"]
 
 [ext_resource type="Script" uid="uid://w5aud40riccd" path="res://game.gd" id="1_6afie"]
+[ext_resource type="PackedScene" uid="uid://brgklh2bvckfn" path="res://tscns/stick.tscn" id="2_6afie"]
 [ext_resource type="Script" uid="uid://bg517w0fli3bd" path="res://pool_engine/btable.gd" id="2_8mu2o"]
 [ext_resource type="PackedScene" uid="uid://yxgq3ebu7spi" path="res://pool_engine/ball.tscn" id="2_mn2k0"]
 [ext_resource type="Script" uid="uid://bbt5clqwr6wev" path="res://pool_engine/collider_node.gd" id="3_rt33j"]
 [ext_resource type="PackedScene" uid="uid://b7xxtw8ujrhfh" path="res://tscns/ui_spin_panel.tscn" id="5_8mu2o"]
-
-[sub_resource type="TorusMesh" id="TorusMesh_8mu2o"]
-inner_radius = 0.004
-outer_radius = 0.03
-rings = 32
+[ext_resource type="Script" uid="uid://wq3ct3ai3c7a" path="res://system/ball_controller.gd" id="5_sbah0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mn2k0"]
 albedo_color = Color(0.39437842, 0.55682707, 0.17867139, 1)
@@ -19,8 +16,11 @@ material = SubResource("StandardMaterial3D_mn2k0")
 size = Vector2(2.54, 1.27)
 orientation = 1
 
-[node name="Node" type="Node" unique_id=321827794]
+[node name="Game" type="Node" unique_id=321827794]
 script = ExtResource("1_6afie")
+
+[node name="Stick" parent="." unique_id=43769791 instance=ExtResource("2_6afie")]
+unique_name_in_owner = true
 
 [node name="BTable" type="Node3D" parent="." unique_id=863628649]
 unique_name_in_owner = true
@@ -29,8 +29,8 @@ script = ExtResource("2_8mu2o")
 [node name="Ball" parent="BTable" unique_id=411027831 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014841169, 0, 0.25436962)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BTable/Ball" unique_id=919731131]
-mesh = SubResource("TorusMesh_8mu2o")
+[node name="Controller" type="Node" parent="BTable/Ball" unique_id=911657789]
+script = ExtResource("5_sbah0")
 
 [node name="Ball2" parent="BTable" unique_id=1104346530 instance=ExtResource("2_mn2k0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.116743885)
