@@ -13,8 +13,8 @@ const BALL_RADIUS: float = BALL_DIAMETER / 2.0
 const BALL_INERTIA: float = 0.4 * BALL_MASS * BALL_RADIUS * BALL_RADIUS
 
 # Friction coefficients
-const MU_ROLL: float = 0.01    # Rolling friction on table
-const MU_SLIDE: float = 0.1    # Sliding friction on table
+const MU_ROLL: float = 0.02    # Rolling friction on table
+const MU_SLIDE: float = 0.08    # Sliding friction on table
 const MU_BALL: float = 0.1     # Ball-to-ball friction
 
 # Contact patch radius for rotational friction

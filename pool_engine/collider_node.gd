@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 	var dd3d_config := DebugDraw3D.new_scoped_config()
 	var thickness :float= 0.005
 	dd3d_config.set_thickness(thickness)
-	dd3d_config.set_transform(transform)
+	dd3d_config.set_transform(global_transform)
 	var size3d := Vector3(size.x, thickness, size.y)
 	DebugDraw3D.draw_box(Vector3.ZERO - size3d*0.5, Quaternion.IDENTITY, size3d, Color.REBECCA_PURPLE)
 
@@ -37,17 +37,16 @@ func _notification(what: int) -> void:
 		var look4table = self
 		while true:
 			look4table = look4table.get_parent()
-			if look4table != null && look4table is BTable:
-				break
+			if look4table != null:
+				if look4table is BTable:
+					break
 			else:
 				look4table = null
 				break
 		if look4table != null && table != look4table:
 			table = look4table
-			table.colliders.append(self)
+			table.register_collider(self)
 	elif what == NOTIFICATION_EXIT_WORLD || what == NOTIFICATION_UNPARENTED:
 		if table != null:
-			var pos = table.colliders.find(self)
-			if pos >= 0:
-				table.colliders.remove_at(pos)
-				table = null
+			table.unregister_collider(self)
+			table = null

@@ -40,6 +40,17 @@ func _ready() -> void:
 		DebugDraw3D.draw_arrow_ray(ball.position, normal, strength * 0.1, Color.RED, 0.04, false, 1.0)
 	)
 
+
+func register_collider(collider: ColliderNode):
+	colliders.append(collider)
+	print("register collider: ", collider.get_path_to(self))
+
+func unregister_collider(collider: ColliderNode):
+	var pos = colliders.find(collider)
+	if pos >= 0:
+		colliders.remove_at(pos)
+	print("unregister collider: ", collider.get_path_to(self))
+
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return

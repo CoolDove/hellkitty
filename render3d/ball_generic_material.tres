@@ -10,7 +10,9 @@ uniform sampler2D tex_albedo;
 instance uniform vec4 tint_color = vec4(1,1,1,1);
 
 void fragment() {
-	ALBEDO = (vec3(1,1,1) - texture(tex_albedo, UV).rgb) * tint_color.rgb;
+	vec3 color = texture(tex_albedo, UV).rgb;
+	color = color * tint_color.rgb;
+	ALBEDO = color;
 }
 
 //void light() {

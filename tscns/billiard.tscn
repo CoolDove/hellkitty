@@ -66,15 +66,43 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 area_range = 1.226
 area_size = Vector2(1, 0.29580504)
 
-[node name="BilliardCollision" type="Node3D" parent="BTable" unique_id=1750757908]
-transform = Transform3D(0.62648284, 0, 0.7794352, 0, 1, 0, -0.7794352, 0, 0.62648284, 0.47953594, 0, 0)
-script = ExtResource("3_rt33j")
-size = Vector2(1, 0.075)
+[node name="CollidersTop" type="Node3D" parent="BTable" unique_id=1005604566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.66952854)
 
-[node name="BilliardCollision2" type="Node3D" parent="BTable" unique_id=662451965]
-transform = Transform3D(-0.5458144, 0, 0.8379061, 0, 1, 0, -0.8379061, 0, -0.5458144, -0.6139829, 0, 0)
+[node name="LeftPart" type="Node3D" parent="BTable/CollidersTop" unique_id=1750757908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.616, 0, 0)
 script = ExtResource("3_rt33j")
-size = Vector2(0.39, 0.075)
+size = Vector2(1.055, 0.075)
+
+[node name="RightPart" type="Node3D" parent="BTable/CollidersTop" unique_id=517343445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623, 0, 0)
+script = ExtResource("3_rt33j")
+size = Vector2(1.055, 0.075)
+
+[node name="CollidersBottom" type="Node3D" parent="BTable" unique_id=1976370793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.67)
+
+[node name="LeftPart" type="Node3D" parent="BTable/CollidersBottom" unique_id=229197891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.616, 0, 0)
+script = ExtResource("3_rt33j")
+size = Vector2(1.055, 0.075)
+
+[node name="RightPart" type="Node3D" parent="BTable/CollidersBottom" unique_id=1975675995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623, 0, 0)
+script = ExtResource("3_rt33j")
+size = Vector2(1.055, 0.075)
+
+[node name="ColliderLeft" type="Node3D" parent="BTable" unique_id=252445227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0, 0)
+script = ExtResource("3_rt33j")
+size = Vector2(0.16, 1.1)
+metadata/_custom_type_script = "uid://bbt5clqwr6wev"
+
+[node name="ColliderRight" type="Node3D" parent="BTable" unique_id=622809668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0, 0)
+script = ExtResource("3_rt33j")
+size = Vector2(0.16, 1.1)
+metadata/_custom_type_script = "uid://bbt5clqwr6wev"
 
 [node name="UI" type="Control" parent="." unique_id=1423064348]
 layout_mode = 3

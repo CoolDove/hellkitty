@@ -12,8 +12,8 @@ var physics: BilliardPhysics:
 		return btable.physics
 
 enum TeamFlag {
-	Blue,
-	Yellow,
+	A,
+	B,
 }
 
 var current_turn : TeamFlag
