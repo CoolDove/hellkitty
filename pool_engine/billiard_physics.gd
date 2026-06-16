@@ -7,22 +7,19 @@ extends RefCounted
 ## Handles:
 ## - Ball movement with friction (sliding/rolling)
 ## - Ball-ball collision detection and response
-## - Ball-wall collision detection and response
+## - Ball-collider collision detection and response
 ## - Angular momentum transfer
 
 var balls: Array[Ball] = []
 var colliders: Array[Collider] = []
 
-var table: Table
-
 # Collision event callbacks (for sound effects, etc.)
 signal ball_ball_collision(ball1: Ball, ball2: Ball, strength: float)
-signal ball_wall_collision(ball: Ball, strength: float, normal: Vector3)
 signal ball_collider_collision(ball: Ball, collider: Collider, strength: float, normal: Vector3)
 
 
 func _init() -> void:
-	table = Table.new(2.54, 1.27)
+	pass
 
 ## Add a ball to the simulation
 func add_ball(ball: Ball) -> void:
@@ -85,7 +82,7 @@ func _proceed_dt_euler(dt: float) -> void:
 	
 	# Find earliest collision
 	var earliest_time := 0.0
-	var collision_type := 0  # 0=none, 1=ball-ball, 2=ball-wall
+	var collision_type := 0  # 0=none, 1=ball-ball, 2=ball-collider
 	var collision_ball1: Ball = null
 	var collision_ball2: Ball = null
 	var collision_normal := Vector3.ZERO
@@ -110,37 +107,6 @@ func _proceed_dt_euler(dt: float) -> void:
 				collision_ball1 = balls[i]
 				collision_ball2 = balls[j]
 	
-	# Check ball-wall collisions
-	for ball in balls:
-		if not ball.in_game:
-			continue
-		
-		var wall_coll := table.check_wall_collision(ball)
-		if wall_coll.collided:
-			# Ball has penetrated wall - collision happened in the past
-			# The normal points INTO the table (away from wall)
-			# vel_normal > 0 means ball is moving away from wall
-			# vel_normal < 0 means ball is still moving into wall
-			var vel_normal := ball.velocity.dot(wall_coll.normal)
-			
-			# Only process if ball is moving into wall (not already bouncing back)
-			if vel_normal >= 0:
-				continue
-			
-			# Calculate how long ago the collision happened
-			# penetration = |vel_normal| * time_since_collision
-			var t :float= wall_coll.penetration / absf(vel_normal)
-			
-			# t is positive here, representing time since collision
-			# Convert to negative (past time) for comparison
-			var collision_time := -t
-			# Check within valid range: collision_time > -dt (happened during this timestep)
-			if collision_time <= earliest_time and collision_time > -dt:
-				earliest_time = collision_time
-				collision_type = 2
-				collision_ball1 = ball
-				collision_normal = wall_coll.normal
-	
 	# Check ball-collider collisions (custom collider bodies)
 	var collider_obj: Collider = null
 	for ball in balls:
@@ -163,7 +129,7 @@ func _proceed_dt_euler(dt: float) -> void:
 				# Check within valid range
 				if collision_time <= earliest_time and collision_time > -dt:
 					earliest_time = collision_time
-					collision_type = 3  # ball-collider type
+					collision_type = 2  # ball-collider type
 					collision_ball1 = ball
 					collision_normal = coll_result.normal
 					collider_obj = coll
@@ -182,34 +148,19 @@ func _proceed_dt_euler(dt: float) -> void:
 		var remaining := -earliest_time
 		if remaining > 0.0001:
 			_proceed_dt_euler(remaining)
-	
 	elif collision_type == 2:
 		# Rewind to collision time
 		for ball in balls:
 			if ball.in_game:
 				ball.position += ball.velocity * earliest_time
-		
-		# Apply ball-wall collision response
-		_ball_wall_interaction(collision_ball1, collision_normal)
-		
-		# Continue with remaining time
-		var remaining := -earliest_time
-		if remaining > 0.0001:
-			_proceed_dt_euler(remaining)
-	
-	elif collision_type == 3:
-		# Rewind to collision time
-		for ball in balls:
-			if ball.in_game:
-				ball.position += ball.velocity * earliest_time
-		
+
 		# Apply ball-collider collision response (same as wall)
 		var old_vel_mag := collision_ball1.velocity.length()
 		_ball_wall_interaction(collision_ball1, collision_normal)
-		
+
 		# Emit collision signal
 		ball_collider_collision.emit(collision_ball1, collider_obj, old_vel_mag, collision_normal)
-		
+
 		# Continue with remaining time
 		var remaining := -earliest_time
 		if remaining > 0.0001:
@@ -341,7 +292,7 @@ func _apply_ball_ball_friction(b1: Ball, b2: Ball, normal: Vector3, impulse_magn
 	b2.angular_velocity += torque2 / b2.inertia * 0.5
 
 
-## Ball-wall collision response (based on ball_wall_interaction in billmove.c)
+## Ball-wall(collider) collision response
 func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	var vel := ball.velocity
 	
@@ -349,23 +300,15 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	var vn := wall_normal * vel.dot(wall_normal)  # Normal component
 	var vp := vel - vn  # Parallel component
 	
-	var vn_mag := vn.length()
-	
-	# Calculate energy loss (speed-dependent)
-	var loss := table.wall_loss0 + (table.wall_loss_max - table.wall_loss0) * \
-		(1.0 - exp(-vn_mag / table.wall_loss_wspeed))
-	
-	# Reflect normal component with energy loss
-	var restitution := sqrt(1.0 - loss)
+	# Simple elastic collision with energy loss
+	var restitution := 0.8  # Energy retention coefficient
 	var new_vn := -vn * restitution
 	
-	# Apply cushion friction to parallel component
-	var friction_factor := 1.0 - table.wall_mu * (1.0 + restitution)
-	friction_factor = maxf(friction_factor, 0.0)
+	# Apply friction to parallel component
+	var friction_factor := 0.7
 	var new_vp := vp * friction_factor
 	
 	# Update velocity
-	var old_vel_mag := vel.length()
 	ball.velocity = new_vn + new_vp
 	
 	# Apply angular velocity change from friction
@@ -373,12 +316,7 @@ func _ball_wall_interaction(ball: Ball, wall_normal: Vector3) -> void:
 	var friction_impulse := (vp - new_vp) * ball.mass
 	var torque := contact_r.cross(friction_impulse)
 	ball.angular_velocity += torque / ball.inertia
-	# @Temporary: fix strange angular velocity after hit wall
 	ball.angular_velocity *= 0.4
-	
-	# Emit collision signal
-	ball_wall_collision.emit(ball, old_vel_mag, wall_normal)
-	ball.wall_collision.emit(old_vel_mag)
 
 
 ## Apply table friction to a ball (rolling/sliding)

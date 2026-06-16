@@ -31,10 +31,6 @@ func _ready() -> void:
 		DebugDraw3D.draw_arrow_ray(hitpoint, (ball2.position - hitpoint).normalized(), strength * 0.1, Color.ORANGE, 0.04, false, 1.0)
 	)
 
-	physics.ball_wall_collision.connect(func(ball: Ball, strength: float, normal: Vector3):
-		var _sconfig := DebugDraw3D.new_scoped_config().set_thickness(0.01)
-		DebugDraw3D.draw_arrow_ray(ball.position, normal, strength * 0.1, Color.RED, 0.04, false, 1.0)
-	)
 	physics.ball_collider_collision.connect(func(ball: Ball, collider: Collider, strength: float, normal: Vector3):
 		var _sconfig := DebugDraw3D.new_scoped_config().set_thickness(0.01)
 		DebugDraw3D.draw_arrow_ray(ball.position, normal, strength * 0.1, Color.RED, 0.04, false, 1.0)
