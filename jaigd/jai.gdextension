@@ -1,0 +1,8 @@
+[configuration]
+
+entry_symbol = "gdextension_init"
+compatibility_minimum = "4.5"
+
+[libraries]
+windows.debug.x86_64 = "res://jaigd/jaigd.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res://jaigd/jaigd.windows.release.x86_64.dll"
