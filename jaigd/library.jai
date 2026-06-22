@@ -1,5 +1,5 @@
 #import "Basic";
-#load "gen/gdextension.jai";
+#import "gdextension";
 
 JaiGDData :: struct {
 	get_proc_address : GDExtensionInterfaceGetProcAddress;
