@@ -2,3 +2,8 @@
 .godot/
 /android/
 jaigd/.build
+jaigd/gen
+*.dll
+*.exp
+*.lib
+*.pdb
