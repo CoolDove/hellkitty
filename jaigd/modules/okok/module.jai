@@ -12,9 +12,9 @@ ok :: (code: Code, $values: .. string, $loc:=#location()) -> bool #expand {
 	return okvalue;
 }
 
-okv :: (code: Code) -> $T #expand {
+okv :: (code: Code, default: T) -> $T #expand {
 	ok, value := #insert code;
-	return value;
+	return ifx ok then value else default;
 }
 
 #scope_file
