@@ -1,12 +1,13 @@
 #import "Basic";
 #import "Compiler";
 
-#run {
+#run,stallable {
 	print("Jai Build Started\n");
 	defer print("Jai Build Ended\n");
 	set_build_options_dc(.{do_output=false});
 
 	generate_extension_interface_bindings();
+	generate_api_bindings();
 
 	{
 		w := compiler_create_workspace();
@@ -65,3 +66,31 @@ DONE
 	write_entire_file(output_filename, new_content);
 
 }
+
+generate_api_bindings :: () {
+	Jaison :: #import "jaison";
+	{
+		push_allocator(temp);
+		print("json parsing...\n");
+		if !ok(Jaison.json_parse_file("./extension_api.json"), "data") {
+			print("failed to parse json\n");
+			return;
+		}
+		print("json parse done!\n");
+		if ok(table_find(data.object, "utility_functions"), "functions") {
+			print("parsed utility functions:\n");
+			for functions.array {
+				v := it.object;
+				// jv := cast(*Jaison.JSON_Value)(okv(table_find(v, "name")).value_pointer);
+				jv := okv(table_find(v, "name"));
+				if jv != null {
+					print("- %\n", jv.str);
+				}
+			}
+		}
+	}
+}
+
+#import "OK";
+#import "Basic";
+#import "Hash_Table";
