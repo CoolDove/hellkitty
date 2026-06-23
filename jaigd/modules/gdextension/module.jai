@@ -18,7 +18,9 @@ And put both files near to `build.jai`, then you can build the
  *
  * @param r_godot_version A pointer to the structure to write the version information into.
  */
-get_godot_version : GDExtensionInterfaceGetGodotVersion;/**
+get_godot_version : GDExtensionInterfaceGetGodotVersion;
+
+/**
  * @name get_godot_version2
  * @since 4.5
  *
@@ -26,7 +28,9 @@ get_godot_version : GDExtensionInterfaceGetGodotVersion;/**
  *
  * @param r_godot_version A pointer to the structure to write the version information into.
  */
-get_godot_version2 : GDExtensionInterfaceGetGodotVersion2;/**
+get_godot_version2 : GDExtensionInterfaceGetGodotVersion2;
+
+/**
  * @name mem_alloc
  * @since 4.1
  * @deprecated Deprecated in Godot 4.6. Does not allow explicitly requesting padding. Use `mem_alloc2` instead.
@@ -37,7 +41,9 @@ get_godot_version2 : GDExtensionInterfaceGetGodotVersion2;/**
  *
  * @return A pointer to the allocated memory, or NULL if unsuccessful.
  */
-mem_alloc : GDExtensionInterfaceMemAlloc;/**
+mem_alloc : GDExtensionInterfaceMemAlloc;
+
+/**
  * @name mem_realloc
  * @since 4.1
  * @deprecated Deprecated in Godot 4.6. Does not allow explicitly requesting padding. Use `mem_realloc2` instead.
@@ -49,7 +55,9 @@ mem_alloc : GDExtensionInterfaceMemAlloc;/**
  *
  * @return A pointer to the allocated memory, or NULL if unsuccessful.
  */
-mem_realloc : GDExtensionInterfaceMemRealloc;/**
+mem_realloc : GDExtensionInterfaceMemRealloc;
+
+/**
  * @name mem_free
  * @since 4.1
  * @deprecated Deprecated in Godot 4.6. Does not allow explicitly requesting padding. Use `mem_free2` instead.
@@ -58,7 +66,9 @@ mem_realloc : GDExtensionInterfaceMemRealloc;/**
  *
  * @param p_ptr A pointer to the previously allocated memory.
  */
-mem_free : GDExtensionInterfaceMemFree;/**
+mem_free : GDExtensionInterfaceMemFree;
+
+/**
  * @name mem_alloc2
  * @since 4.6
  *
@@ -69,7 +79,9 @@ mem_free : GDExtensionInterfaceMemFree;/**
  *
  * @return A pointer to the allocated memory, or NULL if unsuccessful.
  */
-mem_alloc2 : GDExtensionInterfaceMemAlloc2;/**
+mem_alloc2 : GDExtensionInterfaceMemAlloc2;
+
+/**
  * @name mem_realloc2
  * @since 4.6
  *
@@ -81,7 +93,9 @@ mem_alloc2 : GDExtensionInterfaceMemAlloc2;/**
  *
  * @return A pointer to the allocated memory, or NULL if unsuccessful.
  */
-mem_realloc2 : GDExtensionInterfaceMemRealloc2;/**
+mem_realloc2 : GDExtensionInterfaceMemRealloc2;
+
+/**
  * @name mem_free2
  * @since 4.6
  *
@@ -90,7 +104,9 @@ mem_realloc2 : GDExtensionInterfaceMemRealloc2;/**
  * @param p_ptr A pointer to the previously allocated memory.
  * @param p_pad_align If true, the given memory was allocated with prepadding.
  */
-mem_free2 : GDExtensionInterfaceMemFree2;/**
+mem_free2 : GDExtensionInterfaceMemFree2;
+
+/**
  * @name print_error
  * @since 4.1
  *
@@ -102,7 +118,9 @@ mem_free2 : GDExtensionInterfaceMemFree2;/**
  * @param p_line The line where the error occurred.
  * @param p_editor_notify Whether or not to notify the editor.
  */
-print_error : GDExtensionInterfacePrintError;/**
+print_error : GDExtensionInterfacePrintError;
+
+/**
  * @name print_error_with_message
  * @since 4.1
  *
@@ -115,7 +133,9 @@ print_error : GDExtensionInterfacePrintError;/**
  * @param p_line The line where the error occurred.
  * @param p_editor_notify Whether or not to notify the editor.
  */
-print_error_with_message : GDExtensionInterfacePrintErrorWithMessage;/**
+print_error_with_message : GDExtensionInterfacePrintErrorWithMessage;
+
+/**
  * @name print_warning
  * @since 4.1
  *
@@ -127,7 +147,9 @@ print_error_with_message : GDExtensionInterfacePrintErrorWithMessage;/**
  * @param p_line The line where the warning occurred.
  * @param p_editor_notify Whether or not to notify the editor.
  */
-print_warning : GDExtensionInterfacePrintWarning;/**
+print_warning : GDExtensionInterfacePrintWarning;
+
+/**
  * @name print_warning_with_message
  * @since 4.1
  *
@@ -140,7 +162,9 @@ print_warning : GDExtensionInterfacePrintWarning;/**
  * @param p_line The line where the warning occurred.
  * @param p_editor_notify Whether or not to notify the editor.
  */
-print_warning_with_message : GDExtensionInterfacePrintWarningWithMessage;/**
+print_warning_with_message : GDExtensionInterfacePrintWarningWithMessage;
+
+/**
  * @name print_script_error
  * @since 4.1
  *
@@ -152,7 +176,9 @@ print_warning_with_message : GDExtensionInterfacePrintWarningWithMessage;/**
  * @param p_line The line where the error occurred.
  * @param p_editor_notify Whether or not to notify the editor.
  */
-print_script_error : GDExtensionInterfacePrintScriptError;/**
+print_script_error : GDExtensionInterfacePrintScriptError;
+
+/**
  * @name print_script_error_with_message
  * @since 4.1
  *
@@ -165,7 +191,9 @@ print_script_error : GDExtensionInterfacePrintScriptError;/**
  * @param p_line The line where the error occurred.
  * @param p_editor_notify Whether or not to notify the editor.
  */
-print_script_error_with_message : GDExtensionInterfacePrintScriptErrorWithMessage;/**
+print_script_error_with_message : GDExtensionInterfacePrintScriptErrorWithMessage;
+
+/**
  * @name get_native_struct_size
  * @since 4.1
  *
@@ -175,7 +203,9 @@ print_script_error_with_message : GDExtensionInterfacePrintScriptErrorWithMessag
  *
  * @return The size in bytes.
  */
-get_native_struct_size : GDExtensionInterfaceGetNativeStructSize;/**
+get_native_struct_size : GDExtensionInterfaceGetNativeStructSize;
+
+/**
  * @name variant_new_copy
  * @since 4.1
  *
@@ -184,7 +214,9 @@ get_native_struct_size : GDExtensionInterfaceGetNativeStructSize;/**
  * @param r_dest A pointer to the destination Variant.
  * @param p_src A pointer to the source Variant.
  */
-variant_new_copy : GDExtensionInterfaceVariantNewCopy;/**
+variant_new_copy : GDExtensionInterfaceVariantNewCopy;
+
+/**
  * @name variant_new_nil
  * @since 4.1
  *
@@ -192,7 +224,9 @@ variant_new_copy : GDExtensionInterfaceVariantNewCopy;/**
  *
  * @param r_dest A pointer to the destination Variant.
  */
-variant_new_nil : GDExtensionInterfaceVariantNewNil;/**
+variant_new_nil : GDExtensionInterfaceVariantNewNil;
+
+/**
  * @name variant_destroy
  * @since 4.1
  *
@@ -200,7 +234,9 @@ variant_new_nil : GDExtensionInterfaceVariantNewNil;/**
  *
  * @param p_self A pointer to the Variant to destroy.
  */
-variant_destroy : GDExtensionInterfaceVariantDestroy;/**
+variant_destroy : GDExtensionInterfaceVariantDestroy;
+
+/**
  * @name variant_call
  * @since 4.1
  *
@@ -215,7 +251,9 @@ variant_destroy : GDExtensionInterfaceVariantDestroy;/**
  *
  * @see Variant::callp()
  */
-variant_call : GDExtensionInterfaceVariantCall;/**
+variant_call : GDExtensionInterfaceVariantCall;
+
+/**
  * @name variant_call_static
  * @since 4.1
  *
@@ -230,7 +268,9 @@ variant_call : GDExtensionInterfaceVariantCall;/**
  *
  * @see Variant::call_static()
  */
-variant_call_static : GDExtensionInterfaceVariantCallStatic;/**
+variant_call_static : GDExtensionInterfaceVariantCallStatic;
+
+/**
  * @name variant_evaluate
  * @since 4.1
  *
@@ -244,7 +284,9 @@ variant_call_static : GDExtensionInterfaceVariantCallStatic;/**
  *
  * @see Variant::evaluate()
  */
-variant_evaluate : GDExtensionInterfaceVariantEvaluate;/**
+variant_evaluate : GDExtensionInterfaceVariantEvaluate;
+
+/**
  * @name variant_set
  * @since 4.1
  *
@@ -257,7 +299,9 @@ variant_evaluate : GDExtensionInterfaceVariantEvaluate;/**
  *
  * @see Variant::set()
  */
-variant_set : GDExtensionInterfaceVariantSet;/**
+variant_set : GDExtensionInterfaceVariantSet;
+
+/**
  * @name variant_set_named
  * @since 4.1
  *
@@ -270,7 +314,9 @@ variant_set : GDExtensionInterfaceVariantSet;/**
  *
  * @see Variant::set_named()
  */
-variant_set_named : GDExtensionInterfaceVariantSetNamed;/**
+variant_set_named : GDExtensionInterfaceVariantSetNamed;
+
+/**
  * @name variant_set_keyed
  * @since 4.1
  *
@@ -283,7 +329,9 @@ variant_set_named : GDExtensionInterfaceVariantSetNamed;/**
  *
  * @see Variant::set_keyed()
  */
-variant_set_keyed : GDExtensionInterfaceVariantSetKeyed;/**
+variant_set_keyed : GDExtensionInterfaceVariantSetKeyed;
+
+/**
  * @name variant_set_indexed
  * @since 4.1
  *
@@ -295,7 +343,9 @@ variant_set_keyed : GDExtensionInterfaceVariantSetKeyed;/**
  * @param r_valid A pointer to a boolean which will be set to false if the operation is invalid.
  * @param r_oob A pointer to a boolean which will be set to true if the index is out of bounds.
  */
-variant_set_indexed : GDExtensionInterfaceVariantSetIndexed;/**
+variant_set_indexed : GDExtensionInterfaceVariantSetIndexed;
+
+/**
  * @name variant_get
  * @since 4.1
  *
@@ -306,7 +356,9 @@ variant_set_indexed : GDExtensionInterfaceVariantSetIndexed;/**
  * @param r_ret A pointer to a Variant which will be assigned the value.
  * @param r_valid A pointer to a boolean which will be set to false if the operation is invalid.
  */
-variant_get : GDExtensionInterfaceVariantGet;/**
+variant_get : GDExtensionInterfaceVariantGet;
+
+/**
  * @name variant_get_named
  * @since 4.1
  *
@@ -317,7 +369,9 @@ variant_get : GDExtensionInterfaceVariantGet;/**
  * @param r_ret A pointer to a Variant which will be assigned the value.
  * @param r_valid A pointer to a boolean which will be set to false if the operation is invalid.
  */
-variant_get_named : GDExtensionInterfaceVariantGetNamed;/**
+variant_get_named : GDExtensionInterfaceVariantGetNamed;
+
+/**
  * @name variant_get_keyed
  * @since 4.1
  *
@@ -328,7 +382,9 @@ variant_get_named : GDExtensionInterfaceVariantGetNamed;/**
  * @param r_ret A pointer to a Variant which will be assigned the value.
  * @param r_valid A pointer to a boolean which will be set to false if the operation is invalid.
  */
-variant_get_keyed : GDExtensionInterfaceVariantGetKeyed;/**
+variant_get_keyed : GDExtensionInterfaceVariantGetKeyed;
+
+/**
  * @name variant_get_indexed
  * @since 4.1
  *
@@ -340,7 +396,9 @@ variant_get_keyed : GDExtensionInterfaceVariantGetKeyed;/**
  * @param r_valid A pointer to a boolean which will be set to false if the operation is invalid.
  * @param r_oob A pointer to a boolean which will be set to true if the index is out of bounds.
  */
-variant_get_indexed : GDExtensionInterfaceVariantGetIndexed;/**
+variant_get_indexed : GDExtensionInterfaceVariantGetIndexed;
+
+/**
  * @name variant_iter_init
  * @since 4.1
  *
@@ -354,7 +412,9 @@ variant_get_indexed : GDExtensionInterfaceVariantGetIndexed;/**
  *
  * @see Variant::iter_init()
  */
-variant_iter_init : GDExtensionInterfaceVariantIterInit;/**
+variant_iter_init : GDExtensionInterfaceVariantIterInit;
+
+/**
  * @name variant_iter_next
  * @since 4.1
  *
@@ -368,7 +428,9 @@ variant_iter_init : GDExtensionInterfaceVariantIterInit;/**
  *
  * @see Variant::iter_next()
  */
-variant_iter_next : GDExtensionInterfaceVariantIterNext;/**
+variant_iter_next : GDExtensionInterfaceVariantIterNext;
+
+/**
  * @name variant_iter_get
  * @since 4.1
  *
@@ -381,7 +443,9 @@ variant_iter_next : GDExtensionInterfaceVariantIterNext;/**
  *
  * @see Variant::iter_get()
  */
-variant_iter_get : GDExtensionInterfaceVariantIterGet;/**
+variant_iter_get : GDExtensionInterfaceVariantIterGet;
+
+/**
  * @name variant_hash
  * @since 4.1
  *
@@ -393,7 +457,9 @@ variant_iter_get : GDExtensionInterfaceVariantIterGet;/**
  *
  * @see Variant::hash()
  */
-variant_hash : GDExtensionInterfaceVariantHash;/**
+variant_hash : GDExtensionInterfaceVariantHash;
+
+/**
  * @name variant_recursive_hash
  * @since 4.1
  *
@@ -406,7 +472,9 @@ variant_hash : GDExtensionInterfaceVariantHash;/**
  *
  * @see Variant::recursive_hash()
  */
-variant_recursive_hash : GDExtensionInterfaceVariantRecursiveHash;/**
+variant_recursive_hash : GDExtensionInterfaceVariantRecursiveHash;
+
+/**
  * @name variant_hash_compare
  * @since 4.1
  *
@@ -419,7 +487,9 @@ variant_recursive_hash : GDExtensionInterfaceVariantRecursiveHash;/**
  *
  * @see Variant::hash_compare()
  */
-variant_hash_compare : GDExtensionInterfaceVariantHashCompare;/**
+variant_hash_compare : GDExtensionInterfaceVariantHashCompare;
+
+/**
  * @name variant_booleanize
  * @since 4.1
  *
@@ -429,7 +499,9 @@ variant_hash_compare : GDExtensionInterfaceVariantHashCompare;/**
  *
  * @return The boolean value of the Variant.
  */
-variant_booleanize : GDExtensionInterfaceVariantBooleanize;/**
+variant_booleanize : GDExtensionInterfaceVariantBooleanize;
+
+/**
  * @name variant_duplicate
  * @since 4.1
  *
@@ -439,7 +511,9 @@ variant_booleanize : GDExtensionInterfaceVariantBooleanize;/**
  * @param r_ret A pointer to a Variant to store the duplicated value.
  * @param p_deep Whether or not to duplicate deeply (when supported by the Variant type).
  */
-variant_duplicate : GDExtensionInterfaceVariantDuplicate;/**
+variant_duplicate : GDExtensionInterfaceVariantDuplicate;
+
+/**
  * @name variant_stringify
  * @since 4.1
  *
@@ -448,7 +522,9 @@ variant_duplicate : GDExtensionInterfaceVariantDuplicate;/**
  * @param p_self A pointer to the Variant.
  * @param r_ret A pointer to a String to store the resulting value.
  */
-variant_stringify : GDExtensionInterfaceVariantStringify;/**
+variant_stringify : GDExtensionInterfaceVariantStringify;
+
+/**
  * @name variant_get_type
  * @since 4.1
  *
@@ -458,7 +534,9 @@ variant_stringify : GDExtensionInterfaceVariantStringify;/**
  *
  * @return The variant type.
  */
-variant_get_type : GDExtensionInterfaceVariantGetType;/**
+variant_get_type : GDExtensionInterfaceVariantGetType;
+
+/**
  * @name variant_has_method
  * @since 4.1
  *
@@ -469,7 +547,9 @@ variant_get_type : GDExtensionInterfaceVariantGetType;/**
  *
  * @return true if the variant has the given method; otherwise false.
  */
-variant_has_method : GDExtensionInterfaceVariantHasMethod;/**
+variant_has_method : GDExtensionInterfaceVariantHasMethod;
+
+/**
  * @name variant_has_member
  * @since 4.1
  *
@@ -480,7 +560,9 @@ variant_has_method : GDExtensionInterfaceVariantHasMethod;/**
  *
  * @return true if the variant has the given method; otherwise false.
  */
-variant_has_member : GDExtensionInterfaceVariantHasMember;/**
+variant_has_member : GDExtensionInterfaceVariantHasMember;
+
+/**
  * @name variant_has_key
  * @since 4.1
  *
@@ -492,7 +574,9 @@ variant_has_member : GDExtensionInterfaceVariantHasMember;/**
  *
  * @return true if the key exists; otherwise false.
  */
-variant_has_key : GDExtensionInterfaceVariantHasKey;/**
+variant_has_key : GDExtensionInterfaceVariantHasKey;
+
+/**
  * @name variant_get_object_instance_id
  * @since 4.4
  *
@@ -505,7 +589,9 @@ variant_has_key : GDExtensionInterfaceVariantHasKey;/**
  *
  * @return The instance ID for the contained object.
  */
-variant_get_object_instance_id : GDExtensionInterfaceVariantGetObjectInstanceId;/**
+variant_get_object_instance_id : GDExtensionInterfaceVariantGetObjectInstanceId;
+
+/**
  * @name variant_get_type_name
  * @since 4.1
  *
@@ -514,7 +600,9 @@ variant_get_object_instance_id : GDExtensionInterfaceVariantGetObjectInstanceId;
  * @param p_type The Variant type.
  * @param r_name A pointer to a String to store the Variant type name.
  */
-variant_get_type_name : GDExtensionInterfaceVariantGetTypeName;/**
+variant_get_type_name : GDExtensionInterfaceVariantGetTypeName;
+
+/**
  * @name variant_get_type_by_name
  * @since 4.7
  *
@@ -524,7 +612,9 @@ variant_get_type_name : GDExtensionInterfaceVariantGetTypeName;/**
  *
  * @return The variant type for the given name; otherwise VARIANT_MAX if name is invalid.
  */
-variant_get_type_by_name : GDExtensionInterfaceVariantGetTypeByName;/**
+variant_get_type_by_name : GDExtensionInterfaceVariantGetTypeByName;
+
+/**
  * @name variant_can_convert
  * @since 4.1
  *
@@ -535,7 +625,9 @@ variant_get_type_by_name : GDExtensionInterfaceVariantGetTypeByName;/**
  *
  * @return true if the conversion is possible; otherwise false.
  */
-variant_can_convert : GDExtensionInterfaceVariantCanConvert;/**
+variant_can_convert : GDExtensionInterfaceVariantCanConvert;
+
+/**
  * @name variant_can_convert_strict
  * @since 4.1
  *
@@ -546,7 +638,9 @@ variant_can_convert : GDExtensionInterfaceVariantCanConvert;/**
  *
  * @return true if the conversion is possible; otherwise false.
  */
-variant_can_convert_strict : GDExtensionInterfaceVariantCanConvertStrict;/**
+variant_can_convert_strict : GDExtensionInterfaceVariantCanConvertStrict;
+
+/**
  * @name get_variant_from_type_constructor
  * @since 4.1
  *
@@ -556,7 +650,9 @@ variant_can_convert_strict : GDExtensionInterfaceVariantCanConvertStrict;/**
  *
  * @return A pointer to a function that can create a Variant of the given type from a raw value.
  */
-get_variant_from_type_constructor : GDExtensionInterfaceGetVariantFromTypeConstructor;/**
+get_variant_from_type_constructor : GDExtensionInterfaceGetVariantFromTypeConstructor;
+
+/**
  * @name get_variant_to_type_constructor
  * @since 4.1
  *
@@ -566,7 +662,9 @@ get_variant_from_type_constructor : GDExtensionInterfaceGetVariantFromTypeConstr
  *
  * @return A pointer to a function that can get the raw value from a Variant of the given type.
  */
-get_variant_to_type_constructor : GDExtensionInterfaceGetVariantToTypeConstructor;/**
+get_variant_to_type_constructor : GDExtensionInterfaceGetVariantToTypeConstructor;
+
+/**
  * @name variant_get_ptr_internal_getter
  * @since 4.4
  *
@@ -582,7 +680,9 @@ get_variant_to_type_constructor : GDExtensionInterfaceGetVariantToTypeConstructo
  *
  * @return A pointer to a type-specific function that returns a pointer to the internal value of a variant. Check the implementation of this function (gdextension_variant_get_ptr_internal_getter) for pointee type info of each variant type.
  */
-variant_get_ptr_internal_getter : GDExtensionInterfaceGetVariantGetInternalPtrFunc;/**
+variant_get_ptr_internal_getter : GDExtensionInterfaceGetVariantGetInternalPtrFunc;
+
+/**
  * @name variant_get_ptr_operator_evaluator
  * @since 4.1
  *
@@ -594,7 +694,9 @@ variant_get_ptr_internal_getter : GDExtensionInterfaceGetVariantGetInternalPtrFu
  *
  * @return A pointer to a function that can evaluate the given Variant operator on the given Variant types.
  */
-variant_get_ptr_operator_evaluator : GDExtensionInterfaceVariantGetPtrOperatorEvaluator;/**
+variant_get_ptr_operator_evaluator : GDExtensionInterfaceVariantGetPtrOperatorEvaluator;
+
+/**
  * @name variant_get_ptr_builtin_method
  * @since 4.1
  *
@@ -606,7 +708,9 @@ variant_get_ptr_operator_evaluator : GDExtensionInterfaceVariantGetPtrOperatorEv
  *
  * @return A pointer to a function that can call a builtin method on a type of Variant.
  */
-variant_get_ptr_builtin_method : GDExtensionInterfaceVariantGetPtrBuiltinMethod;/**
+variant_get_ptr_builtin_method : GDExtensionInterfaceVariantGetPtrBuiltinMethod;
+
+/**
  * @name variant_get_ptr_constructor
  * @since 4.1
  *
@@ -617,7 +721,9 @@ variant_get_ptr_builtin_method : GDExtensionInterfaceVariantGetPtrBuiltinMethod;
  *
  * @return A pointer to a function that can call one of the constructors for a type of Variant.
  */
-variant_get_ptr_constructor : GDExtensionInterfaceVariantGetPtrConstructor;/**
+variant_get_ptr_constructor : GDExtensionInterfaceVariantGetPtrConstructor;
+
+/**
  * @name variant_get_ptr_destructor
  * @since 4.1
  *
@@ -627,7 +733,9 @@ variant_get_ptr_constructor : GDExtensionInterfaceVariantGetPtrConstructor;/**
  *
  * @return A pointer to a function than can call the destructor for a type of Variant.
  */
-variant_get_ptr_destructor : GDExtensionInterfaceVariantGetPtrDestructor;/**
+variant_get_ptr_destructor : GDExtensionInterfaceVariantGetPtrDestructor;
+
+/**
  * @name variant_construct
  * @since 4.1
  *
@@ -639,7 +747,9 @@ variant_get_ptr_destructor : GDExtensionInterfaceVariantGetPtrDestructor;/**
  * @param p_argument_count The number of arguments to pass to the constructor.
  * @param r_error A pointer the structure which will be updated with error information.
  */
-variant_construct : GDExtensionInterfaceVariantConstruct;/**
+variant_construct : GDExtensionInterfaceVariantConstruct;
+
+/**
  * @name variant_get_ptr_setter
  * @since 4.1
  *
@@ -650,7 +760,9 @@ variant_construct : GDExtensionInterfaceVariantConstruct;/**
  *
  * @return A pointer to a function that can call a member's setter on the given Variant type.
  */
-variant_get_ptr_setter : GDExtensionInterfaceVariantGetPtrSetter;/**
+variant_get_ptr_setter : GDExtensionInterfaceVariantGetPtrSetter;
+
+/**
  * @name variant_get_ptr_getter
  * @since 4.1
  *
@@ -661,7 +773,9 @@ variant_get_ptr_setter : GDExtensionInterfaceVariantGetPtrSetter;/**
  *
  * @return A pointer to a function that can call a member's getter on the given Variant type.
  */
-variant_get_ptr_getter : GDExtensionInterfaceVariantGetPtrGetter;/**
+variant_get_ptr_getter : GDExtensionInterfaceVariantGetPtrGetter;
+
+/**
  * @name variant_get_ptr_indexed_setter
  * @since 4.1
  *
@@ -671,7 +785,9 @@ variant_get_ptr_getter : GDExtensionInterfaceVariantGetPtrGetter;/**
  *
  * @return A pointer to a function that can set an index on the given Variant type.
  */
-variant_get_ptr_indexed_setter : GDExtensionInterfaceVariantGetPtrIndexedSetter;/**
+variant_get_ptr_indexed_setter : GDExtensionInterfaceVariantGetPtrIndexedSetter;
+
+/**
  * @name variant_get_ptr_indexed_getter
  * @since 4.1
  *
@@ -681,7 +797,9 @@ variant_get_ptr_indexed_setter : GDExtensionInterfaceVariantGetPtrIndexedSetter;
  *
  * @return A pointer to a function that can get an index on the given Variant type.
  */
-variant_get_ptr_indexed_getter : GDExtensionInterfaceVariantGetPtrIndexedGetter;/**
+variant_get_ptr_indexed_getter : GDExtensionInterfaceVariantGetPtrIndexedGetter;
+
+/**
  * @name variant_get_ptr_keyed_setter
  * @since 4.1
  *
@@ -691,7 +809,9 @@ variant_get_ptr_indexed_getter : GDExtensionInterfaceVariantGetPtrIndexedGetter;
  *
  * @return A pointer to a function that can set a key on the given Variant type.
  */
-variant_get_ptr_keyed_setter : GDExtensionInterfaceVariantGetPtrKeyedSetter;/**
+variant_get_ptr_keyed_setter : GDExtensionInterfaceVariantGetPtrKeyedSetter;
+
+/**
  * @name variant_get_ptr_keyed_getter
  * @since 4.1
  *
@@ -701,7 +821,9 @@ variant_get_ptr_keyed_setter : GDExtensionInterfaceVariantGetPtrKeyedSetter;/**
  *
  * @return A pointer to a function that can get a key on the given Variant type.
  */
-variant_get_ptr_keyed_getter : GDExtensionInterfaceVariantGetPtrKeyedGetter;/**
+variant_get_ptr_keyed_getter : GDExtensionInterfaceVariantGetPtrKeyedGetter;
+
+/**
  * @name variant_get_ptr_keyed_checker
  * @since 4.1
  *
@@ -711,7 +833,9 @@ variant_get_ptr_keyed_getter : GDExtensionInterfaceVariantGetPtrKeyedGetter;/**
  *
  * @return A pointer to a function that can check a key on the given Variant type.
  */
-variant_get_ptr_keyed_checker : GDExtensionInterfaceVariantGetPtrKeyedChecker;/**
+variant_get_ptr_keyed_checker : GDExtensionInterfaceVariantGetPtrKeyedChecker;
+
+/**
  * @name variant_get_constant_value
  * @since 4.1
  *
@@ -721,7 +845,9 @@ variant_get_ptr_keyed_checker : GDExtensionInterfaceVariantGetPtrKeyedChecker;/*
  * @param p_constant A pointer to a StringName with the constant name.
  * @param r_ret A pointer to a Variant to store the value.
  */
-variant_get_constant_value : GDExtensionInterfaceVariantGetConstantValue;/**
+variant_get_constant_value : GDExtensionInterfaceVariantGetConstantValue;
+
+/**
  * @name variant_get_ptr_utility_function
  * @since 4.1
  *
@@ -732,7 +858,9 @@ variant_get_constant_value : GDExtensionInterfaceVariantGetConstantValue;/**
  *
  * @return A pointer to a function that can call a Variant utility function.
  */
-variant_get_ptr_utility_function : GDExtensionInterfaceVariantGetPtrUtilityFunction;/**
+variant_get_ptr_utility_function : GDExtensionInterfaceVariantGetPtrUtilityFunction;
+
+/**
  * @name string_new_with_latin1_chars
  * @since 4.1
  *
@@ -741,7 +869,9 @@ variant_get_ptr_utility_function : GDExtensionInterfaceVariantGetPtrUtilityFunct
  * @param r_dest A pointer to a Variant to hold the newly created String.
  * @param p_contents A pointer to a Latin-1 encoded C string (null terminated).
  */
-string_new_with_latin1_chars : GDExtensionInterfaceStringNewWithLatin1Chars;/**
+string_new_with_latin1_chars : GDExtensionInterfaceStringNewWithLatin1Chars;
+
+/**
  * @name string_new_with_utf8_chars
  * @since 4.1
  *
@@ -750,7 +880,9 @@ string_new_with_latin1_chars : GDExtensionInterfaceStringNewWithLatin1Chars;/**
  * @param r_dest A pointer to a Variant to hold the newly created String.
  * @param p_contents A pointer to a UTF-8 encoded C string (null terminated).
  */
-string_new_with_utf8_chars : GDExtensionInterfaceStringNewWithUtf8Chars;/**
+string_new_with_utf8_chars : GDExtensionInterfaceStringNewWithUtf8Chars;
+
+/**
  * @name string_new_with_utf16_chars
  * @since 4.1
  *
@@ -759,7 +891,9 @@ string_new_with_utf8_chars : GDExtensionInterfaceStringNewWithUtf8Chars;/**
  * @param r_dest A pointer to a Variant to hold the newly created String.
  * @param p_contents A pointer to a UTF-16 encoded C string (null terminated).
  */
-string_new_with_utf16_chars : GDExtensionInterfaceStringNewWithUtf16Chars;/**
+string_new_with_utf16_chars : GDExtensionInterfaceStringNewWithUtf16Chars;
+
+/**
  * @name string_new_with_utf32_chars
  * @since 4.1
  *
@@ -768,7 +902,9 @@ string_new_with_utf16_chars : GDExtensionInterfaceStringNewWithUtf16Chars;/**
  * @param r_dest A pointer to a Variant to hold the newly created String.
  * @param p_contents A pointer to a UTF-32 encoded C string (null terminated).
  */
-string_new_with_utf32_chars : GDExtensionInterfaceStringNewWithUtf32Chars;/**
+string_new_with_utf32_chars : GDExtensionInterfaceStringNewWithUtf32Chars;
+
+/**
  * @name string_new_with_wide_chars
  * @since 4.1
  *
@@ -777,7 +913,9 @@ string_new_with_utf32_chars : GDExtensionInterfaceStringNewWithUtf32Chars;/**
  * @param r_dest A pointer to a Variant to hold the newly created String.
  * @param p_contents A pointer to a wide C string (null terminated).
  */
-string_new_with_wide_chars : GDExtensionInterfaceStringNewWithWideChars;/**
+string_new_with_wide_chars : GDExtensionInterfaceStringNewWithWideChars;
+
+/**
  * @name string_new_with_latin1_chars_and_len
  * @since 4.1
  *
@@ -787,7 +925,9 @@ string_new_with_wide_chars : GDExtensionInterfaceStringNewWithWideChars;/**
  * @param p_contents A pointer to a Latin-1 encoded C string.
  * @param p_size The number of characters (= number of bytes).
  */
-string_new_with_latin1_chars_and_len : GDExtensionInterfaceStringNewWithLatin1CharsAndLen;/**
+string_new_with_latin1_chars_and_len : GDExtensionInterfaceStringNewWithLatin1CharsAndLen;
+
+/**
  * @name string_new_with_utf8_chars_and_len
  * @since 4.1
  * @deprecated Deprecated in Godot 4.3. Use `string_new_with_utf8_chars_and_len2` instead.
@@ -798,7 +938,9 @@ string_new_with_latin1_chars_and_len : GDExtensionInterfaceStringNewWithLatin1Ch
  * @param p_contents A pointer to a UTF-8 encoded C string.
  * @param p_size The number of bytes (not code units).
  */
-string_new_with_utf8_chars_and_len : GDExtensionInterfaceStringNewWithUtf8CharsAndLen;/**
+string_new_with_utf8_chars_and_len : GDExtensionInterfaceStringNewWithUtf8CharsAndLen;
+
+/**
  * @name string_new_with_utf8_chars_and_len2
  * @since 4.3
  *
@@ -810,7 +952,9 @@ string_new_with_utf8_chars_and_len : GDExtensionInterfaceStringNewWithUtf8CharsA
  *
  * @return Error code signifying if the operation successful.
  */
-string_new_with_utf8_chars_and_len2 : GDExtensionInterfaceStringNewWithUtf8CharsAndLen2;/**
+string_new_with_utf8_chars_and_len2 : GDExtensionInterfaceStringNewWithUtf8CharsAndLen2;
+
+/**
  * @name string_new_with_utf16_chars_and_len
  * @since 4.1
  * @deprecated Deprecated in Godot 4.3. Use `string_new_with_utf16_chars_and_len2` instead.
@@ -821,7 +965,9 @@ string_new_with_utf8_chars_and_len2 : GDExtensionInterfaceStringNewWithUtf8Chars
  * @param p_contents A pointer to a UTF-16 encoded C string.
  * @param p_char_count The number of characters (not bytes).
  */
-string_new_with_utf16_chars_and_len : GDExtensionInterfaceStringNewWithUtf16CharsAndLen;/**
+string_new_with_utf16_chars_and_len : GDExtensionInterfaceStringNewWithUtf16CharsAndLen;
+
+/**
  * @name string_new_with_utf16_chars_and_len2
  * @since 4.3
  *
@@ -834,7 +980,9 @@ string_new_with_utf16_chars_and_len : GDExtensionInterfaceStringNewWithUtf16Char
  *
  * @return Error code signifying if the operation successful.
  */
-string_new_with_utf16_chars_and_len2 : GDExtensionInterfaceStringNewWithUtf16CharsAndLen2;/**
+string_new_with_utf16_chars_and_len2 : GDExtensionInterfaceStringNewWithUtf16CharsAndLen2;
+
+/**
  * @name string_new_with_utf32_chars_and_len
  * @since 4.1
  *
@@ -844,7 +992,9 @@ string_new_with_utf16_chars_and_len2 : GDExtensionInterfaceStringNewWithUtf16Cha
  * @param p_contents A pointer to a UTF-32 encoded C string.
  * @param p_char_count The number of characters (not bytes).
  */
-string_new_with_utf32_chars_and_len : GDExtensionInterfaceStringNewWithUtf32CharsAndLen;/**
+string_new_with_utf32_chars_and_len : GDExtensionInterfaceStringNewWithUtf32CharsAndLen;
+
+/**
  * @name string_new_with_wide_chars_and_len
  * @since 4.1
  *
@@ -854,7 +1004,9 @@ string_new_with_utf32_chars_and_len : GDExtensionInterfaceStringNewWithUtf32Char
  * @param p_contents A pointer to a wide C string.
  * @param p_char_count The number of characters (not bytes).
  */
-string_new_with_wide_chars_and_len : GDExtensionInterfaceStringNewWithWideCharsAndLen;/**
+string_new_with_wide_chars_and_len : GDExtensionInterfaceStringNewWithWideCharsAndLen;
+
+/**
  * @name string_to_latin1_chars
  * @since 4.1
  *
@@ -868,7 +1020,9 @@ string_new_with_wide_chars_and_len : GDExtensionInterfaceStringNewWithWideCharsA
  *
  * @return The resulting encoded string length in characters, not including a null terminator. Characters that cannot be converted to Latin-1 are replaced with a space.
  */
-string_to_latin1_chars : GDExtensionInterfaceStringToLatin1Chars;/**
+string_to_latin1_chars : GDExtensionInterfaceStringToLatin1Chars;
+
+/**
  * @name string_to_utf8_chars
  * @since 4.1
  *
@@ -882,7 +1036,9 @@ string_to_latin1_chars : GDExtensionInterfaceStringToLatin1Chars;/**
  *
  * @return The resulting encoded string length in bytes (not characters), not including a null terminator.
  */
-string_to_utf8_chars : GDExtensionInterfaceStringToUtf8Chars;/**
+string_to_utf8_chars : GDExtensionInterfaceStringToUtf8Chars;
+
+/**
  * @name string_to_utf16_chars
  * @since 4.1
  *
@@ -896,7 +1052,9 @@ string_to_utf8_chars : GDExtensionInterfaceStringToUtf8Chars;/**
  *
  * @return The resulting encoded string length in 16-bit code units (not bytes or characters), not including a null terminator.
  */
-string_to_utf16_chars : GDExtensionInterfaceStringToUtf16Chars;/**
+string_to_utf16_chars : GDExtensionInterfaceStringToUtf16Chars;
+
+/**
  * @name string_to_utf32_chars
  * @since 4.1
  *
@@ -910,7 +1068,9 @@ string_to_utf16_chars : GDExtensionInterfaceStringToUtf16Chars;/**
  *
  * @return The resulting encoded string length in characters (not bytes), not including a null terminator.
  */
-string_to_utf32_chars : GDExtensionInterfaceStringToUtf32Chars;/**
+string_to_utf32_chars : GDExtensionInterfaceStringToUtf32Chars;
+
+/**
  * @name string_to_wide_chars
  * @since 4.1
  *
@@ -924,7 +1084,9 @@ string_to_utf32_chars : GDExtensionInterfaceStringToUtf32Chars;/**
  *
  * @return The resulting encoded string length in characters (for UTF-32) or 16-bit code units (for UTF-16), depending on the wchar_t representation. Does not include a null terminator.
  */
-string_to_wide_chars : GDExtensionInterfaceStringToWideChars;/**
+string_to_wide_chars : GDExtensionInterfaceStringToWideChars;
+
+/**
  * @name string_operator_index
  * @since 4.1
  *
@@ -935,7 +1097,9 @@ string_to_wide_chars : GDExtensionInterfaceStringToWideChars;/**
  *
  * @return A pointer to the requested character.
  */
-string_operator_index : GDExtensionInterfaceStringOperatorIndex;/**
+string_operator_index : GDExtensionInterfaceStringOperatorIndex;
+
+/**
  * @name string_operator_index_const
  * @since 4.1
  *
@@ -946,7 +1110,9 @@ string_operator_index : GDExtensionInterfaceStringOperatorIndex;/**
  *
  * @return A const pointer to the requested character.
  */
-string_operator_index_const : GDExtensionInterfaceStringOperatorIndexConst;/**
+string_operator_index_const : GDExtensionInterfaceStringOperatorIndexConst;
+
+/**
  * @name string_operator_plus_eq_string
  * @since 4.1
  *
@@ -955,7 +1121,9 @@ string_operator_index_const : GDExtensionInterfaceStringOperatorIndexConst;/**
  * @param p_self A pointer to the String.
  * @param p_b A pointer to the other String to append.
  */
-string_operator_plus_eq_string : GDExtensionInterfaceStringOperatorPlusEqString;/**
+string_operator_plus_eq_string : GDExtensionInterfaceStringOperatorPlusEqString;
+
+/**
  * @name string_operator_plus_eq_char
  * @since 4.1
  *
@@ -964,7 +1132,9 @@ string_operator_plus_eq_string : GDExtensionInterfaceStringOperatorPlusEqString;
  * @param p_self A pointer to the String.
  * @param p_b A pointer to the character to append.
  */
-string_operator_plus_eq_char : GDExtensionInterfaceStringOperatorPlusEqChar;/**
+string_operator_plus_eq_char : GDExtensionInterfaceStringOperatorPlusEqChar;
+
+/**
  * @name string_operator_plus_eq_cstr
  * @since 4.1
  *
@@ -973,7 +1143,9 @@ string_operator_plus_eq_char : GDExtensionInterfaceStringOperatorPlusEqChar;/**
  * @param p_self A pointer to the String.
  * @param p_b A pointer to a Latin-1 encoded C string (null terminated).
  */
-string_operator_plus_eq_cstr : GDExtensionInterfaceStringOperatorPlusEqCstr;/**
+string_operator_plus_eq_cstr : GDExtensionInterfaceStringOperatorPlusEqCstr;
+
+/**
  * @name string_operator_plus_eq_wcstr
  * @since 4.1
  *
@@ -982,7 +1154,9 @@ string_operator_plus_eq_cstr : GDExtensionInterfaceStringOperatorPlusEqCstr;/**
  * @param p_self A pointer to the String.
  * @param p_b A pointer to a wide C string (null terminated).
  */
-string_operator_plus_eq_wcstr : GDExtensionInterfaceStringOperatorPlusEqWcstr;/**
+string_operator_plus_eq_wcstr : GDExtensionInterfaceStringOperatorPlusEqWcstr;
+
+/**
  * @name string_operator_plus_eq_c32str
  * @since 4.1
  *
@@ -991,7 +1165,9 @@ string_operator_plus_eq_wcstr : GDExtensionInterfaceStringOperatorPlusEqWcstr;/*
  * @param p_self A pointer to the String.
  * @param p_b A pointer to a UTF-32 encoded C string (null terminated).
  */
-string_operator_plus_eq_c32str : GDExtensionInterfaceStringOperatorPlusEqC32str;/**
+string_operator_plus_eq_c32str : GDExtensionInterfaceStringOperatorPlusEqC32str;
+
+/**
  * @name string_resize
  * @since 4.2
  *
@@ -1008,7 +1184,9 @@ string_operator_plus_eq_c32str : GDExtensionInterfaceStringOperatorPlusEqC32str;
  *
  * @return Error code signifying if the operation successful.
  */
-string_resize : GDExtensionInterfaceStringResize;/**
+string_resize : GDExtensionInterfaceStringResize;
+
+/**
  * @name string_name_new_with_latin1_chars
  * @since 4.2
  *
@@ -1025,7 +1203,9 @@ string_resize : GDExtensionInterfaceStringResize;/**
  * @param p_contents A pointer to a C string (null terminated and Latin-1 or ASCII encoded).
  * @param p_is_static Whether the StringName reuses the buffer directly (see above).
  */
-string_name_new_with_latin1_chars : GDExtensionInterfaceStringNameNewWithLatin1Chars;/**
+string_name_new_with_latin1_chars : GDExtensionInterfaceStringNameNewWithLatin1Chars;
+
+/**
  * @name string_name_new_with_utf8_chars
  * @since 4.2
  *
@@ -1034,7 +1214,9 @@ string_name_new_with_latin1_chars : GDExtensionInterfaceStringNameNewWithLatin1C
  * @param r_dest A pointer to uninitialized storage, into which the newly created StringName is constructed.
  * @param p_contents A pointer to a C string (null terminated and UTF-8 encoded).
  */
-string_name_new_with_utf8_chars : GDExtensionInterfaceStringNameNewWithUtf8Chars;/**
+string_name_new_with_utf8_chars : GDExtensionInterfaceStringNameNewWithUtf8Chars;
+
+/**
  * @name string_name_new_with_utf8_chars_and_len
  * @since 4.2
  *
@@ -1044,7 +1226,9 @@ string_name_new_with_utf8_chars : GDExtensionInterfaceStringNameNewWithUtf8Chars
  * @param p_contents A pointer to a C string (null terminated and UTF-8 encoded).
  * @param p_size The number of bytes (not UTF-8 code points).
  */
-string_name_new_with_utf8_chars_and_len : GDExtensionInterfaceStringNameNewWithUtf8CharsAndLen;/**
+string_name_new_with_utf8_chars_and_len : GDExtensionInterfaceStringNameNewWithUtf8CharsAndLen;
+
+/**
  * @name xml_parser_open_buffer
  * @since 4.1
  *
@@ -1058,7 +1242,9 @@ string_name_new_with_utf8_chars_and_len : GDExtensionInterfaceStringNameNewWithU
  *
  * @see XMLParser::open_buffer()
  */
-xml_parser_open_buffer : GDExtensionInterfaceXmlParserOpenBuffer;/**
+xml_parser_open_buffer : GDExtensionInterfaceXmlParserOpenBuffer;
+
+/**
  * @name file_access_store_buffer
  * @since 4.1
  *
@@ -1070,7 +1256,9 @@ xml_parser_open_buffer : GDExtensionInterfaceXmlParserOpenBuffer;/**
  *
  * @see FileAccess::store_buffer()
  */
-file_access_store_buffer : GDExtensionInterfaceFileAccessStoreBuffer;/**
+file_access_store_buffer : GDExtensionInterfaceFileAccessStoreBuffer;
+
+/**
  * @name file_access_get_buffer
  * @since 4.1
  *
@@ -1082,7 +1270,9 @@ file_access_store_buffer : GDExtensionInterfaceFileAccessStoreBuffer;/**
  *
  * @return The actual number of bytes read (may be less than requested).
  */
-file_access_get_buffer : GDExtensionInterfaceFileAccessGetBuffer;/**
+file_access_get_buffer : GDExtensionInterfaceFileAccessGetBuffer;
+
+/**
  * @name image_ptrw
  * @since 4.3
  *
@@ -1094,7 +1284,9 @@ file_access_get_buffer : GDExtensionInterfaceFileAccessGetBuffer;/**
  *
  * @see Image::ptrw()
  */
-image_ptrw : GDExtensionInterfaceImagePtrw;/**
+image_ptrw : GDExtensionInterfaceImagePtrw;
+
+/**
  * @name image_ptr
  * @since 4.3
  *
@@ -1106,7 +1298,9 @@ image_ptrw : GDExtensionInterfaceImagePtrw;/**
  *
  * @see Image::ptr()
  */
-image_ptr : GDExtensionInterfaceImagePtr;/**
+image_ptr : GDExtensionInterfaceImagePtr;
+
+/**
  * @name worker_thread_pool_add_native_group_task
  * @since 4.1
  *
@@ -1124,7 +1318,9 @@ image_ptr : GDExtensionInterfaceImagePtr;/**
  *
  * @see WorkerThreadPool::add_group_task()
  */
-worker_thread_pool_add_native_group_task : GDExtensionInterfaceWorkerThreadPoolAddNativeGroupTask;/**
+worker_thread_pool_add_native_group_task : GDExtensionInterfaceWorkerThreadPoolAddNativeGroupTask;
+
+/**
  * @name worker_thread_pool_add_native_task
  * @since 4.1
  *
@@ -1138,7 +1334,9 @@ worker_thread_pool_add_native_group_task : GDExtensionInterfaceWorkerThreadPoolA
  *
  * @return The task ID.
  */
-worker_thread_pool_add_native_task : GDExtensionInterfaceWorkerThreadPoolAddNativeTask;/**
+worker_thread_pool_add_native_task : GDExtensionInterfaceWorkerThreadPoolAddNativeTask;
+
+/**
  * @name packed_byte_array_operator_index
  * @since 4.1
  *
@@ -1149,7 +1347,9 @@ worker_thread_pool_add_native_task : GDExtensionInterfaceWorkerThreadPoolAddNati
  *
  * @return A pointer to the requested byte.
  */
-packed_byte_array_operator_index : GDExtensionInterfacePackedByteArrayOperatorIndex;/**
+packed_byte_array_operator_index : GDExtensionInterfacePackedByteArrayOperatorIndex;
+
+/**
  * @name packed_byte_array_operator_index_const
  * @since 4.1
  *
@@ -1160,7 +1360,9 @@ packed_byte_array_operator_index : GDExtensionInterfacePackedByteArrayOperatorIn
  *
  * @return A const pointer to the requested byte.
  */
-packed_byte_array_operator_index_const : GDExtensionInterfacePackedByteArrayOperatorIndexConst;/**
+packed_byte_array_operator_index_const : GDExtensionInterfacePackedByteArrayOperatorIndexConst;
+
+/**
  * @name packed_float32_array_operator_index
  * @since 4.1
  *
@@ -1171,7 +1373,9 @@ packed_byte_array_operator_index_const : GDExtensionInterfacePackedByteArrayOper
  *
  * @return A pointer to the requested 32-bit float.
  */
-packed_float32_array_operator_index : GDExtensionInterfacePackedFloat32ArrayOperatorIndex;/**
+packed_float32_array_operator_index : GDExtensionInterfacePackedFloat32ArrayOperatorIndex;
+
+/**
  * @name packed_float32_array_operator_index_const
  * @since 4.1
  *
@@ -1182,7 +1386,9 @@ packed_float32_array_operator_index : GDExtensionInterfacePackedFloat32ArrayOper
  *
  * @return A const pointer to the requested 32-bit float.
  */
-packed_float32_array_operator_index_const : GDExtensionInterfacePackedFloat32ArrayOperatorIndexConst;/**
+packed_float32_array_operator_index_const : GDExtensionInterfacePackedFloat32ArrayOperatorIndexConst;
+
+/**
  * @name packed_float64_array_operator_index
  * @since 4.1
  *
@@ -1193,7 +1399,9 @@ packed_float32_array_operator_index_const : GDExtensionInterfacePackedFloat32Arr
  *
  * @return A pointer to the requested 64-bit float.
  */
-packed_float64_array_operator_index : GDExtensionInterfacePackedFloat64ArrayOperatorIndex;/**
+packed_float64_array_operator_index : GDExtensionInterfacePackedFloat64ArrayOperatorIndex;
+
+/**
  * @name packed_float64_array_operator_index_const
  * @since 4.1
  *
@@ -1204,7 +1412,9 @@ packed_float64_array_operator_index : GDExtensionInterfacePackedFloat64ArrayOper
  *
  * @return A const pointer to the requested 64-bit float.
  */
-packed_float64_array_operator_index_const : GDExtensionInterfacePackedFloat64ArrayOperatorIndexConst;/**
+packed_float64_array_operator_index_const : GDExtensionInterfacePackedFloat64ArrayOperatorIndexConst;
+
+/**
  * @name packed_int32_array_operator_index
  * @since 4.1
  *
@@ -1215,7 +1425,9 @@ packed_float64_array_operator_index_const : GDExtensionInterfacePackedFloat64Arr
  *
  * @return A pointer to the requested 32-bit integer.
  */
-packed_int32_array_operator_index : GDExtensionInterfacePackedInt32ArrayOperatorIndex;/**
+packed_int32_array_operator_index : GDExtensionInterfacePackedInt32ArrayOperatorIndex;
+
+/**
  * @name packed_int32_array_operator_index_const
  * @since 4.1
  *
@@ -1226,7 +1438,9 @@ packed_int32_array_operator_index : GDExtensionInterfacePackedInt32ArrayOperator
  *
  * @return A const pointer to the requested 32-bit integer.
  */
-packed_int32_array_operator_index_const : GDExtensionInterfacePackedInt32ArrayOperatorIndexConst;/**
+packed_int32_array_operator_index_const : GDExtensionInterfacePackedInt32ArrayOperatorIndexConst;
+
+/**
  * @name packed_int64_array_operator_index
  * @since 4.1
  *
@@ -1237,7 +1451,9 @@ packed_int32_array_operator_index_const : GDExtensionInterfacePackedInt32ArrayOp
  *
  * @return A pointer to the requested 64-bit integer.
  */
-packed_int64_array_operator_index : GDExtensionInterfacePackedInt64ArrayOperatorIndex;/**
+packed_int64_array_operator_index : GDExtensionInterfacePackedInt64ArrayOperatorIndex;
+
+/**
  * @name packed_int64_array_operator_index_const
  * @since 4.1
  *
@@ -1248,7 +1464,9 @@ packed_int64_array_operator_index : GDExtensionInterfacePackedInt64ArrayOperator
  *
  * @return A const pointer to the requested 64-bit integer.
  */
-packed_int64_array_operator_index_const : GDExtensionInterfacePackedInt64ArrayOperatorIndexConst;/**
+packed_int64_array_operator_index_const : GDExtensionInterfacePackedInt64ArrayOperatorIndexConst;
+
+/**
  * @name packed_string_array_operator_index
  * @since 4.1
  *
@@ -1259,7 +1477,9 @@ packed_int64_array_operator_index_const : GDExtensionInterfacePackedInt64ArrayOp
  *
  * @return A pointer to the requested String.
  */
-packed_string_array_operator_index : GDExtensionInterfacePackedStringArrayOperatorIndex;/**
+packed_string_array_operator_index : GDExtensionInterfacePackedStringArrayOperatorIndex;
+
+/**
  * @name packed_string_array_operator_index_const
  * @since 4.1
  *
@@ -1270,7 +1490,9 @@ packed_string_array_operator_index : GDExtensionInterfacePackedStringArrayOperat
  *
  * @return A const pointer to the requested String.
  */
-packed_string_array_operator_index_const : GDExtensionInterfacePackedStringArrayOperatorIndexConst;/**
+packed_string_array_operator_index_const : GDExtensionInterfacePackedStringArrayOperatorIndexConst;
+
+/**
  * @name packed_vector2_array_operator_index
  * @since 4.1
  *
@@ -1281,7 +1503,9 @@ packed_string_array_operator_index_const : GDExtensionInterfacePackedStringArray
  *
  * @return A pointer to the requested Vector2.
  */
-packed_vector2_array_operator_index : GDExtensionInterfacePackedVector2ArrayOperatorIndex;/**
+packed_vector2_array_operator_index : GDExtensionInterfacePackedVector2ArrayOperatorIndex;
+
+/**
  * @name packed_vector2_array_operator_index_const
  * @since 4.1
  *
@@ -1292,7 +1516,9 @@ packed_vector2_array_operator_index : GDExtensionInterfacePackedVector2ArrayOper
  *
  * @return A const pointer to the requested Vector2.
  */
-packed_vector2_array_operator_index_const : GDExtensionInterfacePackedVector2ArrayOperatorIndexConst;/**
+packed_vector2_array_operator_index_const : GDExtensionInterfacePackedVector2ArrayOperatorIndexConst;
+
+/**
  * @name packed_vector3_array_operator_index
  * @since 4.1
  *
@@ -1303,7 +1529,9 @@ packed_vector2_array_operator_index_const : GDExtensionInterfacePackedVector2Arr
  *
  * @return A pointer to the requested Vector3.
  */
-packed_vector3_array_operator_index : GDExtensionInterfacePackedVector3ArrayOperatorIndex;/**
+packed_vector3_array_operator_index : GDExtensionInterfacePackedVector3ArrayOperatorIndex;
+
+/**
  * @name packed_vector3_array_operator_index_const
  * @since 4.1
  *
@@ -1314,7 +1542,9 @@ packed_vector3_array_operator_index : GDExtensionInterfacePackedVector3ArrayOper
  *
  * @return A const pointer to the requested Vector3.
  */
-packed_vector3_array_operator_index_const : GDExtensionInterfacePackedVector3ArrayOperatorIndexConst;/**
+packed_vector3_array_operator_index_const : GDExtensionInterfacePackedVector3ArrayOperatorIndexConst;
+
+/**
  * @name packed_vector4_array_operator_index
  * @since 4.3
  *
@@ -1325,7 +1555,9 @@ packed_vector3_array_operator_index_const : GDExtensionInterfacePackedVector3Arr
  *
  * @return A pointer to the requested Vector4.
  */
-packed_vector4_array_operator_index : GDExtensionInterfacePackedVector4ArrayOperatorIndex;/**
+packed_vector4_array_operator_index : GDExtensionInterfacePackedVector4ArrayOperatorIndex;
+
+/**
  * @name packed_vector4_array_operator_index_const
  * @since 4.3
  *
@@ -1336,7 +1568,9 @@ packed_vector4_array_operator_index : GDExtensionInterfacePackedVector4ArrayOper
  *
  * @return A const pointer to the requested Vector4.
  */
-packed_vector4_array_operator_index_const : GDExtensionInterfacePackedVector4ArrayOperatorIndexConst;/**
+packed_vector4_array_operator_index_const : GDExtensionInterfacePackedVector4ArrayOperatorIndexConst;
+
+/**
  * @name packed_color_array_operator_index
  * @since 4.1
  *
@@ -1347,7 +1581,9 @@ packed_vector4_array_operator_index_const : GDExtensionInterfacePackedVector4Arr
  *
  * @return A pointer to the requested Color.
  */
-packed_color_array_operator_index : GDExtensionInterfacePackedColorArrayOperatorIndex;/**
+packed_color_array_operator_index : GDExtensionInterfacePackedColorArrayOperatorIndex;
+
+/**
  * @name packed_color_array_operator_index_const
  * @since 4.1
  *
@@ -1358,7 +1594,9 @@ packed_color_array_operator_index : GDExtensionInterfacePackedColorArrayOperator
  *
  * @return A const pointer to the requested Color.
  */
-packed_color_array_operator_index_const : GDExtensionInterfacePackedColorArrayOperatorIndexConst;/**
+packed_color_array_operator_index_const : GDExtensionInterfacePackedColorArrayOperatorIndexConst;
+
+/**
  * @name array_operator_index
  * @since 4.1
  *
@@ -1369,7 +1607,9 @@ packed_color_array_operator_index_const : GDExtensionInterfacePackedColorArrayOp
  *
  * @return A pointer to the requested Variant.
  */
-array_operator_index : GDExtensionInterfaceArrayOperatorIndex;/**
+array_operator_index : GDExtensionInterfaceArrayOperatorIndex;
+
+/**
  * @name array_operator_index_const
  * @since 4.1
  *
@@ -1380,7 +1620,9 @@ array_operator_index : GDExtensionInterfaceArrayOperatorIndex;/**
  *
  * @return A const pointer to the requested Variant.
  */
-array_operator_index_const : GDExtensionInterfaceArrayOperatorIndexConst;/**
+array_operator_index_const : GDExtensionInterfaceArrayOperatorIndexConst;
+
+/**
  * @name array_ref
  * @since 4.1
  * @deprecated Deprecated in Godot 4.5. Removed from interface. Use copy constructor instead.
@@ -1390,7 +1632,9 @@ array_operator_index_const : GDExtensionInterfaceArrayOperatorIndexConst;/**
  * @param p_self A pointer to the Array object to update.
  * @param p_from A pointer to the Array object to reference.
  */
-array_ref : GDExtensionInterfaceArrayRef;/**
+array_ref : GDExtensionInterfaceArrayRef;
+
+/**
  * @name array_set_typed
  * @since 4.1
  *
@@ -1401,7 +1645,9 @@ array_ref : GDExtensionInterfaceArrayRef;/**
  * @param p_class_name A pointer to a StringName with the name of the object (if p_type is GDEXTENSION_VARIANT_TYPE_OBJECT).
  * @param p_script A pointer to a Script object (if p_type is GDEXTENSION_VARIANT_TYPE_OBJECT and the base class is extended by a script).
  */
-array_set_typed : GDExtensionInterfaceArraySetTyped;/**
+array_set_typed : GDExtensionInterfaceArraySetTyped;
+
+/**
  * @name dictionary_operator_index
  * @since 4.1
  *
@@ -1412,7 +1658,9 @@ array_set_typed : GDExtensionInterfaceArraySetTyped;/**
  *
  * @return A pointer to a Variant representing the value at the given key.
  */
-dictionary_operator_index : GDExtensionInterfaceDictionaryOperatorIndex;/**
+dictionary_operator_index : GDExtensionInterfaceDictionaryOperatorIndex;
+
+/**
  * @name dictionary_operator_index_const
  * @since 4.1
  *
@@ -1423,7 +1671,9 @@ dictionary_operator_index : GDExtensionInterfaceDictionaryOperatorIndex;/**
  *
  * @return A const pointer to a Variant representing the value at the given key.
  */
-dictionary_operator_index_const : GDExtensionInterfaceDictionaryOperatorIndexConst;/**
+dictionary_operator_index_const : GDExtensionInterfaceDictionaryOperatorIndexConst;
+
+/**
  * @name dictionary_set_typed
  * @since 4.4
  *
@@ -1437,7 +1687,9 @@ dictionary_operator_index_const : GDExtensionInterfaceDictionaryOperatorIndexCon
  * @param p_value_class_name A pointer to a StringName with the name of the object (if p_value_type is GDEXTENSION_VARIANT_TYPE_OBJECT).
  * @param p_value_script A pointer to a Script object (if p_value_type is GDEXTENSION_VARIANT_TYPE_OBJECT and the base class is extended by a script).
  */
-dictionary_set_typed : GDExtensionInterfaceDictionarySetTyped;/**
+dictionary_set_typed : GDExtensionInterfaceDictionarySetTyped;
+
+/**
  * @name object_method_bind_call
  * @since 4.1
  *
@@ -1450,7 +1702,9 @@ dictionary_set_typed : GDExtensionInterfaceDictionarySetTyped;/**
  * @param r_ret A pointer to Variant which will receive the return value.
  * @param r_error A pointer to a GDExtensionCallError struct that will receive error information.
  */
-object_method_bind_call : GDExtensionInterfaceObjectMethodBindCall;/**
+object_method_bind_call : GDExtensionInterfaceObjectMethodBindCall;
+
+/**
  * @name object_method_bind_ptrcall
  * @since 4.1
  *
@@ -1461,7 +1715,9 @@ object_method_bind_call : GDExtensionInterfaceObjectMethodBindCall;/**
  * @param p_args A pointer to a C array representing the arguments.
  * @param r_ret A pointer to the Object that will receive the return value.
  */
-object_method_bind_ptrcall : GDExtensionInterfaceObjectMethodBindPtrcall;/**
+object_method_bind_ptrcall : GDExtensionInterfaceObjectMethodBindPtrcall;
+
+/**
  * @name object_destroy
  * @since 4.1
  *
@@ -1469,7 +1725,9 @@ object_method_bind_ptrcall : GDExtensionInterfaceObjectMethodBindPtrcall;/**
  *
  * @param p_o A pointer to the Object.
  */
-object_destroy : GDExtensionInterfaceObjectDestroy;/**
+object_destroy : GDExtensionInterfaceObjectDestroy;
+
+/**
  * @name global_get_singleton
  * @since 4.1
  *
@@ -1479,7 +1737,9 @@ object_destroy : GDExtensionInterfaceObjectDestroy;/**
  *
  * @return A pointer to the singleton Object.
  */
-global_get_singleton : GDExtensionInterfaceGlobalGetSingleton;/**
+global_get_singleton : GDExtensionInterfaceGlobalGetSingleton;
+
+/**
  * @name object_get_instance_binding
  * @since 4.1
  *
@@ -1491,7 +1751,9 @@ global_get_singleton : GDExtensionInterfaceGlobalGetSingleton;/**
  *
  * @return A pointer to the instance binding.
  */
-object_get_instance_binding : GDExtensionInterfaceObjectGetInstanceBinding;/**
+object_get_instance_binding : GDExtensionInterfaceObjectGetInstanceBinding;
+
+/**
  * @name object_set_instance_binding
  * @since 4.1
  *
@@ -1502,7 +1764,9 @@ object_get_instance_binding : GDExtensionInterfaceObjectGetInstanceBinding;/**
  * @param p_binding A pointer to the instance binding.
  * @param p_callbacks A pointer to a GDExtensionInstanceBindingCallbacks struct.
  */
-object_set_instance_binding : GDExtensionInterfaceObjectSetInstanceBinding;/**
+object_set_instance_binding : GDExtensionInterfaceObjectSetInstanceBinding;
+
+/**
  * @name object_free_instance_binding
  * @since 4.2
  *
@@ -1511,7 +1775,9 @@ object_set_instance_binding : GDExtensionInterfaceObjectSetInstanceBinding;/**
  * @param p_o A pointer to the Object.
  * @param p_token A token the library received by the GDExtension's entry point function.
  */
-object_free_instance_binding : GDExtensionInterfaceObjectFreeInstanceBinding;/**
+object_free_instance_binding : GDExtensionInterfaceObjectFreeInstanceBinding;
+
+/**
  * @name object_set_instance
  * @since 4.1
  *
@@ -1523,7 +1789,9 @@ object_free_instance_binding : GDExtensionInterfaceObjectFreeInstanceBinding;/**
  * @param p_classname A pointer to a StringName with the registered extension class's name.
  * @param p_instance A pointer to the extension class instance.
  */
-object_set_instance : GDExtensionInterfaceObjectSetInstance;/**
+object_set_instance : GDExtensionInterfaceObjectSetInstance;
+
+/**
  * @name object_get_class_name
  * @since 4.1
  *
@@ -1538,7 +1806,9 @@ object_set_instance : GDExtensionInterfaceObjectSetInstance;/**
  *
  * @return true if successful in getting the class name; otherwise false.
  */
-object_get_class_name : GDExtensionInterfaceObjectGetClassName;/**
+object_get_class_name : GDExtensionInterfaceObjectGetClassName;
+
+/**
  * @name object_cast_to
  * @since 4.1
  * @deprecated Deprecated in Godot 4.7. Use the `is_class` method on `Object` to check if an object can be cast instead. If true, the previous pointer can be reinterpreted as a pointer to the target type.
@@ -1550,7 +1820,9 @@ object_get_class_name : GDExtensionInterfaceObjectGetClassName;/**
  *
  * @return Returns a pointer to the Object, or NULL if it can't be cast to the requested type.
  */
-object_cast_to : GDExtensionInterfaceObjectCastTo;/**
+object_cast_to : GDExtensionInterfaceObjectCastTo;
+
+/**
  * @name object_get_instance_from_id
  * @since 4.1
  *
@@ -1560,7 +1832,9 @@ object_cast_to : GDExtensionInterfaceObjectCastTo;/**
  *
  * @return A pointer to the Object.
  */
-object_get_instance_from_id : GDExtensionInterfaceObjectGetInstanceFromId;/**
+object_get_instance_from_id : GDExtensionInterfaceObjectGetInstanceFromId;
+
+/**
  * @name object_get_instance_id
  * @since 4.1
  *
@@ -1570,7 +1844,9 @@ object_get_instance_from_id : GDExtensionInterfaceObjectGetInstanceFromId;/**
  *
  * @return The instance ID.
  */
-object_get_instance_id : GDExtensionInterfaceObjectGetInstanceId;/**
+object_get_instance_id : GDExtensionInterfaceObjectGetInstanceId;
+
+/**
  * @name object_has_script_method
  * @since 4.3
  *
@@ -1581,7 +1857,9 @@ object_get_instance_id : GDExtensionInterfaceObjectGetInstanceId;/**
  *
  * @return true if the object has a script and that script has a method with the given name. Returns false if the object has no script.
  */
-object_has_script_method : GDExtensionInterfaceObjectHasScriptMethod;/**
+object_has_script_method : GDExtensionInterfaceObjectHasScriptMethod;
+
+/**
  * @name object_call_script_method
  * @since 4.3
  *
@@ -1594,7 +1872,9 @@ object_has_script_method : GDExtensionInterfaceObjectHasScriptMethod;/**
  * @param r_return A pointer a Variant which will be assigned the return value.
  * @param r_error A pointer the structure which will hold error information.
  */
-object_call_script_method : GDExtensionInterfaceObjectCallScriptMethod;/**
+object_call_script_method : GDExtensionInterfaceObjectCallScriptMethod;
+
+/**
  * @name ref_get_object
  * @since 4.1
  *
@@ -1604,7 +1884,9 @@ object_call_script_method : GDExtensionInterfaceObjectCallScriptMethod;/**
  *
  * @return A pointer to the Object from the reference or NULL.
  */
-ref_get_object : GDExtensionInterfaceRefGetObject;/**
+ref_get_object : GDExtensionInterfaceRefGetObject;
+
+/**
  * @name ref_set_object
  * @since 4.1
  *
@@ -1613,7 +1895,9 @@ ref_get_object : GDExtensionInterfaceRefGetObject;/**
  * @param p_ref A pointer to the reference.
  * @param p_object A pointer to the Object to refer to.
  */
-ref_set_object : GDExtensionInterfaceRefSetObject;/**
+ref_set_object : GDExtensionInterfaceRefSetObject;
+
+/**
  * @name script_instance_create
  * @since 4.1
  * @deprecated Deprecated in Godot 4.2. Use `script_instance_create3` instead.
@@ -1625,7 +1909,9 @@ ref_set_object : GDExtensionInterfaceRefSetObject;/**
  *
  * @return A pointer to a ScriptInstanceExtension object.
  */
-script_instance_create : GDExtensionInterfaceScriptInstanceCreate;/**
+script_instance_create : GDExtensionInterfaceScriptInstanceCreate;
+
+/**
  * @name script_instance_create2
  * @since 4.2
  * @deprecated Deprecated in Godot 4.3. Use `script_instance_create3` instead.
@@ -1637,7 +1923,9 @@ script_instance_create : GDExtensionInterfaceScriptInstanceCreate;/**
  *
  * @return A pointer to a ScriptInstanceExtension object.
  */
-script_instance_create2 : GDExtensionInterfaceScriptInstanceCreate2;/**
+script_instance_create2 : GDExtensionInterfaceScriptInstanceCreate2;
+
+/**
  * @name script_instance_create3
  * @since 4.3
  *
@@ -1648,7 +1936,9 @@ script_instance_create2 : GDExtensionInterfaceScriptInstanceCreate2;/**
  *
  * @return A pointer to a ScriptInstanceExtension object.
  */
-script_instance_create3 : GDExtensionInterfaceScriptInstanceCreate3;/**
+script_instance_create3 : GDExtensionInterfaceScriptInstanceCreate3;
+
+/**
  * @name placeholder_script_instance_create
  * @since 4.2
  *
@@ -1662,7 +1952,9 @@ script_instance_create3 : GDExtensionInterfaceScriptInstanceCreate3;/**
  *
  * @return A pointer to a PlaceHolderScriptInstance object.
  */
-placeholder_script_instance_create : GDExtensionInterfacePlaceHolderScriptInstanceCreate;/**
+placeholder_script_instance_create : GDExtensionInterfacePlaceHolderScriptInstanceCreate;
+
+/**
  * @name placeholder_script_instance_update
  * @since 4.2
  *
@@ -1675,7 +1967,9 @@ placeholder_script_instance_create : GDExtensionInterfacePlaceHolderScriptInstan
  * @param p_properties A pointer to an Array of Dictionary representing PropertyInfo.
  * @param p_values A pointer to a Dictionary mapping StringName to Variant values.
  */
-placeholder_script_instance_update : GDExtensionInterfacePlaceHolderScriptInstanceUpdate;/**
+placeholder_script_instance_update : GDExtensionInterfacePlaceHolderScriptInstanceUpdate;
+
+/**
  * @name object_get_script_instance
  * @since 4.2
  *
@@ -1686,7 +1980,9 @@ placeholder_script_instance_update : GDExtensionInterfacePlaceHolderScriptInstan
  *
  * @return A GDExtensionScriptInstanceDataPtr that was attached to this object as part of script_instance_create.
  */
-object_get_script_instance : GDExtensionInterfaceObjectGetScriptInstance;/**
+object_get_script_instance : GDExtensionInterfaceObjectGetScriptInstance;
+
+/**
  * @name object_set_script_instance
  * @since 4.5
  *
@@ -1695,7 +1991,9 @@ object_get_script_instance : GDExtensionInterfaceObjectGetScriptInstance;/**
  * @param p_object A pointer to the Object.
  * @param p_script_instance A pointer to the script instance data to attach to this object.
  */
-object_set_script_instance : GDExtensionInterfaceObjectSetScriptInstance;/**
+object_set_script_instance : GDExtensionInterfaceObjectSetScriptInstance;
+
+/**
  * @name callable_custom_create
  * @since 4.2
  * @deprecated Deprecated in Godot 4.3. Use `callable_custom_create2` instead.
@@ -1707,7 +2005,9 @@ object_set_script_instance : GDExtensionInterfaceObjectSetScriptInstance;/**
  * @param r_callable A pointer that will receive the new Callable.
  * @param p_callable_custom_info The info required to construct a Callable.
  */
-callable_custom_create : GDExtensionInterfaceCallableCustomCreate;/**
+callable_custom_create : GDExtensionInterfaceCallableCustomCreate;
+
+/**
  * @name callable_custom_create2
  * @since 4.3
  *
@@ -1718,7 +2018,9 @@ callable_custom_create : GDExtensionInterfaceCallableCustomCreate;/**
  * @param r_callable A pointer that will receive the new Callable.
  * @param p_callable_custom_info The info required to construct a Callable.
  */
-callable_custom_create2 : GDExtensionInterfaceCallableCustomCreate2;/**
+callable_custom_create2 : GDExtensionInterfaceCallableCustomCreate2;
+
+/**
  * @name callable_custom_get_userdata
  * @since 4.2
  *
@@ -1731,7 +2033,9 @@ callable_custom_create2 : GDExtensionInterfaceCallableCustomCreate2;/**
  *
  * @return The userdata pointer given when creating this custom Callable.
  */
-callable_custom_get_userdata : GDExtensionInterfaceCallableCustomGetUserData;/**
+callable_custom_get_userdata : GDExtensionInterfaceCallableCustomGetUserData;
+
+/**
  * @name classdb_construct_object
  * @since 4.1
  * @deprecated Deprecated in Godot 4.4. Use `classdb_construct_object3` instead.
@@ -1744,7 +2048,9 @@ callable_custom_get_userdata : GDExtensionInterfaceCallableCustomGetUserData;/**
  *
  * @return A pointer to the newly created Object.
  */
-classdb_construct_object : GDExtensionInterfaceClassdbConstructObject;/**
+classdb_construct_object : GDExtensionInterfaceClassdbConstructObject;
+
+/**
  * @name classdb_construct_object2
  * @since 4.4
  * @deprecated Deprecated in Godot 4.7. Use `classdb_construct_object3` instead.
@@ -1759,7 +2065,9 @@ classdb_construct_object : GDExtensionInterfaceClassdbConstructObject;/**
  *
  * @return A pointer to the newly created Object.
  */
-classdb_construct_object2 : GDExtensionInterfaceClassdbConstructObject2;/**
+classdb_construct_object2 : GDExtensionInterfaceClassdbConstructObject2;
+
+/**
  * @name classdb_construct_object3
  * @since 4.7
  *
@@ -1774,7 +2082,9 @@ classdb_construct_object2 : GDExtensionInterfaceClassdbConstructObject2;/**
  *
  * @return A pointer to the newly created Object.
  */
-classdb_construct_object3 : GDExtensionInterfaceClassdbConstructObject3;/**
+classdb_construct_object3 : GDExtensionInterfaceClassdbConstructObject3;
+
+/**
  * @name classdb_get_method_bind
  * @since 4.1
  *
@@ -1786,7 +2096,9 @@ classdb_construct_object3 : GDExtensionInterfaceClassdbConstructObject3;/**
  *
  * @return A pointer to the MethodBind from ClassDB.
  */
-classdb_get_method_bind : GDExtensionInterfaceClassdbGetMethodBind;/**
+classdb_get_method_bind : GDExtensionInterfaceClassdbGetMethodBind;
+
+/**
  * @name classdb_get_class_tag
  * @since 4.1
  * @deprecated Deprecated in Godot 4.7. No longer needed. Use the `is_class` method on `Object` instead.
@@ -1797,7 +2109,9 @@ classdb_get_method_bind : GDExtensionInterfaceClassdbGetMethodBind;/**
  *
  * @return A pointer uniquely identifying the built-in class in the ClassDB.
  */
-classdb_get_class_tag : GDExtensionInterfaceClassdbGetClassTag;/**
+classdb_get_class_tag : GDExtensionInterfaceClassdbGetClassTag;
+
+/**
  * @name classdb_register_extension_class
  * @since 4.1
  * @deprecated Deprecated in Godot 4.2. Use `classdb_register_extension_class6` instead.
@@ -1811,7 +2125,9 @@ classdb_get_class_tag : GDExtensionInterfaceClassdbGetClassTag;/**
  * @param p_parent_class_name A pointer to a StringName with the parent class name.
  * @param p_extension_funcs A pointer to a GDExtensionClassCreationInfo struct.
  */
-classdb_register_extension_class : GDExtensionInterfaceClassdbRegisterExtensionClass;/**
+classdb_register_extension_class : GDExtensionInterfaceClassdbRegisterExtensionClass;
+
+/**
  * @name classdb_register_extension_class2
  * @since 4.2
  * @deprecated Deprecated in Godot 4.3. Use `classdb_register_extension_class6` instead.
@@ -1825,7 +2141,9 @@ classdb_register_extension_class : GDExtensionInterfaceClassdbRegisterExtensionC
  * @param p_parent_class_name A pointer to a StringName with the parent class name.
  * @param p_extension_funcs A pointer to a GDExtensionClassCreationInfo2 struct.
  */
-classdb_register_extension_class2 : GDExtensionInterfaceClassdbRegisterExtensionClass2;/**
+classdb_register_extension_class2 : GDExtensionInterfaceClassdbRegisterExtensionClass2;
+
+/**
  * @name classdb_register_extension_class3
  * @since 4.3
  * @deprecated Deprecated in Godot 4.4. Use `classdb_register_extension_class6` instead.
@@ -1839,7 +2157,9 @@ classdb_register_extension_class2 : GDExtensionInterfaceClassdbRegisterExtension
  * @param p_parent_class_name A pointer to a StringName with the parent class name.
  * @param p_extension_funcs A pointer to a GDExtensionClassCreationInfo3 struct.
  */
-classdb_register_extension_class3 : GDExtensionInterfaceClassdbRegisterExtensionClass3;/**
+classdb_register_extension_class3 : GDExtensionInterfaceClassdbRegisterExtensionClass3;
+
+/**
  * @name classdb_register_extension_class4
  * @since 4.4
  * @deprecated Deprecated in Godot 4.5. Use `classdb_register_extension_class6` instead.
@@ -1853,7 +2173,9 @@ classdb_register_extension_class3 : GDExtensionInterfaceClassdbRegisterExtension
  * @param p_parent_class_name A pointer to a StringName with the parent class name.
  * @param p_extension_funcs A pointer to a GDExtensionClassCreationInfo4 struct.
  */
-classdb_register_extension_class4 : GDExtensionInterfaceClassdbRegisterExtensionClass4;/**
+classdb_register_extension_class4 : GDExtensionInterfaceClassdbRegisterExtensionClass4;
+
+/**
  * @name classdb_register_extension_class5
  * @since 4.5
  * @deprecated Deprecated in Godot 4.7. Use `classdb_register_extension_class6` instead.
@@ -1867,7 +2189,9 @@ classdb_register_extension_class4 : GDExtensionInterfaceClassdbRegisterExtension
  * @param p_parent_class_name A pointer to a StringName with the parent class name.
  * @param p_extension_funcs A pointer to a GDExtensionClassCreationInfo5 struct.
  */
-classdb_register_extension_class5 : GDExtensionInterfaceClassdbRegisterExtensionClass5;/**
+classdb_register_extension_class5 : GDExtensionInterfaceClassdbRegisterExtensionClass5;
+
+/**
  * @name classdb_register_extension_class6
  * @since 4.7
  *
@@ -1880,7 +2204,9 @@ classdb_register_extension_class5 : GDExtensionInterfaceClassdbRegisterExtension
  * @param p_parent_class_name A pointer to a StringName with the parent class name.
  * @param p_extension_funcs A pointer to a GDExtensionClassCreationInfo6 struct.
  */
-classdb_register_extension_class6 : GDExtensionInterfaceClassdbRegisterExtensionClass6;/**
+classdb_register_extension_class6 : GDExtensionInterfaceClassdbRegisterExtensionClass6;
+
+/**
  * @name classdb_register_extension_class_method
  * @since 4.1
  *
@@ -1892,7 +2218,9 @@ classdb_register_extension_class6 : GDExtensionInterfaceClassdbRegisterExtension
  * @param p_class_name A pointer to a StringName with the class name.
  * @param p_method_info A pointer to a GDExtensionClassMethodInfo struct.
  */
-classdb_register_extension_class_method : GDExtensionInterfaceClassdbRegisterExtensionClassMethod;/**
+classdb_register_extension_class_method : GDExtensionInterfaceClassdbRegisterExtensionClassMethod;
+
+/**
  * @name classdb_register_extension_class_virtual_method
  * @since 4.3
  *
@@ -1904,7 +2232,9 @@ classdb_register_extension_class_method : GDExtensionInterfaceClassdbRegisterExt
  * @param p_class_name A pointer to a StringName with the class name.
  * @param p_method_info A pointer to a GDExtensionClassMethodInfo struct.
  */
-classdb_register_extension_class_virtual_method : GDExtensionInterfaceClassdbRegisterExtensionClassVirtualMethod;/**
+classdb_register_extension_class_virtual_method : GDExtensionInterfaceClassdbRegisterExtensionClassVirtualMethod;
+
+/**
  * @name classdb_register_extension_class_integer_constant
  * @since 4.1
  *
@@ -1921,7 +2251,9 @@ classdb_register_extension_class_virtual_method : GDExtensionInterfaceClassdbReg
  * @param p_constant_value The constant value.
  * @param p_is_bitfield Whether or not this constant is part of a bitfield.
  */
-classdb_register_extension_class_integer_constant : GDExtensionInterfaceClassdbRegisterExtensionClassIntegerConstant;/**
+classdb_register_extension_class_integer_constant : GDExtensionInterfaceClassdbRegisterExtensionClassIntegerConstant;
+
+/**
  * @name classdb_register_extension_class_property
  * @since 4.1
  *
@@ -1935,7 +2267,9 @@ classdb_register_extension_class_integer_constant : GDExtensionInterfaceClassdbR
  * @param p_setter A pointer to a StringName with the name of the setter method.
  * @param p_getter A pointer to a StringName with the name of the getter method.
  */
-classdb_register_extension_class_property : GDExtensionInterfaceClassdbRegisterExtensionClassProperty;/**
+classdb_register_extension_class_property : GDExtensionInterfaceClassdbRegisterExtensionClassProperty;
+
+/**
  * @name classdb_register_extension_class_property_indexed
  * @since 4.2
  *
@@ -1950,7 +2284,9 @@ classdb_register_extension_class_property : GDExtensionInterfaceClassdbRegisterE
  * @param p_getter A pointer to a StringName with the name of the getter method.
  * @param p_index The index to pass as the first argument to the getter and setter methods.
  */
-classdb_register_extension_class_property_indexed : GDExtensionInterfaceClassdbRegisterExtensionClassPropertyIndexed;/**
+classdb_register_extension_class_property_indexed : GDExtensionInterfaceClassdbRegisterExtensionClassPropertyIndexed;
+
+/**
  * @name classdb_register_extension_class_property_group
  * @since 4.1
  *
@@ -1961,7 +2297,9 @@ classdb_register_extension_class_property_indexed : GDExtensionInterfaceClassdbR
  * @param p_group_name A pointer to a String with the group name.
  * @param p_prefix A pointer to a String with the prefix used by properties in this group.
  */
-classdb_register_extension_class_property_group : GDExtensionInterfaceClassdbRegisterExtensionClassPropertyGroup;/**
+classdb_register_extension_class_property_group : GDExtensionInterfaceClassdbRegisterExtensionClassPropertyGroup;
+
+/**
  * @name classdb_register_extension_class_property_subgroup
  * @since 4.1
  *
@@ -1972,7 +2310,9 @@ classdb_register_extension_class_property_group : GDExtensionInterfaceClassdbReg
  * @param p_subgroup_name A pointer to a String with the subgroup name.
  * @param p_prefix A pointer to a String with the prefix used by properties in this subgroup.
  */
-classdb_register_extension_class_property_subgroup : GDExtensionInterfaceClassdbRegisterExtensionClassPropertySubgroup;/**
+classdb_register_extension_class_property_subgroup : GDExtensionInterfaceClassdbRegisterExtensionClassPropertySubgroup;
+
+/**
  * @name classdb_register_extension_class_signal
  * @since 4.1
  *
@@ -1986,7 +2326,9 @@ classdb_register_extension_class_property_subgroup : GDExtensionInterfaceClassdb
  * @param p_argument_info A pointer to a GDExtensionPropertyInfo struct.
  * @param p_argument_count The number of arguments the signal receives.
  */
-classdb_register_extension_class_signal : GDExtensionInterfaceClassdbRegisterExtensionClassSignal;/**
+classdb_register_extension_class_signal : GDExtensionInterfaceClassdbRegisterExtensionClassSignal;
+
+/**
  * @name classdb_unregister_extension_class
  * @since 4.1
  *
@@ -1997,7 +2339,9 @@ classdb_register_extension_class_signal : GDExtensionInterfaceClassdbRegisterExt
  * @param p_library A pointer the library received by the GDExtension's entry point function.
  * @param p_class_name A pointer to a StringName with the class name.
  */
-classdb_unregister_extension_class : GDExtensionInterfaceClassdbUnregisterExtensionClass;/**
+classdb_unregister_extension_class : GDExtensionInterfaceClassdbUnregisterExtensionClass;
+
+/**
  * @name get_library_path
  * @since 4.1
  *
@@ -2006,7 +2350,9 @@ classdb_unregister_extension_class : GDExtensionInterfaceClassdbUnregisterExtens
  * @param p_library A pointer the library received by the GDExtension's entry point function.
  * @param r_path A pointer to a String which will receive the path.
  */
-get_library_path : GDExtensionInterfaceGetLibraryPath;/**
+get_library_path : GDExtensionInterfaceGetLibraryPath;
+
+/**
  * @name editor_add_plugin
  * @since 4.1
  *
@@ -2016,7 +2362,9 @@ get_library_path : GDExtensionInterfaceGetLibraryPath;/**
  *
  * @param p_class_name A pointer to a StringName with the name of a class (descending from EditorPlugin) which is already registered with ClassDB.
  */
-editor_add_plugin : GDExtensionInterfaceEditorAddPlugin;/**
+editor_add_plugin : GDExtensionInterfaceEditorAddPlugin;
+
+/**
  * @name editor_remove_plugin
  * @since 4.1
  *
@@ -2024,7 +2372,9 @@ editor_add_plugin : GDExtensionInterfaceEditorAddPlugin;/**
  *
  * @param p_class_name A pointer to a StringName with the name of a class that was previously added as an editor plugin.
  */
-editor_remove_plugin : GDExtensionInterfaceEditorRemovePlugin;/**
+editor_remove_plugin : GDExtensionInterfaceEditorRemovePlugin;
+
+/**
  * @name editor_help_load_xml_from_utf8_chars
  * @since 4.3
  *
@@ -2034,7 +2384,9 @@ editor_remove_plugin : GDExtensionInterfaceEditorRemovePlugin;/**
  *
  * @param p_data A pointer to a UTF-8 encoded C string (null terminated).
  */
-editor_help_load_xml_from_utf8_chars : GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8Chars;/**
+editor_help_load_xml_from_utf8_chars : GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8Chars;
+
+/**
  * @name editor_help_load_xml_from_utf8_chars_and_len
  * @since 4.3
  *
@@ -2045,7 +2397,9 @@ editor_help_load_xml_from_utf8_chars : GDExtensionsInterfaceEditorHelpLoadXmlFro
  * @param p_data A pointer to a UTF-8 encoded C string.
  * @param p_size The number of bytes (not code units).
  */
-editor_help_load_xml_from_utf8_chars_and_len : GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8CharsAndLen;/**
+editor_help_load_xml_from_utf8_chars_and_len : GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8CharsAndLen;
+
+/**
  * @name editor_register_get_classes_used_callback
  * @since 4.5
  *
@@ -2059,7 +2413,9 @@ editor_help_load_xml_from_utf8_chars_and_len : GDExtensionsInterfaceEditorHelpLo
  * @param p_library A pointer the library received by the GDExtension's entry point function.
  * @param p_callback The callback to retrieve the list of classes used.
  */
-editor_register_get_classes_used_callback : GDExtensionInterfaceEditorRegisterGetClassesUsedCallback;/**
+editor_register_get_classes_used_callback : GDExtensionInterfaceEditorRegisterGetClassesUsedCallback;
+
+/**
  * @name register_main_loop_callbacks
  * @since 4.5
  *
@@ -2069,6 +2425,8 @@ editor_register_get_classes_used_callback : GDExtensionInterfaceEditorRegisterGe
  * @param p_callbacks A pointer to the structure that contains the callbacks.
  */
 register_main_loop_callbacks : GDExtensionInterfaceRegisterMainLoopCallbacks;
+
+
 
 load_gdextension_interfaces :: (get_proc_address: GDExtensionInterfaceGetProcAddress) {
 	get_godot_version = cast(GDExtensionInterfaceGetGodotVersion)get_proc_address("get_godot_version");

@@ -24,7 +24,6 @@ _initialize :: (p_userdata: *void, p_level: GDExtensionInitializationLevel) #c_c
 			using data;
 			load_gdextension_interfaces(get_proc_address);
 			class_name : GDExtensionStringNamePtr;
-			classdb_register_extension_class6(library, )
 		}
 	}
 }

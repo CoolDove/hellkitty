@@ -25,7 +25,7 @@ generate_extension_interface_bindings :: () {
 	#import "Bindings_Generator";
 	#import "File";
 
-	make_directory_if_it_does_not_exist("modules/gdextension");
+	make_directory_if_it_does_not_exist("modules/gdextension", true);
 	output_filename_binding := "modules/gdextension/gdextension_binding.jai";
 	output_filename_interface := "modules/gdextension/module.jai";
 
@@ -51,7 +51,7 @@ generate_extension_interface_bindings :: () {
 		if ok(match(decl.comment.text, rgx_name), "captures") {
 			defer array_free(captures);
 			raw_name, name, type := captures[1], captures[1], decl.name;
-			print_to_builder(*sb_api_decls, tprint("%\n% : %;", decl.comment.text, name, type));
+			print_to_builder(*sb_api_decls, tprint("%\n% : %;\n\n", decl.comment.text, name, type));
 			print_to_builder(*sb_api_loader, "\t% = cast(%)get_proc_address(\"%\");\n", name, type, raw_name);
 		}
 		return .RECURSE;
