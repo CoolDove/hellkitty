@@ -15,15 +15,13 @@ JSON_Type :: enum u8 {
 	OBJECT :: 4;
 }
 
-JSON_Value :: struct {
-	type: JSON_Type;
-	union {
-		boolean: bool;
-		number: float64;
-		str: string;
-		array: [] JSON_Value;
-		object: *JSON_Object;
-	};
+JSON_Value :: union type : JSON_Type {
+	.NULL    ,, _: *void;
+	.BOOLEAN ,, boolean: bool;
+	.NUMBER  ,, number: float64;
+	.STRING  ,, str: string;
+	.ARRAY   ,, array: [] JSON_Value;
+	.OBJECT  ,, object: *JSON_Object;
 }
 
 JSON_Object :: Table(string, JSON_Value);
