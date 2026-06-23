@@ -12,12 +12,32 @@ ok :: (code: Code, $values: .. string, $loc:=#location()) -> bool #expand {
 	return okvalue;
 }
 
-okv :: (code: Code, default: T) -> $T #expand {
-	ok, value := #insert code;
-	return ifx ok then value else default;
+okv :: (code: Code, $type: Type) -> Maybe(type) #expand {
+	okvalue, result_value := #insert code;
+	if okvalue  return .{ .VALUE, result_value };
+	else  return .{ .POINTER, null };
+}
+
+Maybe :: union(ValueType:Type) kind: enum u8 { POINTER; VALUE; } {
+	.POINTER,, pointer : *void;
+	.VALUE,, value : ValueType;
+}
+
+operator == :: (maybe: Maybe($T), ptr: *T) -> bool #symmetric {
+	if ptr != null  return false;
+
+	if maybe.kind == .VALUE  return false;
+	else  return true;
 }
 
 #scope_file
+// #run {
+// 	foo :: () -> bool, string {
+// 		return false, "TEST";
+// 	}
+// 	print("result: %\n", okv(foo(), string));
+// }
+
 example :: () {
 	#import "Hash_Table";
 	dtable : Table(string, string);
