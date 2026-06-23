@@ -31,12 +31,7 @@ operator == :: (maybe: Maybe($T), ptr: *T) -> bool #symmetric {
 }
 
 #scope_file
-// #run {
-// 	foo :: () -> bool, string {
-// 		return false, "TEST";
-// 	}
-// 	print("result: %\n", okv(foo(), string));
-// }
+#if false {
 
 example :: () {
 	#import "Hash_Table";
@@ -50,6 +45,8 @@ example :: () {
 	} else {
 		print("No, we didn't find the apple...\n");
 	}
+}
+
 }
 
 

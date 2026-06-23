@@ -1,3 +1,6 @@
+BUILD_CONFIGURATION :: "float_64";
+
+
 #run,stallable {
 	print("Jai Build Started\n");
 	defer print("Jai Build Ended\n");
@@ -13,6 +16,9 @@
 		set_optimization(*options, .OPTIMIZED);
 		set_build_options(options, w);
 
+		#import "File";
+		make_directory_if_it_does_not_exist(MODULE_PATH, true);
+
 		generate_extension_interface_bindings();
 		generate_api_bindings();
 
@@ -20,13 +26,20 @@
 	}
 }
 
+MODULE_PATH :: "modules/gdextension";
+MODULE_FILE :: ($name: string) -> string {
+	#insert -> string {
+		return tprint("return \"%/%\";", MODULE_PATH, name);
+	}
+}
+MFILE_INTERFACE :: #run MODULE_FILE("module.jai");
+MFILE_BINDING   :: #run MODULE_FILE("gdextension_binding.jai");
+MFILE_ENGINE    :: #run MODULE_FILE("engine.jai");
+
 generate_extension_interface_bindings :: () {
 	#import "Bindings_Generator";
-	#import "File";
-
-	make_directory_if_it_does_not_exist("modules/gdextension", true);
-	output_filename_binding := "modules/gdextension/gdextension_binding.jai";
-	output_filename_interface := "modules/gdextension/module.jai";
+	output_filename_binding := MFILE_BINDING;
+	output_filename_interface := MFILE_INTERFACE;
 
 	GenData :: struct {
 		sb_api_loader : String_Builder;
@@ -118,9 +131,20 @@ HEADER,
 }
 
 generate_api_bindings :: () {
-	Jaison :: #import "jaison";
 	{
-		push_allocator(temp);
+		#import "Pool";
+		pool : Pool;
+		pool.logging_options &= .LOG_OVERSIZED_ALLOCATIONS;
+		set_allocators(*pool);
+		memsize := 10 * 1024;
+		memory := get(*pool, memsize);
+		push_allocator(.{ pool_allocator_proc, *pool });
+
+		defer {
+			print("Memory usage during json parsing: %/%\n", pool.bytes_left, memsize);
+			release(*pool);
+		}
+
 		print("json parsing...\n");
 		if !ok(Jaison.json_parse_file("./extension_api.json"), "data") {
 			print("failed to parse json\n");
@@ -137,16 +161,23 @@ generate_api_bindings :: () {
 		}
 		if ok(table_find(data.object, "builtin_class_sizes"), "builtin_class_sizes") {
 			groups := builtin_class_sizes.array;
+			class_sizes : []Jaison.JSON_Value;
 			for groups {
-				group := it.object;
-				configuration := okv(table_find(group, "build_configuration"), Jaison.JSON_Value);
-				if configuration != null {
-					print("Group of config: %\n", configuration.value.str);
+				if BUILD_CONFIGURATION == okv(table_find(it.object, "build_configuration"), Jaison.JSON_Value).value.str {
+					class_sizes = okv(table_find(it.object, "sizes"), Jaison.JSON_Value).value.array;
+					break;
 				}
+			}
+			for class_sizes {
+				name := table_find_pointer(it.object, "name").str;
+				size := table_find_pointer(it.object, "size").number;
+				print("%: \t% bytes\n", name, size);
 			}
 		}
 	}
 }
+
+Jaison :: #import "jaison";
 
 #import "ok";
 #import "uniform";
